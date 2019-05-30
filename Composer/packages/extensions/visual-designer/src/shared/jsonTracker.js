@@ -124,7 +124,7 @@ export function appendToArray(inputDialog, path, $type) {
 }
 
 export function dropBefore(inputDialog, sourcePath, targetPath, isCopy) {
-  if (sourcePath === targetPath) return null;
+  if (sourcePath === targetPath && !isCopy) return null;
 
   const dialog = cloneDeep(inputDialog);
   const source = locateNode(dialog, sourcePath);
@@ -147,7 +147,7 @@ export function dropBefore(inputDialog, sourcePath, targetPath, isCopy) {
 }
 
 export function dropAfter(inputDialog, sourcePath, targetPath, isCopy) {
-  if (sourcePath === targetPath) return null;
+  if (sourcePath === targetPath && !isCopy) return null;
 
   const dialog = cloneDeep(inputDialog);
   const source = locateNode(dialog, sourcePath);
