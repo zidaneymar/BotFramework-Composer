@@ -123,6 +123,14 @@ export function appendToArray(inputDialog, path, $type) {
   return dialog;
 }
 
+/**
+ * ------------------------------------------------------------------------------
+ * Below are New functions for dnd. Refactoring goes above.
+ *
+ * TODO:
+ * 1. Nested dnd not working especially in SwitchCondition.
+ * 2. Extract common functions.
+ */
 export function dropBefore(inputDialog, sourcePath, targetPath, isCopy) {
   if (sourcePath === targetPath && !isCopy) return null;
 
