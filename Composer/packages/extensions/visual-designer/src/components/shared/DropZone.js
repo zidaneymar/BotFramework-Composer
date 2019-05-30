@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { InitNodeSize } from '../../shared/elementSizes';
 
+const isCopyMode = e => e.ctrlKey || e.shiftKey;
+
 export const DropZone = ({ onDrop }) => {
   const [active, setActive] = useState(false);
   return (
@@ -20,6 +22,9 @@ export const DropZone = ({ onDrop }) => {
       onDragOver={e => {
         e.preventDefault();
         e.stopPropagation();
+        if (isCopyMode(e)) {
+          e.dataTransfer.dropEffect = 'copy';
+        }
       }}
       onDragEnter={e => {
         e.stopPropagation();
@@ -28,7 +33,7 @@ export const DropZone = ({ onDrop }) => {
       onDrop={e => {
         setActive(false);
         const sourceNodeId = e.dataTransfer.getData('text/plain');
-        onDrop(sourceNodeId);
+        onDrop(sourceNodeId, isCopyMode(e));
       }}
       onDragLeave={e => {
         e.stopPropagation();

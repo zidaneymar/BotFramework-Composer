@@ -73,7 +73,9 @@ export const StepGroup = function({ id, data, focusedId, onEvent, onResize }) {
         styles={{ zIndex: 100 }}
       >
         <DropZone
-          onDrop={sourceNodeId => onEvent(NodeEventTypes.DropBefore, { source: sourceNodeId, target: nodes[0].id })}
+          onDrop={(sourceNodeId, isCopyMode) =>
+            onEvent(NodeEventTypes.DropBefore, { source: sourceNodeId, target: nodes[0].id, copy: isCopyMode })
+          }
         />
         <EdgeMenu onClick={$type => onEvent(NodeEventTypes.InsertBefore, { id: nodes[0].id, $type })} />
       </OffsetContainer>
@@ -87,7 +89,9 @@ export const StepGroup = function({ id, data, focusedId, onEvent, onResize }) {
           styles={{ zIndex: 100 }}
         >
           <DropZone
-            onDrop={sourceNodeId => onEvent(NodeEventTypes.DropAfter, { source: sourceNodeId, target: x.id })}
+            onDrop={(sourceNodeId, isCopyMode) =>
+              onEvent(NodeEventTypes.DropAfter, { source: sourceNodeId, target: x.id, copy: isCopyMode })
+            }
           />
           <EdgeMenu onClick={$type => onEvent(NodeEventTypes.InsertAfter, { id: x.id, $type })} />
         </OffsetContainer>
