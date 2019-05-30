@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 
 import { StepGroup } from '../components/groups';
 import { EdgeMenu } from '../components/shared/EdgeMenu';
@@ -8,6 +8,7 @@ import { Boundary } from '../components/shared/Boundary';
 import { EdgeAddButtonSize, ElementInterval } from '../shared/elementSizes';
 import { OffsetContainer } from '../components/shared/OffsetContainer';
 import { Edge } from '../components/shared/EdgeComponents';
+import { DropZone } from '../components/shared/DropZone';
 
 const TriggerSize = { width: 280, height: 40 };
 const CircleSize = { width: 14, height: 14 };
@@ -40,7 +41,14 @@ export const StepEditor = ({ id, data, focusedId, onEvent }) => {
 
   const hasNoSteps = !data || !Array.isArray(data.children) || data.children.length === 0;
   const content = hasNoSteps ? (
-    <EdgeMenu onClick={$type => onEvent(NodeEventTypes.Insert, { id, $type })} />
+    <Fragment>
+      <DropZone
+        onDrop={(sourceNodeId, isCopyMode) =>
+          onEvent(NodeEventTypes.Drop, { source: sourceNodeId, target: id, copy: isCopyMode })
+        }
+      />
+      <EdgeMenu onClick={$type => onEvent(NodeEventTypes.Insert, { id, $type })} />
+    </Fragment>
   ) : (
     <StepGroup
       id={id}
