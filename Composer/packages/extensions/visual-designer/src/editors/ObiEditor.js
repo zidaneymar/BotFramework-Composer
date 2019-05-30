@@ -34,6 +34,11 @@ export const ObiEditor = ({ path, focusedId, data, onSelect, onExpand, onOpen, o
       case NodeEventTypes.Insert:
         handler = e => onChange(appendToArray(data, e.id, e.$type));
         break;
+      case NodeEventTypes.DropBefore:
+      case NodeEventTypes.DropAfter:
+      case NodeEventTypes.Drop:
+        handler = data => console.log('Drop group', eventName, data);
+        break;
       default:
         handler = onSelect;
         break;

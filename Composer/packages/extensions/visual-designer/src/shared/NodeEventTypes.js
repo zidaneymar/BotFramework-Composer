@@ -6,4 +6,7 @@ export const NodeEventTypes = {
   InsertBefore: 'event.data.insert-before',
   InsertAfter: 'event.data.insert-after',
   Insert: 'event.data.insert',
+  DropBefore: 'event.data.move-before',
+  DropAfter: 'event.data.move-after',
+  Drop: 'event.data.move',
 };
