@@ -7,6 +7,7 @@ export class OffsetContainer extends React.Component {
     if (!offset) return children;
     return (
       <div
+        className="offset-container"
         style={{
           position: 'absolute',
           left: offset.x,
@@ -31,5 +32,5 @@ OffsetContainer.propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
   }),
-  children: PropTypes.element,
+  children: PropTypes.any,
 };

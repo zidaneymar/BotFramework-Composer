@@ -10,6 +10,7 @@ import { sequentialLayouter } from '../../layouters/sequentialLayouter';
 import { ElementInterval, InitNodeSize, EdgeAddButtonSize } from '../../shared/elementSizes';
 import { EdgeMenu } from '../shared/EdgeMenu';
 import { NodeEventTypes } from '../../shared/NodeEventTypes';
+import { DropZone } from '../shared/DropZone';
 
 const StepInterval = ElementInterval.y;
 const InitStepWidth = InitNodeSize.width;
@@ -71,6 +72,11 @@ export const StepGroup = function({ id, data, focusedId, onEvent, onResize }) {
         offset={{ x: boundary.axisX - EdgeAddButtonSize.width / 2, y: 0 - EdgeAddButtonSize.height / 2 }}
         styles={{ zIndex: 100 }}
       >
+        <DropZone
+          onDrop={(sourceNodeId, isCopyMode) =>
+            onEvent(NodeEventTypes.Drop, { source: sourceNodeId, target: id, copy: isCopyMode })
+          }
+        />
         <EdgeMenu onClick={$type => onEvent(NodeEventTypes.Insert, { id, $type })} />
       </OffsetContainer>
       {nodes.map(x => (
@@ -82,6 +88,11 @@ export const StepGroup = function({ id, data, focusedId, onEvent, onResize }) {
           }}
           styles={{ zIndex: 100 }}
         >
+          <DropZone
+            onDrop={(sourceNodeId, isCopyMode) =>
+              onEvent(NodeEventTypes.DropAfter, { source: sourceNodeId, target: x.id, copy: isCopyMode })
+            }
+          />
           <EdgeMenu onClick={$type => onEvent(NodeEventTypes.InsertAfter, { id: x.id, $type })} />
         </OffsetContainer>
       ))}

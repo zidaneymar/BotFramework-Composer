@@ -72,7 +72,7 @@ const VisualDesigner = ({ navPath, focusPath, data: inputData, onChange, shellAp
         onSelect={x => focusTo(normalizeDataPath(x))}
         onExpand={x => navDown(normalizeDataPath(x))}
         onOpen={x => navTo(normalizeDataPath(x) + '#')}
-        onChange={x => onChange(x)}
+        onChange={x => (x ? onChange(x) : undefined)}
       />
     </div>
   );

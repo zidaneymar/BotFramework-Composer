@@ -118,7 +118,87 @@ export function unshiftArray(inputDialog, path, $type) {
   if (Array.isArray(currentData)) {
     currentData.unshift(newStep);
   } else {
-    parentData[currentKey] = [{ $type }];
+    parentData[currentKey] = [newStep];
+  }
+  return dialog;
+}
+
+/**
+ * ------------------------------------------------------------------------------
+ * Below are New functions for dnd. Refactoring goes above.
+ *
+ * TODO:
+ * 1. Nested dnd not working especially in SwitchCondition.
+ * 2. Extract common functions.
+ */
+export function dropBefore(inputDialog, sourcePath, targetPath, isCopy) {
+  if (sourcePath === targetPath && !isCopy) return null;
+
+  const dialog = cloneDeep(inputDialog);
+  const source = locateNode(dialog, sourcePath);
+  const targetArray = locateArrayInsertPoint(dialog, targetPath);
+  if (!source || !targetArray) return null;
+
+  const newData = cloneDeep(source.currentData);
+  targetArray.targetArray.splice(targetArray.targetIndex, 0, newData);
+
+  if (!isCopy) {
+    source.currentData._deleted = true;
+    if (Array.isArray(source.parentData)) {
+      const oldDataIndex = source.parentData.findIndex(x => x._deleted);
+      source.parentData.splice(oldDataIndex, 1);
+    } else {
+      delete source.parentData[source.currentKey];
+    }
+  }
+  return dialog;
+}
+
+export function dropAfter(inputDialog, sourcePath, targetPath, isCopy) {
+  if (sourcePath === targetPath && !isCopy) return null;
+
+  const dialog = cloneDeep(inputDialog);
+  const source = locateNode(dialog, sourcePath);
+  const targetArray = locateArrayInsertPoint(dialog, targetPath);
+  if (!source || !targetArray) return null;
+
+  const newData = cloneDeep(source.currentData);
+  targetArray.targetArray.splice(targetArray.targetIndex + 1, 0, newData);
+
+  if (!isCopy) {
+    source.currentData._deleted = true;
+    if (Array.isArray(source.parentData)) {
+      const oldDataIndex = source.parentData.findIndex(x => x._deleted);
+      source.parentData.splice(oldDataIndex, 1);
+    } else {
+      delete source.parentData[source.currentKey];
+    }
+  }
+  return dialog;
+}
+
+export function dropTo(inputDialog, sourcePath, targetPath, isCopy) {
+  const dialog = cloneDeep(inputDialog);
+  const source = locateNode(dialog, sourcePath);
+  const target = locateNode(dialog, targetPath);
+
+  if (!source || !target) return null;
+
+  const newData = cloneDeep(source.currentData);
+  if (Array.isArray(target.currentData)) {
+    target.currentData.push(newData);
+  } else {
+    target.parentData[target.currentKey] = [newData];
+  }
+
+  if (!isCopy) {
+    source.currentData._deleted = true;
+    if (Array.isArray(source.parentData)) {
+      const oldDataIndex = source.parentData.findIndex(x => x._deleted);
+      source.parentData.splice(oldDataIndex, 1);
+    } else {
+      delete source.parentData[source.currentKey];
+    }
   }
   return dialog;
 }

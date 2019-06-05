@@ -43,6 +43,10 @@ export class NodeRenderer extends React.Component {
     return (
       <div
         className="node-renderer-container"
+        draggable="true"
+        onDragStart={ev => {
+          ev.dataTransfer.setData('text/plain', id);
+        }}
         style={{
           outline: focusedId && focusedId === id ? '2px solid grey' : null,
           display: 'inline-block',
