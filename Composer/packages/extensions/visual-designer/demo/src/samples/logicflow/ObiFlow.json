@@ -1,0 +1,75 @@
+{
+  "@": "Flow",
+  "id": "$.steps",
+  "data": {},
+  "steps": [
+    {
+      "@": "Element",
+      "id": "$.steps[0]",
+      "data": {
+        "$type": "Microsoft.SetProperty",
+        "text": "set a = b",
+        "renderer": "<NodeRenderer>"
+      }
+    },
+    {
+      "@": "Decision",
+      "id": "$.steps[1]",
+      "data": {
+        "$type": "Microsoft.IfCondition",
+        "condition": "a == b",
+        "elseSteps": [ { "$type": "Microsoft.SetProperty" }]
+      },
+      "branches": [
+        {
+          "@": "Flow",
+          "id": "$.steps[1].elseSteps",
+          "label": "False",
+          "data": [
+            {
+              "$type": "Microsoft.SetProperty",
+              "text": "set a = b"
+            }
+          ],
+          "steps": [
+            {
+              "@": "Element",
+              "id": "$.steps[1].steps[0]",
+              "data": {
+                "$type": "Microsoft.SetProperty",
+                "text": "set a = b"
+              }
+            }
+          ]
+        },
+        {
+          "@": "Flow",
+          "id": "$.steps[1].ifTrue",
+          "label": "True",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "@": "Loop",
+      "id": "$.steps[2]",
+      "data": {
+        "$type": "Microsoft.Foreach",
+        "listProperty": "user.todos",
+        "steps": [{ "$type": "Microsoft.SetProperty" }]
+      },
+      "flow": {
+        "@": "Flow",
+        "id": "$.steps[2].steps",
+        "data": [{ "$type": "Microsoft.SetProperty" }],
+        "steps": [
+          {
+            "@": "Element",
+            "id": "$.steps[2].steps[0]",
+            "data": { "$type": "Microsoft.SetProperty" }
+          }
+        ]
+      }
+    }
+  ]
+}
