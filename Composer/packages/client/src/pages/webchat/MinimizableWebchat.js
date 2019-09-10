@@ -45,6 +45,50 @@ export default class extends React.Component {
       return next(action);
     });
 
+    //styling
+    this.styleOptions = {
+
+      // Fonts
+      fontSizeSmall: '80%',
+      monospaceFont: fontFamily(['Segoe UI', 'Consolas', 'Courier New', 'monospace']),
+      primaryFont: fontFamily(['Segoe UI', 'Calibri', 'Helvetica Neue', 'Arial', 'sans-serif']),
+
+      // bubble
+      bubbleBackground: 'white',
+      bubbleBorderColor: '#cccccc',
+      bubbleBorderRadius: 20,
+      bubbleBorderStyle: 'solid',
+      bubbleBorderWidth: 1,
+      bubbleFromUserBackground: '#efefef',
+      bubbleFromUserBorderColor: '#efefef',
+      bubbleFromUserBorderRadius: 20,
+      bubbleFromUserBorderStyle: 'solid',
+      bubbleFromUserBorderWidth: 1,
+      bubbleFromUserNubOffset: 'bottom',
+      bubbleFromUserNubSize: 0,
+      bubbleFromUserTextColor: DEFAULT_ACCENT,
+      bubbleImageHeight: 240,
+      bubbleMaxWidth: 480, // screen width = 600px
+      bubbleMinHeight: 40,
+      bubbleMinWidth: 250, // min screen width = 300px, Edge requires 372px (https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/13621468/)
+      bubbleNubOffset: 'bottom',
+      bubbleNubSize: 0,
+      bubbleTextColor: '#323130',
+
+      // Suggested actions
+      suggestedActionBackground: 'White',
+      suggestedActionBorder: `solid 1px #efefef`,
+      suggestedActionBorderRadius: 20,
+      suggestedActionImageHeight: 20,
+      suggestedActionTextColor: DEFAULT_SUBTLE,
+      suggestedActionDisabledBackground: 'White',
+      suggestedActionDisabledBorder: `solid 2px #E6E6E6`,
+      suggestedActionDisabledTextColor: DEFAULT_SUBTLE,
+      suggestedActionHeight: 40,
+
+
+    };
+
     this.state = {
       minimized: true,
       newMessage: false,
@@ -95,19 +139,19 @@ export default class extends React.Component {
             {newMessage && <span className="ms-Icon ms-Icon--CircleShapeSolid red-dot" />}
           </button>
         ) : (
-          <div className={side === 'left' ? 'chat-box left' : 'chat-box right'}>
-            <header>
-              <div className="filler" />
-              <button className="switch" onClick={this.handleSwitchButtonClick}>
-                <span className="ms-Icon ms-Icon--Switch" />
-              </button>
-              <button className="minimize" onClick={this.handleMinimizeButtonClick}>
-                <span className="ms-Icon ms-Icon--ChromeMinimize" />
-              </button>
-            </header>
-            <WebChat className="react-web-chat" store={store} styleSet={styleSet} token={window.webchatToken} />
-          </div>
-        )}
+            <div className={side === 'left' ? 'chat-box left' : 'chat-box right'}>
+              <header>
+                <div className="filler" />
+                <button className="switch" onClick={this.handleSwitchButtonClick}>
+                  <span className="ms-Icon ms-Icon--Switch" />
+                </button>
+                <button className="minimize" onClick={this.handleMinimizeButtonClick}>
+                  <span className="ms-Icon ms-Icon--ChromeMinimize" />
+                </button>
+              </header>
+              <WebChat className="react-web-chat" store={store} styleSet={styleSet} token={window.webchatToken} styleOptions={this.styleOptions} groupTimestamp={false} />
+            </div>
+          )}
       </div>
     );
   }
