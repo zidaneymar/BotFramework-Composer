@@ -298,3 +298,22 @@
 
 # bfdactivity-706247
 -
+
+
+# bfdactivity-422736
+- composer-rpc://insertStepAt("\{ $type: Microsofot.SendAcitivity\}", 0)
+
+
+# bfdactivity-213447
+- composer-rpc://insertStepAt("\{ $type: Microsofot.SendAcitivity, $activity: @{dialog.messageContent}\}", 0)
+
+
+# bfdactivity-637217
+-IF:@{dialog.promptType == 'Text'}
+    - composer-rpc://insertStepAt("\{ $type: Microsoft.TextInput, $prompt: @{dialog.initialPrompt}, $property: dialog\.@{dialog.Property}\}", 0)
+- ELSEIF: @{dialog.promptType == 'Number'}
+    - composer-rpc://insertStepAt("\{ $type: Microsoft.NumberInput, $prompt: @{dialog.initialPrompt}, $property: dialog\.@{dialog.Property}\}", 0)
+
+
+# bfdactivity-134184
+-composer-rpc://startWizard()

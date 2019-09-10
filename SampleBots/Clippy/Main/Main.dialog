@@ -468,6 +468,15 @@
             "updatedAt": "2019-09-09T16:39:11.790Z"
           },
           "activity": "[bfdactivity-635104]"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "134184",
+            "updatedAt": "2019-09-10T06:06:22.167Z"
+          },
+          "activity": "[bfdactivity-134184]"
         }
       ],
       "intent": "showBubbles"
@@ -519,7 +528,150 @@
         "id": "858440",
         "updatedAt": "2019-09-09T17:04:08.681Z"
       },
-      "intent": "addAction"
+      "intent": "addAction",
+      "actions": [
+        {
+          "$type": "Microsoft.ChoiceInput",
+          "$designer": {
+            "name": "ActionType",
+            "id": "028312",
+            "updatedAt": "2019-09-10T05:50:04.459Z"
+          },
+          "prompt": "Action type?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.actionType",
+          "alwaysPrompt": false,
+          "allowInterruptions": "notRecognized",
+          "outputFormat": "index",
+          "choices": [
+            {
+              "value": "Send a message"
+            },
+            {
+              "value": "Ask a question"
+            }
+          ],
+          "appendChoices": "true",
+          "defaultLocale": "en-us",
+          "style": "SuggestedAction",
+          "choiceOptions": {
+            "inlineSeparator": ", ",
+            "inlineOr": " or ",
+            "inlineOrMore": ", or ",
+            "includeNumbers": true
+          },
+          "recognizerOptions": {
+            "noValue": false
+          }
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "name": "Branch: If/Else",
+            "id": "221296",
+            "updatedAt": "2019-09-10T05:50:21.073Z"
+          },
+          "condition": "dialog.actionType ==0",
+          "actions": [
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "name": "Prompt for text",
+                "id": "823012",
+                "updatedAt": "2019-09-10T05:50:40.769Z"
+              },
+              "prompt": "What message? ",
+              "maxTurnCount": 2147483647,
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "none",
+              "property": "dialog.messageContent"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "name": "Send an Activity",
+                "id": "213447",
+                "updatedAt": "2019-09-10T05:51:00.961Z"
+              },
+              "activity": "[bfdactivity-213447]"
+            }
+          ],
+          "elseActions": [
+            {
+              "$type": "Microsoft.ChoiceInput",
+              "$designer": {
+                "name": "Prompt with multi-choice",
+                "id": "215982",
+                "updatedAt": "2019-09-10T05:56:17.590Z"
+              },
+              "prompt": "Do you expect the answer to be text or a number?",
+              "maxTurnCount": 2147483647,
+              "property": "dialog.promptType",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "value",
+              "choices": [
+                {
+                  "value": "Text"
+                },
+                {
+                  "value": "Number"
+                }
+              ],
+              "appendChoices": "true",
+              "defaultLocale": "en-us",
+              "style": "Auto",
+              "choiceOptions": {
+                "inlineSeparator": ", ",
+                "inlineOr": " or ",
+                "inlineOrMore": ", or ",
+                "includeNumbers": true
+              },
+              "recognizerOptions": {
+                "noValue": false
+              }
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "name": "Prompt for text",
+                "id": "255028",
+                "updatedAt": "2019-09-10T05:58:05.833Z"
+              },
+              "prompt": "Prompt message?",
+              "maxTurnCount": 2147483647,
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "none",
+              "property": "dialog.initialPrompt"
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "name": "Prompt for text",
+                "id": "155348",
+                "updatedAt": "2019-09-10T06:08:39.446Z"
+              },
+              "prompt": "Where to save the answer? Tell me a property name.",
+              "maxTurnCount": 2147483647,
+              "property": "dialog.Property",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "none"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "name": "Send an Activity",
+                "id": "637217",
+                "updatedAt": "2019-09-10T05:59:13.764Z"
+              },
+              "activity": "[bfdactivity-637217]"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
