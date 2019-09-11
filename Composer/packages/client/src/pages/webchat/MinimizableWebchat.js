@@ -85,50 +85,6 @@ export default class extends React.Component {
       return next(action);
     });
 
-    //styling
-    this.styleOptions = {
-
-      // Fonts
-      fontSizeSmall: '80%',
-      monospaceFont: fontFamily(['Segoe UI', 'Consolas', 'Courier New', 'monospace']),
-      primaryFont: fontFamily(['Segoe UI', 'Calibri', 'Helvetica Neue', 'Arial', 'sans-serif']),
-
-      // bubble
-      bubbleBackground: 'white',
-      bubbleBorderColor: '#cccccc',
-      bubbleBorderRadius: 20,
-      bubbleBorderStyle: 'solid',
-      bubbleBorderWidth: 1,
-      bubbleFromUserBackground: '#efefef',
-      bubbleFromUserBorderColor: '#efefef',
-      bubbleFromUserBorderRadius: 20,
-      bubbleFromUserBorderStyle: 'solid',
-      bubbleFromUserBorderWidth: 1,
-      bubbleFromUserNubOffset: 'bottom',
-      bubbleFromUserNubSize: 0,
-      bubbleFromUserTextColor: DEFAULT_ACCENT,
-      bubbleImageHeight: 240,
-      bubbleMaxWidth: 480, // screen width = 600px
-      bubbleMinHeight: 40,
-      bubbleMinWidth: 250, // min screen width = 300px, Edge requires 372px (https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/13621468/)
-      bubbleNubOffset: 'bottom',
-      bubbleNubSize: 0,
-      bubbleTextColor: '#323130',
-
-      // Suggested actions
-      suggestedActionBackground: 'White',
-      suggestedActionBorder: `solid 1px #efefef`,
-      suggestedActionBorderRadius: 20,
-      suggestedActionImageHeight: 20,
-      suggestedActionTextColor: DEFAULT_SUBTLE,
-      suggestedActionDisabledBackground: 'White',
-      suggestedActionDisabledBorder: `solid 2px #E6E6E6`,
-      suggestedActionDisabledTextColor: DEFAULT_SUBTLE,
-      suggestedActionHeight: 40,
-
-
-    };
-
     this.state = {
       minimized: true,
       newMessage: false,
