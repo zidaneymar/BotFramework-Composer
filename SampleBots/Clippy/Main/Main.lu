@@ -25,20 +25,53 @@
 - What is LU
 
 # showBubbles
-- How to {queryHowTo=add a trigger}
-- How to {queryHowTo= add an intent}
-- Where to {queryHowTo=add a trigger}
-- Where to {queryHowTo= add an intent}
-- Show me how to {queryHowTo= add a function}
-- Show me how to {queryHowTo= add a function to my bot}
-- How to {queryHowTo=add a welcome message}
-- Show me how to {queryHowTo = add a welcome message}
+- Learn the basics
+- Learn about Composer
+- Show me how
+- Show me around 
+
+# productTour
+- Show me around in Composer 
+- Show me where is intent
+- Show me where to find intent
+- Show me where to add an intent
+- Show me where to manage intents
+- Show me where to view all intents
+- Show me where to find LG
+- Show me where to edit LG template
+- Show me where to see LG templates
+- Show me where is the entry point of my bot
+- Show me what is main dialog
+
+# learnEditors
+- Show me trigger
+- Show me where to find triggers
+- Show me where to edit actions
+- Show me where to add actions
+- Show me where to edit prompts
+- Show me where to edit action details
+
+# addTrigger
+- Show me how to add a trigger
+- Show me how to add a function
+- Show me how to add a capability
+- Show me how to add new functionality to my bot
+- Show me how to add new functions to my bot
+- Show me how to add new triggers to my bot
+- Add new trigger
+- Add a trigger
+- Add a function
+- Add new capability
+- How to add a welcome message
+- Show me how to add a welcome message
 
 # addAction
 - Add an action
 - Add a step
 - Help me add an action
 - Help me add a step
+- Add another action
+- Add an action again
 
 # chitchat
 - What can you do?

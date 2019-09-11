@@ -305,59 +305,19 @@
 
 
 # bfdactivity-213447
-- composer-rpc://insertStepAt(\{ $type: 'Microsoft.SendActivity', activity: ‘@{dialog.messageContent}’\}, 0)
+- composer-rpc://insertStepAt(\{ $type: "Microsoft.SendActivity", activity: "@{dialog.messageContent}"\}, 0)
 
 
 # bfdactivity-637217
 -IF:@{dialog.promptType == 'Text'}
-    - composer-rpc://insertStepAt(\{ $type: 'Microsoft.TextInput', prompt: ‘@{dialog.initialPrompt}’, property: ‘dialog.@{dialog.Property}’\}, 0)
+    - composer-rpc://insertStepAt(\{ $type: "Microsoft.TextInput", prompt: "@{dialog.initialPrompt}", property: "dialog.@{dialog.Property}"\}, 0)
 - ELSEIF: @{dialog.promptType == 'Number'}
-    - composer-rpc://insertStepAt(\{ $type: 'Microsoft.NumberInput', prompt: ‘@{dialog.initialPrompt}’, property: ‘dialog.@{dialog.Property}’\}, 0)
+    - composer-rpc://insertStepAt(\{ $type: "Microsoft.NumberInput", prompt: "@{dialog.initialPrompt}", property: "dialog.@{dialog.Property}"\}, 0)
 
 
 # bfdactivity-134184
--IF:@{user.topic == 'Concepts'}
-    - composer-rpc://startWizard('AboutComposer')
--ELSEIF:@{user.topic == 'Editors'}
-    - composer-rpc://startWizard('AboutDialogEditor')
--ELSEIF: @{user.topic == 'Add new capability'}
-    - composer-rpc://startWizard('AddNewTrigger')
-- ELSE: 
-    - composer-rpc://startWizard('AboutComposer')
-
-
-# bfdactivity-498772
--Here you go. Take 30 seconds for a Composer tour.
-
-
-# bfdactivity-552055
 -composer-rpc://startWizard('AboutComposer')
 
 
-# bfdactivity-243093
--Here are the key editors for your bot.
-
-
-# bfdactivity-019822
--composer-rpc://startWizard('AboutDialogEditor')
-
-
-# bfdactivity-998972
--[ShowMeHowAddFunction]
--[ShowMeHowAddWelcomeMsg]
-
-
-# bfdactivity-073077
--composer-rpc://startWizard('AddNewTrigger')
-
-
-# bfdactivity-113436
--hello
-
-
-# bfdactivity-023100
--hellp
-
-
-# bfdactivity-078223
--what's your name
+# bfdactivity-731665
+- Here are the things you can ask me.  [AdaptiveCard]

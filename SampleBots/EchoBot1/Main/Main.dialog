@@ -359,38 +359,6 @@
       "constraint": "toLower(turn.Activity.membersAdded[0].name) != 'bot'",
       "actions": [
         {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "createdAt": "2019-09-11T07:18:03.527Z",
-            "updatedAt": "2019-09-11T07:18:04.883Z",
-            "id": "078223"
-          },
-          "activity": "[bfdactivity-078223]"
-        },
-        {
-          "$type": "Microsoft.TextInput",
-          "prompt": "hello",
-          "maxTurnCount": 2147483647,
-          "property": "dialog.usename",
-          "alwaysPrompt": false,
-          "allowInterruptions": "notRecognized",
-          "outputFormat": "none",
-          "$designer": {
-            "createdAt": "2019-09-11T07:12:35.741Z",
-            "updatedAt": "2019-09-11T07:12:35.759Z",
-            "id": "947385"
-          }
-        },
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "createdAt": "2019-09-11T07:11:58.028Z",
-            "updatedAt": "2019-09-11T07:11:59.174Z",
-            "id": "023100"
-          },
-          "activity": "[bfdactivity-023100]"
-        },
-        {
           "$type": "Microsoft.Foreach",
           "$designer": {
             "name": "Loop: For Each",
@@ -478,41 +446,28 @@
       },
       "actions": [
         {
-          "$type": "Microsoft.ChoiceInput",
+          "$type": "Microsoft.TextInput",
           "$designer": {
-            "name": "Prompt with multi-choice",
-            "id": "382016",
-            "updatedAt": "2019-09-11T06:54:12.643Z"
+            "name": "Prompt for text",
+            "id": "411462",
+            "updatedAt": "2019-09-09T16:38:41.354Z"
           },
-          "prompt": "Pick a topic",
+          "prompt": "What do you want to learn?",
           "maxTurnCount": 2147483647,
-          "property": "user.topic",
+          "property": "user.queryHowTo",
           "alwaysPrompt": false,
           "allowInterruptions": "notRecognized",
-          "outputFormat": "value",
-          "choices": [
-            {
-              "value": "Concepts"
-            },
-            {
-              "value": "Editors"
-            },
-            {
-              "value": "Add new capability"
-            }
-          ],
-          "appendChoices": "true",
-          "defaultLocale": "en-us",
-          "style": "SuggestedAction",
-          "choiceOptions": {
-            "inlineSeparator": ", ",
-            "inlineOr": " or ",
-            "inlineOrMore": ", or ",
-            "includeNumbers": true
+          "outputFormat": "none",
+          "value": "@queryHowTo"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "635104",
+            "updatedAt": "2019-09-09T16:39:11.790Z"
           },
-          "recognizerOptions": {
-            "noValue": false
-          }
+          "activity": "[bfdactivity-635104]"
         },
         {
           "$type": "Microsoft.SendActivity",
@@ -721,89 +676,21 @@
     {
       "$type": "Microsoft.OnIntent",
       "$designer": {
-        "name": "ProductTour",
-        "id": "689214",
-        "updatedAt": "2019-09-11T06:39:11.241Z"
+        "name": "Gereeting",
+        "id": "012063",
+        "updatedAt": "2019-09-11T07:06:23.676Z"
       },
-      "intent": "productTour",
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
           "$designer": {
             "name": "Send an Activity",
-            "id": "498772",
-            "updatedAt": "2019-09-11T06:39:35.647Z"
+            "id": "731665",
+            "updatedAt": "2019-09-11T07:06:44.086Z"
           },
-          "activity": "[bfdactivity-498772]"
-        },
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "name": "Send an Activity",
-            "id": "552055",
-            "updatedAt": "2019-09-11T06:40:11.981Z"
-          },
-          "activity": "[bfdactivity-552055]"
+          "activity": "[bfdactivity-731665]"
         }
       ]
-    },
-    {
-      "$type": "Microsoft.OnIntent",
-      "$designer": {
-        "name": "LearnEditor",
-        "id": "697021",
-        "updatedAt": "2019-09-11T06:45:26.579Z"
-      },
-      "actions": [
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "name": "Send an Activity",
-            "id": "243093",
-            "updatedAt": "2019-09-11T06:44:14.018Z"
-          },
-          "activity": "[bfdactivity-243093]"
-        },
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "name": "Send an Activity",
-            "id": "019822",
-            "updatedAt": "2019-09-11T06:44:53.725Z"
-          },
-          "activity": "[bfdactivity-019822]"
-        }
-      ],
-      "intent": "learnEditors"
-    },
-    {
-      "$type": "Microsoft.OnIntent",
-      "$designer": {
-        "name": "AddNewTrigger",
-        "id": "699907",
-        "updatedAt": "2019-09-11T06:48:18.930Z"
-      },
-      "actions": [
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "name": "Send an Activity",
-            "id": "998972",
-            "updatedAt": "2019-09-11T06:47:53.811Z"
-          },
-          "activity": "[bfdactivity-998972]"
-        },
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "name": "Send an Activity",
-            "id": "073077",
-            "updatedAt": "2019-09-11T06:48:00.975Z"
-          },
-          "activity": "[bfdactivity-073077]"
-        }
-      ],
-      "intent": "addTrigger"
     }
   ]
 }
