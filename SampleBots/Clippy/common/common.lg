@@ -293,7 +293,7 @@
 
 
 # bfdactivity-272059
-- Hi! Here are the things you can ask me.
+- Hi there! Here are the things you can ask me.
 
 
 # bfdactivity-706247
@@ -305,14 +305,14 @@
 
 
 # bfdactivity-213447
-- composer-rpc://insertStepAt("\{ $type: Microsofot.SendAcitivity, $activity: @{dialog.messageContent}\}", 0)
+- composer-rpc://insertStepAt(\{ $type: Microsoft.SendActivity, activity: ‘@{dialog.messageContent}’\}, 0)
 
 
 # bfdactivity-637217
 -IF:@{dialog.promptType == 'Text'}
-    - composer-rpc://insertStepAt("\{ $type: Microsoft.TextInput, $prompt: @{dialog.initialPrompt}, $property: dialog\.@{dialog.Property}\}", 0)
+    - composer-rpc://insertStepAt(\{ $type: Microsoft.TextInput, prompt: ‘@{dialog.initialPrompt}’, property: ‘dialog\.@{dialog.Property}’\}, 0)
 - ELSEIF: @{dialog.promptType == 'Number'}
-    - composer-rpc://insertStepAt("\{ $type: Microsoft.NumberInput, $prompt: @{dialog.initialPrompt}, $property: dialog\.@{dialog.Property}\}", 0)
+    - composer-rpc://insertStepAt(\{ $type: Microsoft.NumberInput, prompt: ‘@{dialog.initialPrompt}’, property: ‘dialog\.@{dialog.Property}’\}, 0)
 
 
 # bfdactivity-134184
