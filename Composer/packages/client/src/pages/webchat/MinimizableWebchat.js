@@ -4,6 +4,7 @@ import { createStore, createStyleSet } from 'botframework-webchat';
 import WebChat from './WebChat';
 import { tryExtractRpcCommandFromActivity, runRpcCommand } from './composerRpcUtils';
 
+import './tours';
 import './fabric-icons-inline.css';
 import './MinimizableWebchat.css';
 
@@ -16,9 +17,8 @@ export default class extends React.Component {
     this.handleMinimizeButtonClick = this.handleMinimizeButtonClick.bind(this);
     this.handleSwitchButtonClick = this.handleSwitchButtonClick.bind(this);
 
-    window.startWizard = () => {
-      this.handleMaximizeButtonClick();
-      introJs().start();
+    window.hideWebchat = () => {
+      this.handleMinimizeButtonClick();
     };
 
     window.insertStepAt =

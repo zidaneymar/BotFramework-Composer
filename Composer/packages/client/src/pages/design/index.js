@@ -251,6 +251,7 @@ function DesignPage(props) {
                   />
                 </div>
                 <iframe
+                  id="FormEditorIframe"
                   key="FormEditor"
                   name="FormEditor"
                   css={formEditor}
