@@ -30,6 +30,8 @@ import { ToolBar } from './../../components/ToolBar/index';
 import { OpenConfirmModal } from './../../components/Modal/Confirm';
 import { DialogStyle } from './../../components/Modal/styles';
 import { clearBreadcrumb } from './../../utils/navigation';
+import undoHistory from './../../store/middlewares/undo/history';
+import { getNewDesigner } from './../../utils/dialogUtil';
 
 function onRenderContent(subTitle, style) {
   return (
@@ -67,7 +69,15 @@ const rootPath = BASEPATH.replace(/\/+$/g, '');
 function DesignPage(props) {
   const { state, actions } = useContext(StoreContext);
   const { dialogs, designPageLocation, breadcrumb } = state;
-  const { removeDialog, setDesignPageLocation, navTo, selectTo, setectAndfocus, updateDialog } = actions;
+  const {
+    removeDialog,
+    setDesignPageLocation,
+    navTo,
+    selectTo,
+    setectAndfocus,
+    updateDialog,
+    clearUndoHistory,
+  } = actions;
   const { location, match } = props;
   const { dialogId, selected } = designPageLocation;
 
@@ -85,6 +95,9 @@ function DesignPage(props) {
         onBreadcrumbItemClick: handleBreadcrumbItemClick,
       });
       globalHistory._onTransitionComplete();
+    } else {
+      //leave design page should clear the history
+      clearUndoHistory();
     }
   }, [location]);
 
@@ -114,6 +127,30 @@ function DesignPage(props) {
   };
 
   const toolbarItems = [
+    {
+      type: 'action',
+      text: formatMessage('Undo'),
+      buttonProps: {
+        disabled: !undoHistory.canUndo(),
+        iconProps: {
+          iconName: 'Undo',
+        },
+        onClick: () => actions.undo(),
+      },
+      align: 'left',
+    },
+    {
+      type: 'action',
+      text: formatMessage('Redo'),
+      buttonProps: {
+        disabled: !undoHistory.canRedo(),
+        iconProps: {
+          iconName: 'Redo',
+        },
+        onClick: () => actions.redo(),
+      },
+      align: 'left',
+    },
     {
       type: 'element',
       element: <TestController />,
@@ -149,12 +186,7 @@ function DesignPage(props) {
   }, [dialogs, breadcrumb]);
 
   async function onSubmit(data) {
-    const content = {
-      $designer: {
-        name: data.name,
-        description: data.description,
-      },
-    };
+    const content = getNewDesigner(data.name, data.description);
     await actions.createDialog({ id: data.name, content });
   }
 
