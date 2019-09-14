@@ -3,11 +3,10 @@
     "type": "AdaptiveCard",
     "version": "1.0",
     "body": [
-
         {
             "type": "ColumnSet",
             "columns": [
-              {
+                {
                     "type": "Column",
                     "width": 2,
                     "items": [

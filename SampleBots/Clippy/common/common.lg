@@ -276,12 +276,12 @@
 
 
 # bfdactivity-635104
--IF:@{user.queryHowTo=="add a function"}
-    -[ShowMeHowAddFunction] 
--ELSEIF:@{user.queryHowTo=="add a welcome message"}
-    -[ShowMeHowAddWelcomeMsg]
--ELSE:
-    -Show me how
+- IF: @{user.productTour=="Yes"}
+    - composer-rpc://startWizard('AboutComposer')
+- ELSEIF: @{user.productTour=="Maybe later"}
+    - Ok. What else can I help?
+- ELSE: 
+    - Composer has these main components: LU, LG, triggers and actions
 
 
 # bfdactivity-046065
@@ -321,3 +321,53 @@
 
 # bfdactivity-351665
 -whas your name
+
+
+# bfdactivity-217738
+-Here you go.
+
+
+# bfdactivity-315125
+-composer-rpc://startWizard('AboutDialogEditor')
+
+
+# bfdactivity-089157
+-composer-rpc://startWizard('AddNewTrigger')
+
+
+# bfdactivity-385493
+- Here are the things you can ask. [AdaptiveCard]
+
+
+# bfdactivity-449766
+-hello world
+
+
+# bfdactivity-148552
+-
+
+
+# bfdactivity-258163
+- I can show you in Composer.
+
+
+# bfdactivity-627115
+- [ShowMeHowAddFunction]
+
+
+# bfdactivity-943759
+- [ShowMeHowAddWelcomeMsg]
+
+
+# bfdactivity-534166
+- Here are the things you can ask. [AdaptiveCard]
+
+
+# bfdactivity-691787
+-```
+  [Attachment=../../SampleBots/Clippy/common/adaptiveCardSupport.json adaptivecard]
+  ```
+
+
+# bfdactivity-722510
+-hello world

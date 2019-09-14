@@ -7,26 +7,19 @@
       "type": "ColumnSet",
       "separator": true,
       "columns": [
-
         {
           "type": "Column",
           "width": "stretch",
           "items": [
             {
               "type": "TextBlock",
-              "text": "Concepts",
+              "text": "What is ...",
               "size": "medium",
               "weight": "bolder"
             },
             {
               "type": "TextBlock",
-              "text": "'What is dialog'",
-              "spacing": "small",
-              "isSubtle": true
-            },
-            {
-              "type": "TextBlock",
-              "text": "'What is trigger'",
+              "text": "'What is a dialog'",
               "spacing": "small",
               "isSubtle": true
             },
@@ -48,7 +41,6 @@
           "type": "Column",
           "width": "auto",
           "items": [
-
             {
               "type": "Image",
               "url": "https://img.icons8.com/ultraviolet/40/000000/ask-question.png",
@@ -61,85 +53,165 @@
     {
       "type": "ColumnSet",
       "separator": true,
-      "columns": [{
-        "type": "Column",
-        "width": "stretch",
-        "items": [
-          {
-            "type": "TextBlock",
-            "text": "How-to guides",
-            "size": "medium",
-            "weight": "bolder"
-          },
-          {
-            "type": "TextBlock",
-            "text": "'How to add a function'",
-            "spacing": "small",
-            "isSubtle": true
-          },
-          {
-            "type": "TextBlock",
-            "text": "'How to add a welcome message'",
-            "spacing": "small",
-            "isSubtle": true
-          }
-        ]
-      },
-      {
-        "type": "Column",
-        "width": "auto",
-        "items": [
-
-          {
-            "type": "Image",
-            "url": "https://img.icons8.com/ultraviolet/40/000000/training.png",
-            "size": "stretch"
-          }
-        ]
-      }
+      "columns": [
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Explore Composer",
+              "size": "medium",
+              "weight": "bolder"
+            },
+            {
+              "type": "TextBlock",
+              "text": "'Give me a product tour'",
+              "spacing": "small",
+              "isSubtle": true
+            },
+            {
+              "type": "TextBlock",
+              "text": "'What can I do in Composer'",
+              "spacing": "small",
+              "isSubtle": true
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "Image",
+              "url": "https://img.icons8.com/ultraviolet/40/000000/compass.png",
+              "size": "stretch"
+            }
+          ]
+        }
       ]
     },
     {
       "type": "ColumnSet",
       "separator": true,
       "columns": [
-
         {
-        "type": "Column",
-        "width": "stretch",
-        "items": [
-          {
-            "type": "TextBlock",
-            "text": "Quick-authoring",
-            "size": "medium",
-            "weight": "bolder"
-          },
-          {
-            "type": "TextBlock",
-            "text": "'Add an action for me'",
-            "spacing": "small",
-            "isSubtle": true
-          },
-          {
-            "type": "TextBlock",
-            "text": "'Edit welcome message",
-            "spacing": "small",
-            "isSubtle": true
-          }
-        ]
-      },
-      {
-        "type": "Column",
-        "width": "auto",
-        "items": [
-
-          {
-            "type": "Image",
-            "url": "https://img.icons8.com/ultraviolet/40/000000/bot.png",
-            "size": "stretch"
-          }
-        ]
-      }
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Show me how ...",
+              "size": "medium",
+              "weight": "bolder"
+            },
+            {
+              "type": "TextBlock",
+              "text": "'Show me how to add a function'",
+              "spacing": "small",
+              "isSubtle": true
+            },
+            {
+              "type": "TextBlock",
+              "text": "'How to add a welcome message'",
+              "spacing": "small",
+              "isSubtle": true
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "Image",
+              "url": "https://img.icons8.com/ultraviolet/40/000000/training.png",
+              "size": "stretch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "separator": true,
+      "columns": [
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Do this for me",
+              "size": "medium",
+              "weight": "bolder"
+            },
+            {
+              "type": "TextBlock",
+              "text": "'Add an action for me'",
+              "spacing": "small",
+              "isSubtle": true
+            },
+            {
+              "type": "TextBlock",
+              "text": "'Edit welcome message for me",
+              "spacing": "small",
+              "isSubtle": true
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "Image",
+              "url": "https://img.icons8.com/ultraviolet/40/000000/bot.png",
+              "size": "stretch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "separator": true,
+      "columns": [
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Support & Feedback",
+              "size": "medium",
+              "weight": "bolder"
+            },
+            {
+              "type": "TextBlock",
+              "text": "'Get support'",
+              "spacing": "small",
+              "isSubtle": true
+            },
+            {
+              "type": "TextBlock",
+              "text": "'Leave feedback'",
+              "spacing": "small",
+              "isSubtle": true
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "Image",
+              "url": "https://img.icons8.com/ultraviolet/40/000000/customer-support.png",
+              "size": "stretch"
+            }
+          ]
+        }
       ]
     }
   ]

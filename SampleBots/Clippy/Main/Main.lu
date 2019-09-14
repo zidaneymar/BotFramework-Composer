@@ -5,19 +5,21 @@
 - What is {queryTerm=trigger}
 - What is the meaning of {queryTerm=trigger}
 - What is {queryTerm=dialog}
+- What is a {queryTerm=dialog}
+- What is an {queryTerm=intent}
 - What is the meaning of {queryTerm=dialog}
 - What is {queryTerm=intent}
 - What is the meaning of {queryTerm=intent}
 - What is a {queryTerm=trigger}
-- What is a {queryTerm=dialog}
-- What is an {queryTerm=intent} 
-
+ 
 # LG
 - What is Language Generation
+- Tell me what is LG
+- Tell me  how to write LG file
+- Tell me how to write LG
+- LG format
 - What is LG
 - How to write LG file
-- How to write LG
-- LG format
 
 # LU
 - What is Language Understanding
@@ -27,51 +29,44 @@
 # showBubbles
 - Learn the basics
 - Learn about Composer
-- Show me how
-- Show me around 
+- Tell me about Composer
+- Give me a product tour
+- Explore Composer
+- Product tour
 
-# productTour
-- Show me around in Composer 
-- Show me where is intent
-- Show me where to find intent
-- Show me where to add an intent
-- Show me where to manage intents
-- Show me where to view all intents
-- Show me where to find LG
-- Show me where to edit LG template
-- Show me where to see LG templates
-- Show me where is the entry point of my bot
-- Show me what is main dialog
 
 # learnEditors
 - Show me trigger
-- Show me where to find triggers
-- Show me where to edit actions
-- Show me where to add actions
-- Show me where to edit prompts
-- Show me where to edit action details
+- Show me {showItem=what I can do in Composer}
+- Show me {showItem=what I can do}
+- Show me where to {showItem=find triggers}
+- Show me where to {showItem=edit actions}
+- Show me where to {showItem=add actions}
+- Show me where to {showItem=edit prompts}
+- Show me where to {showItem=edit action details}
+- Show me where to {showItem=edit LG templates}
+- Show me where to {showItem=view all bot responses}
+- Show me where to {showItem=view all intrents}
 
 # addTrigger
-- Show me how to add a trigger
-- Show me how to add a function
-- Show me how to add a capability
-- Show me how to add new functionality to my bot
-- Show me how to add new functions to my bot
-- Show me how to add new triggers to my bot
-- Add new trigger
-- Add a trigger
-- Add a function
-- Add new capability
-- How to add a welcome message
-- Show me how to add a welcome message
+- How to add a trigger
+- How to add a function
+- How to add a capability
+- How to add new functionality to my bot
+- How to add new functions to my bot
+- How to add new triggers to my bot
+
+# addWelcomeMsg
+- How to add welcome message
+- How to add welcome message to my bot
 
 # addAction
 - Add an action
 - Add a step
 - Help me add an action
 - Help me add a step
-- Add another action
-- Add an action again
+- Add an action for me
+- Add a step for me
 
 # chitchat
 - What can you do?
@@ -79,8 +74,12 @@
 - Who build you?
 - Back to home
 - Main menu
-
-# greeting
 - Hi
 - Hello
 - Hey
+- Back
+
+# contactSupport
+- Support
+- Get support
+- Contact support
