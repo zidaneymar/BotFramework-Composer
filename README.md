@@ -19,6 +19,8 @@
 13. Open a new instance of composer in a separate browser tab and create/ open another bot that is not clippy
 14. HAVE FUN! :)
 
+Note: Webchat integration source is under /Composer/packages/client/src/pages/webchat -> If you have questions, ask Ze Yedocker
+
 # Microsoft Bot Framework Composer
 
 [![Build Status](https://fuselabs.visualstudio.com/Composer/_apis/build/status/ComposerCI/Composer-CI?branchName=master)](https://fuselabs.visualstudio.com/Composer/_build/latest?definitionId=516&branchName=master)
