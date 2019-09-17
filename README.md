@@ -1,3 +1,25 @@
+# Getting clippy up and running
+1. Download ngrok and configure it to tunnel messges to connector endpoint
+    In terminal, navigate to the folder that has ngrok and
+    ```
+    > ngrok http 3979
+    ```
+    Copy the forwarding uri (https)
+2. Create an registration only bot and specify the endpoint URI to be the ngrok forwarding uri you copied from step 1 + /api/messages
+3. Add directline channel for the registration only bot. Copy the directline secret to a notepad
+4. Go to settings page for your registration bot and copy the MSA app ID and secret to a notepad
+5. Open up composer source code in an IDE and navigate to /Composer/packages/client/public/index.html
+6. Change line #49 and paste the directline secret copied from line #3 (from your registration bot)
+7. Build composer and run
+8. Open composer in browser
+9. Open clippy bot
+10. Go to settings page and add the msa app id and secret you copied from step #4 above. 
+11. Click on start bot in composer
+12. Provide your LUIS authoring key and let composer publish the required LUIS applications
+13. Open a new instance of composer in a separate browser tab and create/ open another bot that is not clippy
+14. HAVE FUN! :)
+
+Note: Webchat integration source is under /Composer/packages/client/src/pages/webchat -> If you have questions, ask Ze Ye
 
 # Microsoft Bot Framework Composer
 
