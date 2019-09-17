@@ -19,7 +19,7 @@
 13. Open a new instance of composer in a separate browser tab and create/ open another bot that is not clippy
 14. HAVE FUN! :)
 
-Note: Webchat integration source is under /Composer/packages/client/src/pages/webchat -> If you have questions, ask Ze Yedocker
+Note: Webchat integration source is under /Composer/packages/client/src/pages/webchat -> If you have questions, ask Ze Ye
 
 # Microsoft Bot Framework Composer
 
