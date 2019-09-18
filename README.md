@@ -1,4 +1,4 @@
-# Getting clippy up and running
+# Getting clippy up and running locally
 1. Download ngrok and configure it to tunnel messges to connector endpoint
     In terminal, navigate to the folder that has ngrok and
     ```
