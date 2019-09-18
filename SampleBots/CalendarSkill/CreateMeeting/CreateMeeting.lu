@@ -1,0 +1,64 @@
+>To learn more about the LU file format, read the documentation at
+> https://github.com/Microsoft/botbuilder-tools/blob/master/packages/Ludown/docs/lu-file-format.md#lu-file-format
+
+# SetAttendees
+- Add qiong as attendees
+- Oh, add Darren too.
+- I want to modify attendees.
+- Change attendees.
+- Remove qiong.
+
+# SetSubject
+- Change meeting subject
+- Update meeting subject as hello world
+- Subject: hello
+- Reset subject
+- No, please update the subject to hello
+
+# SetContent
+- Change meeting content
+- Please change content
+- Content: hello
+- No, I'd like to modify content to "I will be late"
+- Update content
+
+# SetDate
+- Change meeting date from today to tomorrow
+- Change date
+- Update meeting date
+- New meeting time: tomorrow
+- Please change dat
+
+# SetStartTime
+- Change start time to 11:00 pm
+- Set start time to one hour later
+- Delay meeting to half an hour later
+- Reset start time
+- Start time: 10:00 pm
+- Change meeting time from 9:00 pm to 11:00 pm
+
+# SetEndTime
+- Set end time
+- Move end time to one hour later
+- No, please change meeting end time to 11:00 pm
+- Could you help me change end time to 5:00
+- Reset end time
+
+# SetDuration
+- Change meeting time from half an hour to one hour
+- Extend meeting time to one hour
+- Change meeting duration
+- Reset meeting duration
+- Duration: 2 hours
+
+# SetLocation
+- Update location
+- Change location to room 302
+- No, please change to another room.
+- New location: Summer Palace
+- Update a new location
+
+
+
+
+
