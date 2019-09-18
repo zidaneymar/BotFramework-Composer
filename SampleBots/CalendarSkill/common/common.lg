@@ -1,0 +1,88 @@
+# bfdactivity-673628
+-Sure, who will join?
+
+
+# bfdactivity-203407
+- {dialog.date}
+
+
+# bfdactivity-760721
+- {dialog.CreateCalendarEntry_ToTime}
+
+
+# ShowMeetingConfirmCard
+- ```
+[adaptivecard
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "size": "Medium",
+                    "weight": "Bolder",
+                    "text": "@{dialog.CreateCalendarEntry_Subject}"
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "@{dialog.CreateCalendarEntry_FromTime[0].value} - @{dialog.CreateCalendarEntry_ToTime[0].value}",
+                    "wrap": true,
+                    "maxLines": 5
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "@{if(dialog.attendees != null,
+                        dialog.attendees,'No Attendee Specified')}",
+                    "wrap": true,
+                    "maxLines": 5
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "@{if(empty(dialog.CreateCalendarEntry_Location) != true,
+                        dialog.CreateCalendarEntry_Location,'dialog.CreateCalendarEntry_Location')}",
+                    "wrap": true,
+                    "maxLines": 5
+                }
+            ]
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.0"
+}
+]
+```
+
+
+# bfdactivity-001552
+- I’m ready to create the event. The event is on date at time start till time end, with {dialog.attendees}. The subject of the event is {dialog.CreateCalendarEntry_Subject}. The event will take place at {dialog.CreateCalendarEntry_Location}. The message is {dialog.CreateCalendarEntry_Content}. Can you confirm this event?
+
+
+# bfdactivity-793355
+- ```
+hahaha
+```
+
+
+# bfdactivity-069486
+- Okay, I have added the event to your calendar, named {dialog.CreateCalendarEntry_Subject}.
+
+
+# bfdactivity-928206
+- {turn.adjust}

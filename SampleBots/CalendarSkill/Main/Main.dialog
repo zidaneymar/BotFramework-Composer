@@ -1,0 +1,55 @@
+{
+  "$type": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "createdAt": "2019-09-16T01:52:57.042Z",
+    "updatedAt": "2019-09-16T02:06:41.695Z",
+    "id": "761416",
+    "name": "CalendarSkill"
+  },
+  "autoEndDialog": "true",
+  "defaultResultProperty": "dialog.result",
+  "recognizer": {
+    "$type": "Microsoft.RegexRecognizer",
+    "intents": [
+      {
+        "intent": "CreateMeeting",
+        "pattern": "(?i)(?:create) .*(?:meeting)(?: )?(?:named (?<title>.*))?"
+      }
+    ]
+  },
+  "generator": "common.lg",
+  "$schema": "../../app.schema",
+  "rules": [
+    {
+      "$type": "Microsoft.OnConversationUpdateActivity",
+      "$designer": {
+        "id": "376720"
+      },
+      "constraint": "toLower(turn.Activity.membersAdded[0].name) != 'bot'"
+    }
+  ],
+  "events": [
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "Handle an Intent",
+        "createdAt": "2019-09-16T02:06:50.945Z",
+        "updatedAt": "2019-09-16T02:06:59.867Z",
+        "id": "860795"
+      },
+      "intent": "CreateMeeting",
+      "actions": [
+        {
+          "$type": "Microsoft.BeginDialog",
+          "$designer": {
+            "name": "Begin a Dialog",
+            "id": "187768",
+            "updatedAt": "2019-09-16T04:48:04.300Z"
+          },
+          "id": "CreateMeeting",
+          "dialog": "CreateMeeting"
+        }
+      ]
+    }
+  ]
+}

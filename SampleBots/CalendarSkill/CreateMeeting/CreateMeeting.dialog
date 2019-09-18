@@ -1,0 +1,527 @@
+{
+  "$type": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "name": "CreateMeeting",
+    "createdAt": "2019-09-16T02:08:10.226Z",
+    "updatedAt": "2019-09-17T07:28:58.806Z",
+    "id": "244304"
+  },
+  "autoEndDialog": "true",
+  "defaultResultProperty": "dialog.result",
+  "events": [
+    {
+      "$type": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "OnBeginDialog",
+        "createdAt": "2019-09-16T02:12:15.784Z",
+        "updatedAt": "2019-09-16T02:12:33.783Z",
+        "id": "914006"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "name": "Set a Property",
+            "id": "733457",
+            "updatedAt": "2019-09-17T07:30:36.399Z"
+          },
+          "property": "dialog.CreateCalendarEntry_Subject",
+          "value": "@title"
+        },
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "name": "Set Attendees",
+            "id": "952488",
+            "updatedAt": "2019-09-17T09:10:16.516Z"
+          },
+          "prompt": "Sure, who will join?",
+          "unrecognizedPrompt": "Please input a valid email address.",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.attendees",
+          "alwaysPrompt": false,
+          "allowInterruptions": "always",
+          "outputFormat": "none"
+        },
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "name": "Input Subject",
+            "id": "193662",
+            "updatedAt": "2019-09-17T09:10:34.303Z"
+          },
+          "prompt": "Alright, I will send this to {dialog.attendees}. What is the subject of the event?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_Subject",
+          "alwaysPrompt": false,
+          "allowInterruptions": "always",
+          "outputFormat": "none"
+        },
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "name": "Set Content",
+            "id": "978399",
+            "updatedAt": "2019-09-17T09:10:49.278Z"
+          },
+          "prompt": "OK, please enter the content of your event.",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_Content",
+          "alwaysPrompt": false,
+          "allowInterruptions": "always",
+          "outputFormat": "none"
+        },
+        {
+          "$type": "Microsoft.DateTimeInput",
+          "$designer": {
+            "name": "Get date",
+            "id": "606573",
+            "updatedAt": "2019-09-18T01:20:54.792Z"
+          },
+          "prompt": "For what date?",
+          "unrecognizedPrompt": "Let's try again. For what date?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_FromDate",
+          "alwaysPrompt": false,
+          "allowInterruptions": "notRecognized",
+          "defaultLocale": "en-us"
+        },
+        {
+          "$type": "Microsoft.DateTimeInput",
+          "$designer": {
+            "name": "Get start time",
+            "id": "627794",
+            "updatedAt": "2019-09-18T01:21:07.927Z"
+          },
+          "id": "GetStartTime",
+          "prompt": "What time does it start? You can help me by naming out AM or PM for the event.",
+          "unrecognizedPrompt": "Let's try again, What time does it start?",
+          "invalidPrompt": "Please input something like 11:00pm.",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_FromTime",
+          "alwaysPrompt": false,
+          "allowInterruptions": "notRecognized",
+          "defaultLocale": "en-us"
+        },
+        {
+          "$type": "Microsoft.DateTimeInput",
+          "$designer": {
+            "name": "Type: Date",
+            "id": "688917",
+            "updatedAt": "2019-09-17T03:39:03.574Z"
+          },
+          "prompt": "For how long?",
+          "unrecognizedPrompt": "Let's try again For how long?",
+          "invalidPrompt": "Please input something like one hour.",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_ToTime",
+          "alwaysPrompt": false,
+          "allowInterruptions": "notRecognized",
+          "defaultLocale": "en-us"
+        },
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "name": "Get Location",
+            "id": "144249",
+            "updatedAt": "2019-09-17T09:11:18.156Z"
+          },
+          "prompt": "Where will the event take place?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_Location",
+          "alwaysPrompt": false,
+          "allowInterruptions": "always",
+          "outputFormat": "none"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "001552",
+            "updatedAt": "2019-09-17T04:16:56.429Z"
+          },
+          "activity": "[bfdactivity-001552]"
+        },
+        {
+          "$type": "Microsoft.ConfirmInput",
+          "$designer": {
+            "name": "Prompt for confirmation",
+            "id": "539233",
+            "updatedAt": "2019-09-17T09:13:17.183Z"
+          },
+          "prompt": "[ShowMeetingConfirmCard]",
+          "maxTurnCount": 2147483647,
+          "property": "turn.confirm_result",
+          "alwaysPrompt": false,
+          "allowInterruptions": "always",
+          "defaultLocale": "en-us",
+          "style": "Auto",
+          "choiceOptions": {
+            "inlineSeparator": ", ",
+            "inlineOr": " or ",
+            "inlineOrMore": ", or ",
+            "includeNumbers": true
+          }
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "name": "Branch: If/Else",
+            "id": "090579",
+            "updatedAt": "2019-09-17T06:37:29.939Z"
+          },
+          "condition": "turn.confirm_result=ture",
+          "actions": [
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "name": "Send an Activity",
+                "id": "069486",
+                "updatedAt": "2019-09-17T06:37:57.078Z"
+              },
+              "activity": "[bfdactivity-069486]"
+            }
+          ],
+          "elseActions": [
+            {
+              "$type": "Microsoft.ChoiceInput",
+              "$designer": {
+                "name": "Adjust slot dialog",
+                "id": "032702",
+                "updatedAt": "2019-09-17T07:22:21.044Z"
+              },
+              "prompt": "Sure, what would you like to adjust?",
+              "maxTurnCount": 2147483647,
+              "property": "turn.adjust",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "value",
+              "choices": [
+                {
+                  "value": "Time"
+                },
+                {
+                  "value": "Subject"
+                },
+                {
+                  "value": "Location"
+                },
+                {
+                  "value": "Attendees"
+                },
+                {
+                  "value": "Subject"
+                },
+                {
+                  "value": "Content"
+                }
+              ],
+              "appendChoices": "true",
+              "defaultLocale": "en-us",
+              "style": "Auto",
+              "choiceOptions": {
+                "inlineSeparator": ", ",
+                "inlineOr": " or ",
+                "inlineOrMore": ", or ",
+                "includeNumbers": true
+              },
+              "recognizerOptions": {
+                "noValue": false
+              }
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "name": "Send an Activity",
+                "id": "928206",
+                "updatedAt": "2019-09-17T06:43:02.696Z"
+              },
+              "activity": "[bfdactivity-928206]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "UpdateAttendees",
+        "createdAt": "2019-09-17T08:55:53.380Z",
+        "updatedAt": "2019-09-17T09:26:55.252Z",
+        "id": "661010"
+      },
+      "constraint": "turn.dialogevent.value.intents.SetAttendees.score > 0.6",
+      "actions": [
+        {
+          "$type": "Microsoft.DeleteProperty",
+          "$designer": {
+            "name": "Delete a Property",
+            "id": "728162",
+            "updatedAt": "2019-09-17T09:29:10.094Z"
+          },
+          "property": "dialog.attendees"
+        },
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "name": "Prompt for text",
+            "id": "680650",
+            "updatedAt": "2019-09-17T09:30:32.976Z"
+          },
+          "prompt": "OK, who do you want to join?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.attendees",
+          "alwaysPrompt": true,
+          "allowInterruptions": "notRecognized",
+          "outputFormat": "none"
+        }
+      ],
+      "intent": "SetAttendees"
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "UpdateSubject",
+        "createdAt": "2019-09-17T09:07:43.428Z",
+        "updatedAt": "2019-09-17T09:27:16.946Z",
+        "id": "961313"
+      },
+      "constraint": "turn.dialogevent.value.intents.SetSubject.score > 0.6",
+      "actions": [
+        {
+          "$type": "Microsoft.DeleteProperty",
+          "$designer": {
+            "name": "Delete a Property",
+            "id": "421242",
+            "updatedAt": "2019-09-17T09:28:42.691Z"
+          },
+          "property": "dialog.CreateCalendarEntry_Subject"
+        },
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "name": "Prompt for text",
+            "id": "525769",
+            "updatedAt": "2019-09-17T09:30:54.139Z"
+          },
+          "prompt": "What's the new subject?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_Subject",
+          "alwaysPrompt": true,
+          "allowInterruptions": "notRecognized",
+          "outputFormat": "none"
+        }
+      ],
+      "intent": "SetSubject"
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "UpdateContent",
+        "createdAt": "2019-09-17T10:18:57.656Z",
+        "updatedAt": "2019-09-17T10:19:35.747Z",
+        "id": "757968"
+      },
+      "constraint": "turn.dialogevent.value.intents.SetContent.score > 0.6",
+      "intent": "SetContent",
+      "actions": [
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "name": "Prompt for text",
+            "id": "569823",
+            "updatedAt": "2019-09-17T10:44:25.415Z"
+          },
+          "prompt": "What's the new meeting content?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_Content",
+          "alwaysPrompt": true,
+          "allowInterruptions": "notRecognized",
+          "outputFormat": "none"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "UpdateDate",
+        "createdAt": "2019-09-17T11:49:28.046Z",
+        "updatedAt": "2019-09-18T01:07:08.502Z",
+        "id": "848703"
+      },
+      "constraint": "turn.dialogevent.value.intents.SetDate.score > 0.6",
+      "intent": "SetDate",
+      "actions": [
+        {
+          "$type": "Microsoft.DeleteProperty",
+          "$designer": {
+            "name": "Delete a Property",
+            "id": "545963",
+            "updatedAt": "2019-09-18T02:08:08.294Z"
+          },
+          "property": "dialog.CreateCalendarEntry_FromDate"
+        },
+        {
+          "$type": "Microsoft.DateTimeInput",
+          "$designer": {
+            "name": "Type: Date",
+            "id": "525292",
+            "updatedAt": "2019-09-18T01:22:00.103Z"
+          },
+          "prompt": "Alright, for what date?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_FromDate",
+          "alwaysPrompt": true,
+          "allowInterruptions": "notRecognized",
+          "defaultLocale": "en-us"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "UdpateStartTime",
+        "createdAt": "2019-09-17T11:50:12.483Z",
+        "updatedAt": "2019-09-18T01:07:37.669Z",
+        "id": "636282"
+      },
+      "constraint": "turn.dialogevent.value.intents.SetStartTime.score > 0.6",
+      "intent": "SetStartTime",
+      "actions": [
+        {
+          "$type": "Microsoft.DeleteProperty",
+          "$designer": {
+            "name": "Delete a Property",
+            "id": "503591",
+            "updatedAt": "2019-09-18T02:06:50.019Z"
+          },
+          "property": "dialog.CreateCalendarEntry_FromTime"
+        },
+        {
+          "$type": "Microsoft.DateTimeInput",
+          "$designer": {
+            "name": "Type: Date",
+            "id": "775077",
+            "updatedAt": "2019-09-18T01:25:15.899Z"
+          },
+          "prompt": "What time does it start?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_FromTime",
+          "alwaysPrompt": true,
+          "allowInterruptions": "notRecognized",
+          "defaultLocale": "en-us"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "UpdateEndTime",
+        "createdAt": "2019-09-17T11:55:09.018Z",
+        "updatedAt": "2019-09-18T01:08:13.480Z",
+        "id": "773816"
+      },
+      "constraint": "turn.dialogevent.value.intents.SetEndTime.score > 0.6",
+      "intent": "SetEndTime",
+      "actions": [
+        {
+          "$type": "Microsoft.DeleteProperty",
+          "$designer": {
+            "name": "Delete a Property",
+            "id": "229522",
+            "updatedAt": "2019-09-18T02:06:05.169Z"
+          },
+          "property": "dialog.CreateCalendarEntry_ToTime"
+        },
+        {
+          "$type": "Microsoft.DateTimeInput",
+          "$designer": {
+            "name": "Type: Date",
+            "id": "082848",
+            "updatedAt": "2019-09-18T01:26:03.474Z"
+          },
+          "prompt": "So what's the end time?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_ToTime",
+          "alwaysPrompt": true,
+          "allowInterruptions": "notRecognized",
+          "defaultLocale": "en-us"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "UpdateDuration",
+        "createdAt": "2019-09-18T01:08:28.550Z",
+        "updatedAt": "2019-09-18T01:09:09.810Z",
+        "id": "510391"
+      },
+      "constraint": "turn.dialogevent.value.intents.SetDuration.score > 0.6",
+      "intent": "SetDuration",
+      "actions": [
+        {
+          "$type": "Microsoft.DeleteProperty",
+          "$designer": {
+            "name": "Delete a Property",
+            "id": "012691",
+            "updatedAt": "2019-09-18T02:05:40.230Z"
+          },
+          "property": "dialog.CreateCalendarEntry_Duration"
+        },
+        {
+          "$type": "Microsoft.DateTimeInput",
+          "$designer": {
+            "name": "Type: Date",
+            "id": "150742",
+            "updatedAt": "2019-09-18T01:26:48.610Z"
+          },
+          "prompt": "How long will the meeting last?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_Duration",
+          "alwaysPrompt": true,
+          "allowInterruptions": "notRecognized",
+          "defaultLocale": "en-us"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "UpdateLocation",
+        "createdAt": "2019-09-18T01:09:14.333Z",
+        "updatedAt": "2019-09-18T01:09:35.362Z",
+        "id": "309379"
+      },
+      "constraint": "turn.dialogevent.value.intents.SetLocation.score > 0.6",
+      "intent": "SetLocation",
+      "actions": [
+        {
+          "$type": "Microsoft.DeleteProperty",
+          "$designer": {
+            "name": "Delete a Property",
+            "id": "921900",
+            "updatedAt": "2019-09-18T02:01:12.505Z"
+          },
+          "property": "dialog.CreateCalendarEntry_Location"
+        },
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "name": "Prompt for text",
+            "id": "788625",
+            "updatedAt": "2019-09-18T01:27:56.757Z"
+          },
+          "prompt": "Where the meeting will be hosted?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.CreateCalendarEntry_Location",
+          "alwaysPrompt": true,
+          "allowInterruptions": "notRecognized",
+          "outputFormat": "none"
+        }
+      ]
+    }
+  ],
+  "$schema": "../../BotProject/CSharp/Schemas/app.schema",
+  "recognizer": "CreateMeeting.lu"
+}
