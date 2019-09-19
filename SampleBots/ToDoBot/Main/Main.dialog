@@ -1,192 +1,809 @@
 {
   "$type": "Microsoft.AdaptiveDialog",
   "$designer": {
-    "createdAt": "2019-07-04T08:14:01.139Z",
-    "updatedAt": "2019-08-01T23:45:38.308Z",
-    "id": "288769",
-    "description": "This is a bot that demonstrates how to manage a ToDo list using Regular Expressions."
+    "createdAt": "2019-09-01T18:02:48.882Z",
+    "updatedAt": "2019-09-09T16:20:06.980Z",
+    "id": "343716",
+    "description": "Talk to Clippy build a bot ",
+    "name": "Clippy"
   },
-  "autoEndDialog": false,
-  "recognizer": {
-    "$type": "Microsoft.RegexRecognizer",
-    "intents": [
-      {
-
-          "$type": "Microsoft.IntentPattern",
-          "intent": "AddIntent",
-          "pattern": "(?i)(?:add|create) .*(?:to-do|todo|task)(?: )?(?:named (?<title>.*))?" 
-      },
-      {
-
-          "$type": "Microsoft.IntentPattern",
-          "intent": "ClearIntent",
-          "pattern": "(?i)(?:delete|remove|clear) (?:all|every) (?:to-dos|todos|tasks)" 
-      },
-      {
-
-          "$type": "Microsoft.IntentPattern",
-          "intent": "DeleteIntent",
-          "pattern": "(?i)(?:delete|remove|clear) .*(?:to-do|todo|task)(?: )?(?:named (?<title>.*))?" 
-      },
-      {
-
-          "$type": "Microsoft.IntentPattern",
-          "intent": "ShowIntent",
-          "pattern": "(?i)(?:show|see|view) .*(?:to-do|todo|task)" 
-      },
-      {
-
-          "$type": "Microsoft.IntentPattern",
-          "intent": "HelpIntent",
-          "pattern": "(?i)help" 
-      },
-      {
-
-          "$type": "Microsoft.IntentPattern",
-          "intent": "CancelIntent",
-          "pattern": "(?i)cancel|never mind"
-      }
-  ]
-  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "recognizer": "Main.lu",
   "generator": "common.lg",
+  "rules": [
+    {
+      "$type": "Microsoft.ConversationUpdateActivityRule",
+      "$designer": {
+        "id": "376720",
+        "name": "Welcome message",
+        "updatedAt": "2019-09-08T17:13:04.132Z"
+      },
+      "constraint": "toLower(turn.Activity.membersAdded[0].name) != 'bot'",
+      "steps": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "736596",
+            "updatedAt": "2019-09-06T22:15:16.300Z"
+          },
+          "activity": "[bfdactivity-736596]"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "871922",
+            "updatedAt": "2019-09-08T22:25:23.083Z"
+          },
+          "activity": "[bfdactivity-871922]"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.IntentRule",
+      "$designer": {
+        "name": "Chitchat",
+        "id": "547536",
+        "updatedAt": "2019-09-08T17:12:20.454Z"
+      },
+      "steps": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "407729",
+            "updatedAt": "2019-09-01T20:01:22.968Z"
+          },
+          "activity": "[bfdactivity-407729]"
+        }
+      ],
+      "intent": "chitchat"
+    },
+    {
+      "$type": "Microsoft.UnknownIntentRule",
+      "$designer": {
+        "name": "Unknown Intent",
+        "id": "506475",
+        "updatedAt": "2019-09-08T17:12:25.087Z"
+      },
+      "steps": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "189258",
+            "updatedAt": "2019-09-08T17:15:45.206Z"
+          },
+          "activity": "[bfdactivity-189258]"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.IntentRule",
+      "$designer": {
+        "name": "showAnswers",
+        "id": "387871",
+        "updatedAt": "2019-09-08T17:12:32.790Z"
+      },
+      "steps": [
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "name": "Prompt for text",
+            "id": "058755",
+            "updatedAt": "2019-09-08T23:09:37.550Z"
+          },
+          "outputFormat": "none",
+          "allowInterruptions": "never",
+          "property": "user.queryTerm",
+          "prompt": "What do you want to learn?",
+          "unrecognizedPrompt": "Let's try again. What is it that you don't understand?",
+          "invalidPrompt": "Sorry. What is it that you don't understand?",
+          "maxTurnCount": 2147483647,
+          "value": "@queryTerm",
+          "alwaysPrompt": false
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "463346",
+            "updatedAt": "2019-09-01T20:51:08.756Z"
+          },
+          "activity": "[bfdactivity-463346]"
+        }
+      ],
+      "intent": "showAnswers"
+    },
+    {
+      "$type": "Microsoft.IntentRule",
+      "$designer": {
+        "name": "showBubbles",
+        "id": "120541",
+        "updatedAt": "2019-09-08T17:12:37.855Z"
+      },
+      "steps": [
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "name": "Prompt for text",
+            "id": "315258",
+            "updatedAt": "2019-09-08T17:55:30.453Z"
+          },
+          "outputFormat": "none",
+          "allowInterruptions": "never",
+          "property": "user.queryHowTo",
+          "prompt": "What do you want to learn?",
+          "unrecognizedPrompt": "Let's try again. What do you want to learn?",
+          "invalidPrompt": "Sorry I didn't get that. You can say things like: show me how to add an intent",
+          "maxTurnCount": 2147483647,
+          "value": "@queryHowTo",
+          "alwaysPrompt": false
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "198633",
+            "updatedAt": "2019-09-06T22:19:59.976Z"
+          },
+          "activity": "[bfdactivity-198633]"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "508455",
+            "updatedAt": "2019-09-08T23:21:25.740Z"
+          },
+          "activity": "[bfdactivity-508455]"
+        },
+        {
+          "$type": "Microsoft.ChoiceInput",
+          "$designer": {
+            "name": "Prompt with multi-choice",
+            "id": "306296",
+            "updatedAt": "2019-09-09T00:15:40.864Z"
+          },
+          "property": "user.showSteps",
+          "prompt": "Do you want to see steps in Composer?",
+          "maxTurnCount": 2147483647,
+          "alwaysPrompt": false,
+          "allowInterruptions": "never",
+          "outputFormat": "index",
+          "choices": [
+            {
+              "value": "Show me how in Composer"
+            },
+            {
+              "value": "No. I'm good"
+            }
+          ],
+          "appendChoices": "true",
+          "defaultLocale": "en-us",
+          "style": "SuggestedAction",
+          "choiceOptions": {
+            "inlineSeparator": ", ",
+            "inlineOr": " or ",
+            "inlineOrMore": ", or ",
+            "includeNumbers": true
+          },
+          "recognizerOptions": {
+            "noValue": false
+          }
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "name": "Branch: If/Else",
+            "id": "406011",
+            "updatedAt": "2019-09-09T00:15:46.772Z"
+          },
+          "condition": "user.showSteps == 0",
+          "steps": [
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "name": "Send an Activity",
+                "id": "242478",
+                "updatedAt": "2019-09-09T00:16:06.811Z"
+              },
+              "activity": "[bfdactivity-242478]"
+            }
+          ],
+          "elseSteps": [
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "name": "Send an Activity",
+                "id": "863374",
+                "updatedAt": "2019-09-09T01:04:36.166Z"
+              },
+              "activity": "[bfdactivity-863374]"
+            }
+          ]
+        }
+      ],
+      "intent": "showBubbles"
+    },
+    {
+      "$type": "Microsoft.IntentRule",
+      "$designer": {
+        "name": "addAction",
+        "id": "837206",
+        "updatedAt": "2019-09-08T17:12:43.151Z"
+      },
+      "intent": "addAction",
+      "steps": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "434806",
+            "updatedAt": "2019-09-08T18:04:14.941Z"
+          },
+          "activity": "[bfdactivity-434806]"
+        },
+        {
+          "$type": "Microsoft.BeginDialog",
+          "$designer": {
+            "name": "Begin a Dialog",
+            "id": "674683",
+            "updatedAt": "2019-09-08T18:22:40.498Z"
+          },
+          "dialog": "addAction"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.IntentRule",
+      "$designer": {
+        "name": "showLinks",
+        "id": "984552",
+        "updatedAt": "2019-09-08T17:12:47.918Z"
+      },
+      "intent": "showLinks",
+      "steps": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "239840",
+            "updatedAt": "2019-09-08T21:09:23.375Z"
+          },
+          "activity": "[bfdactivity-239840]"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.IntentRule",
+      "$designer": {
+        "name": "Greeting",
+        "id": "869777",
+        "updatedAt": "2019-09-08T23:08:05.467Z"
+      },
+      "intent": "greeting",
+      "steps": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "397383",
+            "updatedAt": "2019-09-08T23:08:13.083Z"
+          },
+          "activity": "[bfdactivity-397383]"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "400393",
+            "updatedAt": "2019-09-08T23:08:20.634Z"
+          },
+          "activity": "[bfdactivity-400393]"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.IntentRule",
+      "$designer": {
+        "name": "LG",
+        "id": "416560",
+        "updatedAt": "2019-09-09T04:22:12.490Z"
+      },
+      "steps": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "956253",
+            "updatedAt": "2019-09-09T04:21:43.512Z"
+          },
+          "activity": "[bfdactivity-956253]"
+        }
+      ],
+      "intent": "LG"
+    },
+    {
+      "$type": "Microsoft.IntentRule",
+      "$designer": {
+        "name": "LU",
+        "id": "975893",
+        "updatedAt": "2019-09-09T04:30:17.171Z"
+      },
+      "intent": "LU",
+      "steps": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "460872",
+            "updatedAt": "2019-09-09T04:30:26.350Z"
+          },
+          "activity": "[bfdactivity-460872]"
+        }
+      ]
+    }
+  ],
+  "$schema": "../../app.schema",
   "events": [
     {
       "$type": "Microsoft.OnConversationUpdateActivity",
       "$designer": {
-        "createdAt": "2019-07-01T22:02:14.960Z",
-        "updatedAt": "2019-07-16T20:00:24.788Z",
-        "id": "376720"
+        "name": "Welcome",
+        "id": "110483",
+        "updatedAt": "2019-09-09T16:20:57.305Z"
       },
       "constraint": "toLower(turn.Activity.membersAdded[0].name) != 'bot'",
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
           "$designer": {
-            "createdAt": "2019-08-02T22:18:56.943Z",
-            "updatedAt": "2019-08-02T22:36:20.947Z",
-            "id": "157674"
+            "createdAt": "2019-09-11T07:18:03.527Z",
+            "updatedAt": "2019-09-11T07:18:04.883Z",
+            "id": "078223"
           },
-          "activity": "[bfdactivity-157674]"
-        }
-      ]
-    },
-    {
-      "$type": "Microsoft.OnIntent",
-      "$designer": {
-        "createdAt": "2019-07-16T19:59:32.772Z",
-        "updatedAt": "2019-07-16T19:59:36.277Z",
-        "id": "064505"
-      },
-      "actions": [
-        {
-          "$type": "Microsoft.BeginDialog",
-          "dialog": "AddToDo"
-        }
-      ],
-      "intent": "AddIntent"
-    },
-    {
-      "$type": "Microsoft.OnIntent",
-      "$designer": {
-        "createdAt": "2019-07-16T19:59:37.184Z",
-        "updatedAt": "2019-08-01T23:46:50.759Z",
-        "id": "114961"
-      },
-      "actions": [
-        {
-          "$type": "Microsoft.BeginDialog",
-          "dialog": "DeleteToDo",
-          "$designer": {
-            "createdAt": "2019-08-01T23:47:15.255Z",
-            "updatedAt": "2019-08-01T23:47:15.258Z",
-            "id": "978613"
-          }
-        }
-      ],
-      "intent": "DeleteIntent"
-    },
-    {
-      "$type": "Microsoft.OnIntent",
-      "$designer": {
-        "createdAt": "2019-07-16T19:59:41.352Z",
-        "updatedAt": "2019-07-16T19:59:44.427Z",
-        "id": "088050"
-      },
-      "actions": [
-        {
-          "$type": "Microsoft.BeginDialog",
-          "dialog": "ClearToDos"
-        }
-      ],
-      "intent": "ClearIntent"
-    },
-    {
-      "$type": "Microsoft.OnIntent",
-      "$designer": {
-        "createdAt": "2019-07-16T19:59:50.315Z",
-        "updatedAt": "2019-07-16T19:59:54.774Z",
-        "id": "633942"
-      },
-      "actions": [
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "createdAt": "2019-08-01T23:44:56.704Z",
-            "updatedAt": "2019-08-01T23:44:57.629Z",
-            "id": "696707"
-          },
-          "activity": "[bfdactivity-696707]"
-        }
-      ],
-      "intent": "HelpIntent"
-    },
-    {
-      "$type": "Microsoft.OnIntent",
-      "$designer": {
-        "createdAt": "2019-07-16T20:00:00.082Z",
-        "updatedAt": "2019-07-16T20:00:03.344Z",
-        "id": "794124"
-      },
-      "actions": [
-        {
-          "$type": "Microsoft.BeginDialog",
-          "dialog": "ShowToDos"
-        }
-      ],
-      "intent": "ShowIntent"
-    },
-    {
-      "$type": "Microsoft.OnIntent",
-      "$designer": {
-        "createdAt": "2019-07-16T20:00:08.499Z",
-        "updatedAt": "2019-07-16T20:00:12.504Z",
-        "id": "179728"
-      },
-      "actions": [
-        {
-          "$type": "Microsoft.SendActivity",
-          "activity": "ok."
+          "activity": "[bfdactivity-078223]"
         },
         {
-          "$type": "Microsoft.EndDialog"
+          "$type": "Microsoft.TextInput",
+          "prompt": "hello",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.usename",
+          "alwaysPrompt": false,
+          "allowInterruptions": "notRecognized",
+          "outputFormat": "none",
+          "$designer": {
+            "createdAt": "2019-09-11T07:12:35.741Z",
+            "updatedAt": "2019-09-11T07:12:35.759Z",
+            "id": "947385"
+          }
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "createdAt": "2019-09-11T07:11:58.028Z",
+            "updatedAt": "2019-09-11T07:11:59.174Z",
+            "id": "023100"
+          },
+          "activity": "[bfdactivity-023100]"
+        },
+        {
+          "$type": "Microsoft.Foreach",
+          "$designer": {
+            "name": "Loop: For Each",
+            "id": "957360",
+            "updatedAt": "2019-09-09T20:28:17.560Z"
+          },
+          "listProperty": "turn.activity.membersAdded",
+          "indexProperty": "dialog.index",
+          "valueProperty": "turn.memberAdded",
+          "actions": [
+            {
+              "$type": "Microsoft.IfCondition",
+              "$designer": {
+                "name": "Branch: If/Else",
+                "id": "170158",
+                "updatedAt": "2019-09-09T20:28:37.005Z"
+              },
+              "condition": "turn.memberAdded.name != turn.activity.recipient.name",
+              "actions": [
+                {
+                  "$type": "Microsoft.SendActivity",
+                  "$designer": {
+                    "name": "Send an Activity",
+                    "id": "272059",
+                    "updatedAt": "2019-09-09T17:02:50.394Z"
+                  },
+                  "activity": "[bfdactivity-272059]"
+                },
+                {
+                  "$type": "Microsoft.SendActivity",
+                  "$designer": {
+                    "name": "Send an Activity",
+                    "id": "673569",
+                    "updatedAt": "2019-09-09T16:21:02.227Z"
+                  },
+                  "activity": "[bfdactivity-673569]"
+                }
+              ]
+            }
+          ]
         }
-      ],
-      "intent": "CancelIntent"
+      ]
     },
     {
-      "$type": "Microsoft.OnUnknownIntent",
+      "$type": "Microsoft.OnIntent",
       "$designer": {
-        "createdAt": "2019-07-16T20:00:13.577Z",
-        "updatedAt": "2019-07-16T20:00:19.435Z",
-        "id": "677447"
+        "name": "ShowAnswers",
+        "id": "487250",
+        "updatedAt": "2019-09-09T16:25:35.582Z"
+      },
+      "intent": "showAnswers",
+      "actions": [
+        {
+          "$type": "Microsoft.TextInput",
+          "$designer": {
+            "name": "Prompt for text",
+            "id": "013250",
+            "updatedAt": "2019-09-09T16:35:42.274Z"
+          },
+          "prompt": "What do you want to learn?",
+          "maxTurnCount": 2147483647,
+          "property": "user.queryTerm",
+          "alwaysPrompt": false,
+          "allowInterruptions": "notRecognized",
+          "outputFormat": "none",
+          "value": "@queryTerm"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "982147",
+            "updatedAt": "2019-09-09T16:26:04.573Z"
+          },
+          "activity": "[bfdactivity-982147]"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "ShowBubbles",
+        "id": "990103",
+        "updatedAt": "2019-09-09T17:06:27.623Z"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.ChoiceInput",
+          "$designer": {
+            "name": "Prompt with multi-choice",
+            "id": "382016",
+            "updatedAt": "2019-09-11T06:54:12.643Z"
+          },
+          "prompt": "Pick a topic",
+          "maxTurnCount": 2147483647,
+          "property": "user.topic",
+          "alwaysPrompt": false,
+          "allowInterruptions": "notRecognized",
+          "outputFormat": "value",
+          "choices": [
+            {
+              "value": "Concepts"
+            },
+            {
+              "value": "Editors"
+            },
+            {
+              "value": "Add new capability"
+            }
+          ],
+          "appendChoices": "true",
+          "defaultLocale": "en-us",
+          "style": "SuggestedAction",
+          "choiceOptions": {
+            "inlineSeparator": ", ",
+            "inlineOr": " or ",
+            "inlineOrMore": ", or ",
+            "includeNumbers": true
+          },
+          "recognizerOptions": {
+            "noValue": false
+          }
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "134184",
+            "updatedAt": "2019-09-10T06:06:22.167Z"
+          },
+          "activity": "[bfdactivity-134184]"
+        }
+      ],
+      "intent": "showBubbles"
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "LG",
+        "id": "544262",
+        "updatedAt": "2019-09-09T16:36:23.290Z"
+      },
+      "intent": "LG",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "046065",
+            "updatedAt": "2019-09-09T16:36:30.371Z"
+          },
+          "activity": "[bfdactivity-046065]"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "LU",
+        "id": "063133",
+        "updatedAt": "2019-09-09T16:36:47.684Z"
+      },
+      "intent": "LU",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "255695",
+            "updatedAt": "2019-09-09T16:36:54.087Z"
+          },
+          "activity": "[bfdactivity-255695]"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "AddAction",
+        "id": "858440",
+        "updatedAt": "2019-09-09T17:04:08.681Z"
+      },
+      "intent": "addAction",
+      "actions": [
+        {
+          "$type": "Microsoft.ChoiceInput",
+          "$designer": {
+            "name": "ActionType",
+            "id": "028312",
+            "updatedAt": "2019-09-10T05:50:04.459Z"
+          },
+          "prompt": "Action type?",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.actionType",
+          "alwaysPrompt": false,
+          "allowInterruptions": "notRecognized",
+          "outputFormat": "index",
+          "choices": [
+            {
+              "value": "Send a message"
+            },
+            {
+              "value": "Ask a question"
+            }
+          ],
+          "appendChoices": "true",
+          "defaultLocale": "en-us",
+          "style": "SuggestedAction",
+          "choiceOptions": {
+            "inlineSeparator": ", ",
+            "inlineOr": " or ",
+            "inlineOrMore": ", or ",
+            "includeNumbers": true
+          },
+          "recognizerOptions": {
+            "noValue": false
+          }
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "name": "Branch: If/Else",
+            "id": "221296",
+            "updatedAt": "2019-09-10T05:50:21.073Z"
+          },
+          "condition": "dialog.actionType ==0",
+          "actions": [
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "name": "Prompt for text",
+                "id": "823012",
+                "updatedAt": "2019-09-10T05:50:40.769Z"
+              },
+              "prompt": "What message? ",
+              "maxTurnCount": 2147483647,
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "none",
+              "property": "dialog.messageContent"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "name": "Send an Activity",
+                "id": "213447",
+                "updatedAt": "2019-09-10T05:51:00.961Z"
+              },
+              "activity": "[bfdactivity-213447]"
+            }
+          ],
+          "elseActions": [
+            {
+              "$type": "Microsoft.ChoiceInput",
+              "$designer": {
+                "name": "Prompt with multi-choice",
+                "id": "215982",
+                "updatedAt": "2019-09-10T05:56:17.590Z"
+              },
+              "prompt": "Do you expect the answer to be text or a number?",
+              "maxTurnCount": 2147483647,
+              "property": "dialog.promptType",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "value",
+              "choices": [
+                {
+                  "value": "Text"
+                },
+                {
+                  "value": "Number"
+                }
+              ],
+              "appendChoices": "true",
+              "defaultLocale": "en-us",
+              "style": "Auto",
+              "choiceOptions": {
+                "inlineSeparator": ", ",
+                "inlineOr": " or ",
+                "inlineOrMore": ", or ",
+                "includeNumbers": true
+              },
+              "recognizerOptions": {
+                "noValue": false
+              }
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "name": "Prompt for text",
+                "id": "255028",
+                "updatedAt": "2019-09-10T05:58:05.833Z"
+              },
+              "prompt": "Prompt message?",
+              "maxTurnCount": 2147483647,
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "none",
+              "property": "dialog.initialPrompt"
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "name": "Prompt for text",
+                "id": "155348",
+                "updatedAt": "2019-09-10T06:08:39.446Z"
+              },
+              "prompt": "Where to save the answer? Tell me a property name.",
+              "maxTurnCount": 2147483647,
+              "property": "dialog.Property",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "none"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "name": "Send an Activity",
+                "id": "637217",
+                "updatedAt": "2019-09-10T05:59:13.764Z"
+              },
+              "activity": "[bfdactivity-637217]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "ProductTour",
+        "id": "689214",
+        "updatedAt": "2019-09-11T06:39:11.241Z"
+      },
+      "intent": "productTour",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "498772",
+            "updatedAt": "2019-09-11T06:39:35.647Z"
+          },
+          "activity": "[bfdactivity-498772]"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "552055",
+            "updatedAt": "2019-09-11T06:40:11.981Z"
+          },
+          "activity": "[bfdactivity-552055]"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "LearnEditor",
+        "id": "697021",
+        "updatedAt": "2019-09-11T06:45:26.579Z"
       },
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
-          "activity": "Hi! I'm a ToDo bot. Say \"add a todo named first\" to get started."
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "243093",
+            "updatedAt": "2019-09-11T06:44:14.018Z"
+          },
+          "activity": "[bfdactivity-243093]"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "019822",
+            "updatedAt": "2019-09-11T06:44:53.725Z"
+          },
+          "activity": "[bfdactivity-019822]"
         }
-      ]
+      ],
+      "intent": "learnEditors"
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "AddNewTrigger",
+        "id": "699907",
+        "updatedAt": "2019-09-11T06:48:18.930Z"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "998972",
+            "updatedAt": "2019-09-11T06:47:53.811Z"
+          },
+          "activity": "[bfdactivity-998972]"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "073077",
+            "updatedAt": "2019-09-11T06:48:00.975Z"
+          },
+          "activity": "[bfdactivity-073077]"
+        }
+      ],
+      "intent": "addTrigger"
     }
-  ],
-  "$schema": "../../app.schema"
+  ]
 }

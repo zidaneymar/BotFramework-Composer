@@ -19,7 +19,7 @@ const AboutComposer = createMyTour();
 AboutComposer.addSteps([
   {
     id: 'AboutComposer-01',
-    text: 'Here is the Flow editor, your can create an edit your bot logic here.',
+    text: 'Here is the Flow editor, your can create and edit your bot logic here.',
     attachTo: {
       element: '#AboutComposer-DesignFlow',
       on: 'right',
@@ -33,7 +33,7 @@ AboutComposer.addSteps([
   },
   {
     id: 'AboutComposer-02',
-    text: 'Here is the LG editor, you can manage what your bot says here.',
+    text: 'Here is the LG editor, you can manage what bot says here.',
     attachTo: {
       element: '#AboutComposer-BotSays',
       on: 'right',
@@ -52,7 +52,7 @@ AboutComposer.addSteps([
   {
     id: 'AboutComposer-03',
     text:
-      "Here is the LU editor, you can manage how your bot recoganize user inputs and extract intents. Basically, it's managed by LUIS.",
+      'Here is the LU editor, you can manage what user says here (intents and example phrases). It is managed by LUIS.',
     attachTo: {
       element: '#AboutComposer-UserSays',
       on: 'right',
@@ -70,7 +70,7 @@ AboutComposer.addSteps([
   },
   {
     id: 'AboutComposer-04',
-    text: 'Here is your setting page. You can manage your composer settings here. Such as LUIS token, App Id.',
+    text: 'Here is the setting page. You can manage your composer settings such as LUIS token, App Id, etc.',
     attachTo: {
       element: '#AboutComposer-Settings',
       on: 'right',
@@ -93,7 +93,7 @@ AboutDialogEditor.addSteps([
   {
     id: 'AboutDialogEditor-01',
     text:
-      'Here is your project tree. It contains all your dialog files. Basically, each dialog file should contain a complete dialog. Inside a dialog, there will be some events and actions.',
+      'Here is your project tree. It contains all your dialog files. A dialog often represents a piece of the bot functionality. Inside a dialog, there are often triggers and actions.',
     attachTo: {
       element: '#ProjectTree',
       on: 'right',
@@ -107,7 +107,7 @@ AboutDialogEditor.addSteps([
   },
   {
     id: 'AboutDialogEditor-02',
-    text: 'Here is the Visual Edior. In Visual Editor, you can edit your dialog step flow visually.',
+    text: 'Here is the visual edior where you edit dialog flow and actions.',
     attachTo: {
       element: '#VisualEditorIframe',
       on: 'right',
@@ -125,7 +125,7 @@ AboutDialogEditor.addSteps([
   },
   {
     id: 'AboutDialogEditor-03',
-    text: 'Here is the Form Editor. In Form Editor, you can do more detailed editing on the element your selected.',
+    text: 'Here is the form editor where you do more detailed editing on the selected node.',
     attachTo: {
       element: '#FormEditorIframe',
       on: 'right',
@@ -148,7 +148,7 @@ AddNewTrigger.addSteps([
   {
     id: 'AddNewTrigger-01',
     text:
-      "Firstly, you need to click the 'Add New Trigger' button to create a trigger. A trigger is where your dialog actions live in. Let's create an 'ConversationUpdate' trigger.",
+      "First, click '+ New Trigger' button to create a trigger. A trigger is where your dialog actions live in. Let's create an 'ConversationUpdate' trigger.",
     attachTo: {
       element: '#AddNewTriggerBtn',
       on: 'right',

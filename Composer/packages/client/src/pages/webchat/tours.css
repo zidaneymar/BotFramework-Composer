@@ -13,8 +13,9 @@
 
 .shepherd-text {
   color: white;
-  font-size: 20px;
-  padding: 0 20px;
+  font-size: 16px;
+  padding: 0 16px;
+  text-align: left;
 }
 
 .shepherd-cancel-icon {
@@ -24,7 +25,7 @@
 .shepherd-footer {
   display: 'flex';
   justify-content: space-between;
-  padding: 20px 30px;
+  padding: 16px 16px;
 }
 
 .shepherd-button {

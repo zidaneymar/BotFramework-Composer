@@ -5,19 +5,21 @@
 - What is {queryTerm=trigger}
 - What is the meaning of {queryTerm=trigger}
 - What is {queryTerm=dialog}
+- What is a {queryTerm=dialog}
+- What is an {queryTerm=intent}
 - What is the meaning of {queryTerm=dialog}
 - What is {queryTerm=intent}
 - What is the meaning of {queryTerm=intent}
 - What is a {queryTerm=trigger}
-- What is a {queryTerm=dialog}
-- What is an {queryTerm=intent} 
-
+ 
 # LG
 - What is Language Generation
+- Tell me what is LG
+- Tell me  how to write LG file
+- Tell me how to write LG
+- LG format
 - What is LG
 - How to write LG file
-- How to write LG
-- LG format
 
 # LU
 - What is Language Understanding
@@ -25,20 +27,46 @@
 - What is LU
 
 # showBubbles
-- How to {queryHowTo=add a trigger}
-- How to {queryHowTo= add an intent}
-- Where to {queryHowTo=add a trigger}
-- Where to {queryHowTo= add an intent}
-- Show me how to {queryHowTo= add a function}
-- Show me how to {queryHowTo= add a function to my bot}
-- How to {queryHowTo=add a welcome message}
-- Show me how to {queryHowTo = add a welcome message}
+- Learn the basics
+- Learn about Composer
+- Tell me about Composer
+- Give me a product tour
+- Explore Composer
+- Product tour
+
+
+# learnEditors
+- Show me trigger
+- Show me {showItem=what I can do in Composer}
+- Show me {showItem=what I can do}
+- Show me where to {showItem=find triggers}
+- Show me where to {showItem=edit actions}
+- Show me where to {showItem=add actions}
+- Show me where to {showItem=edit prompts}
+- Show me where to {showItem=edit action details}
+- Show me where to {showItem=edit LG templates}
+- Show me where to {showItem=view all bot responses}
+- Show me where to {showItem=view all intrents}
+
+# addTrigger
+- How to add a trigger
+- How to add a function
+- How to add a capability
+- How to add new functionality to my bot
+- How to add new functions to my bot
+- How to add new triggers to my bot
+
+# addWelcomeMsg
+- How to add welcome message
+- How to add welcome message to my bot
 
 # addAction
 - Add an action
 - Add a step
 - Help me add an action
 - Help me add a step
+- Add an action for me
+- Add a step for me
 
 # chitchat
 - What can you do?
@@ -46,8 +74,12 @@
 - Who build you?
 - Back to home
 - Main menu
-
-# greeting
 - Hi
 - Hello
-- Good morning
+- Hey
+- Back
+
+# contactSupport
+- Support
+- Get support
+- Contact support

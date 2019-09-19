@@ -2,11 +2,12 @@
   "$type": "Microsoft.AdaptiveDialog",
   "$designer": {
     "createdAt": "2019-07-08T07:49:23.113Z",
-    "updatedAt": "2019-07-08T08:30:26.486Z",
+    "updatedAt": "2019-09-11T06:07:09.770Z",
     "id": "899494",
     "description": "ReminderBot"
   },
   "autoEndDialog": false,
+  "defaultResultProperty": "dialog.result",
   "recognizer": "Main.lu",
   "generator": "common.lg",
   "events": [
