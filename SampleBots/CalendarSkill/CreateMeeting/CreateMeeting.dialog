@@ -33,11 +33,12 @@
           "$designer": {
             "name": "Set Attendees",
             "id": "952488",
-            "updatedAt": "2019-09-17T09:10:16.516Z"
+            "updatedAt": "2019-09-20T06:14:17.659Z"
           },
           "prompt": "Sure, who will join?",
           "unrecognizedPrompt": "Please input a valid email address.",
           "maxTurnCount": 2147483647,
+          "value": "dialog.attendees",
           "property": "dialog.attendees",
           "alwaysPrompt": false,
           "allowInterruptions": "always",
@@ -168,9 +169,9 @@
           "$designer": {
             "name": "Branch: If/Else",
             "id": "090579",
-            "updatedAt": "2019-09-17T06:37:29.939Z"
+            "updatedAt": "2019-09-20T03:59:23.770Z"
           },
-          "condition": "turn.confirm_result=ture",
+          "condition": "turn.confirm_result==ture",
           "actions": [
             {
               "$type": "Microsoft.SendActivity",
@@ -518,6 +519,77 @@
           "alwaysPrompt": true,
           "allowInterruptions": "notRecognized",
           "outputFormat": "none"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "name": "GetInput",
+        "createdAt": "2019-09-19T06:59:09.622Z",
+        "updatedAt": "2019-09-19T07:00:01.579Z",
+        "id": "317576"
+      },
+      "intent": "GetInput",
+      "actions": [
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "name": "Set a Property",
+            "id": "478114",
+            "updatedAt": "2019-09-19T10:29:52.084Z"
+          },
+          "property": "dialog.CreateCalendarEntry_FromTime",
+          "value": "@FromTime"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "name": "Set a Property",
+            "id": "133531",
+            "updatedAt": "2019-09-19T10:32:03.202Z"
+          },
+          "property": "dialog.CreateCalendarEntry_ToTime",
+          "value": "@ToTime"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "name": "Set a Property",
+            "id": "642252",
+            "updatedAt": "2019-09-19T10:32:25.643Z"
+          },
+          "property": "dialog.CreateCalendarEntry_Location",
+          "value": "@Location"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "name": "Set a Property",
+            "id": "990153",
+            "updatedAt": "2019-09-19T10:39:22.931Z"
+          },
+          "property": "dialog.CreateCalendarEntry_Subject",
+          "value": "@Subject"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "name": "Set a Property",
+            "id": "699421",
+            "updatedAt": "2019-09-19T10:40:17.796Z"
+          },
+          "property": "dialog.attendees",
+          "value": "@personName"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "name": "Send an Activity",
+            "id": "432643",
+            "updatedAt": "2019-09-19T10:48:02.076Z"
+          },
+          "activity": "[bfdactivity-432643]"
         }
       ]
     }
