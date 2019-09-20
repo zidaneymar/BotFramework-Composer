@@ -32,12 +32,11 @@
     {
       "$type": "Microsoft.OnIntent",
       "$designer": {
-        "name": "Handle an Intent",
+        "name": "Create a meeting",
         "createdAt": "2019-09-16T02:06:50.945Z",
-        "updatedAt": "2019-09-16T02:06:59.867Z",
+        "updatedAt": "2019-09-20T04:25:47.283Z",
         "id": "860795"
       },
-      "intent": "CreateMeeting",
       "actions": [
         {
           "$type": "Microsoft.BeginDialog",
@@ -49,7 +48,8 @@
           "id": "CreateMeeting",
           "dialog": "CreateMeeting"
         }
-      ]
+      ],
+      "intent": "CreateMeeting"
     }
   ]
 }

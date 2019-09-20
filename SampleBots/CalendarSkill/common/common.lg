@@ -86,3 +86,18 @@ hahaha
 
 # bfdactivity-928206
 - {turn.adjust}
+
+
+# bfdactivity-432643
+-IF:{@FromTime}
+  - The meeting start time is {@FromTime}.
+-ELSEIF:{@ToTime}
+  - The meeting end time is {@ToTime}.
+-ELSEIF:{@Location}
+  - The meeting location is {@Location}.
+-ELSEIF:{@Subject}
+  - The meeting title is {@Subject}.
+-ELSEIF:{@PersonName}
+  - The meeting attendee is {@PersonName}.
+-ELSE:
+  - OK.
