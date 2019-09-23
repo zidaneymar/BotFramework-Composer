@@ -148,7 +148,7 @@
           "$designer": {
             "name": "Prompt for confirmation",
             "id": "539233",
-            "updatedAt": "2019-09-17T09:13:17.183Z"
+            "updatedAt": "2019-09-20T09:38:09.458Z"
           },
           "prompt": "[ShowMeetingConfirmCard]",
           "maxTurnCount": 2147483647,

@@ -2,39 +2,21 @@
   "$type": "Microsoft.AdaptiveDialog",
   "$designer": {
     "createdAt": "2019-09-16T01:52:57.042Z",
-    "updatedAt": "2019-09-16T02:06:41.695Z",
+    "updatedAt": "2019-09-20T09:28:35.409Z",
     "id": "761416",
     "name": "CalendarSkill"
   },
   "autoEndDialog": "true",
   "defaultResultProperty": "dialog.result",
-  "recognizer": {
-    "$type": "Microsoft.RegexRecognizer",
-    "intents": [
-      {
-        "intent": "CreateMeeting",
-        "pattern": "(?i)(?:create) .*(?:meeting)(?: )?(?:named (?<title>.*))?"
-      }
-    ]
-  },
+  "recognizer": "Main.lu",
   "generator": "common.lg",
-  "$schema": "../../app.schema",
-  "rules": [
-    {
-      "$type": "Microsoft.OnConversationUpdateActivity",
-      "$designer": {
-        "id": "376720"
-      },
-      "constraint": "toLower(turn.Activity.membersAdded[0].name) != 'bot'"
-    }
-  ],
   "events": [
     {
       "$type": "Microsoft.OnIntent",
       "$designer": {
         "name": "Create a meeting",
         "createdAt": "2019-09-16T02:06:50.945Z",
-        "updatedAt": "2019-09-20T04:25:47.283Z",
+        "updatedAt": "2019-09-20T09:31:49.344Z",
         "id": "860795"
       },
       "actions": [
@@ -49,7 +31,36 @@
           "dialog": "CreateMeeting"
         }
       ],
-      "intent": "CreateMeeting"
+      "intent": "CreateCalendarEntry"
+    },
+    {
+      "$type": "Microsoft.OnConversationUpdateActivity",
+      "$designer": {
+        "id": "874795",
+        "name": "Welcome"
+      },
+      "constraint": "toLower(turn.Activity.membersAdded[0].name) != 'bot'",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "512634",
+            "name": "Send an Activity",
+            "updatedAt": "2019-09-20T09:20:01.186Z"
+          },
+          "activity": "[bfdactivity-512634]"
+        }
+      ]
+    }
+  ],
+  "$schema": "../../app.schema",
+  "rules": [
+    {
+      "$type": "Microsoft.OnConversationUpdateActivity",
+      "$designer": {
+        "id": "376720"
+      },
+      "constraint": "toLower(turn.Activity.membersAdded[0].name) != 'bot'"
     }
   ]
 }
