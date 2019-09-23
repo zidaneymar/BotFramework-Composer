@@ -1,0 +1,273 @@
+{
+  "$type": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "name": "ShowMeeting",
+    "createdAt": "2019-09-23T04:19:30.001Z",
+    "updatedAt": "2019-09-23T10:32:27.949Z",
+    "id": "847906"
+  },
+  "autoEndDialog": "true",
+  "defaultResultProperty": "dialog.result",
+  "events": [
+    {
+      "$type": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "id": "441365",
+        "name": "OnBeginDialog",
+        "updatedAt": "2019-09-23T05:31:59.435Z"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.OAuthInput",
+          "$designer": {
+            "id": "652281",
+            "name": "OAuth Login",
+            "updatedAt": "2019-09-23T06:33:47.439Z"
+          },
+          "prompt": "Please login.",
+          "unrecognizedPrompt": "Sorry I don't understand, please login.",
+          "invalidPrompt": "Input invalid. Retry login please.",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.token",
+          "alwaysPrompt": false,
+          "allowInterruptions": "notRecognized",
+          "connectionName": "Outlook",
+          "text": "Please log in to your calendar account",
+          "title": "Sign in",
+          "timeout": "900000"
+        },
+        {
+          "$type": "Microsoft.HttpRequest",
+          "$designer": {
+            "id": "943144",
+            "name": "HTTP Request",
+            "updatedAt": "2019-09-23T06:01:17.960Z"
+          },
+          "method": "GET",
+          "url": "https://graph.microsoft.com/v1.0/me/calendarView?startdatetime={utcNow()}&enddatetime={addDays(utcNow(), 1)}",
+          "headers": {
+            "Authorization": "Bearer {dialog.token.Token}"
+          },
+          "responseType": "Json",
+          "property": "dialog.ShowAllMeetingDialog_GraphAll"
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "708165",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-09-23T07:26:19.993Z"
+          },
+          "condition": "dialog.ShowAllMeetingDialog_GraphAll.content.value != null && count(dialog.ShowAllMeetingDialog_GraphAll.content.value) > 0",
+          "actions": [
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "621773",
+                "name": "Send an Activity",
+                "updatedAt": "2019-09-23T06:41:01.437Z"
+              },
+              "activity": "[bfdactivity-621773]"
+            }
+          ],
+          "elseActions": [
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "611720",
+                "name": "Send an Activity",
+                "updatedAt": "2019-09-23T06:46:41.362Z"
+              },
+              "activity": "[bfdactivity-611720]"
+            }
+          ]
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "092184",
+            "name": "Set a Property",
+            "updatedAt": "2019-09-23T11:18:57.971Z"
+          },
+          "property": "turn.choice",
+          "value": "null"
+        },
+        {
+          "$type": "Microsoft.DeleteProperty",
+          "$designer": {
+            "id": "968162",
+            "name": "Delete a Property",
+            "updatedAt": "2019-09-23T08:37:10.118Z"
+          },
+          "property": "turn.choice"
+        },
+        {
+          "$type": "Microsoft.ConfirmInput",
+          "$designer": {
+            "id": "242595",
+            "name": "Prompt for confirmation",
+            "updatedAt": "2019-09-23T11:23:26.737Z"
+          },
+          "prompt": "[AskForShowOverview]",
+          "maxTurnCount": 2147483647,
+          "property": "turn.choice",
+          "alwaysPrompt": false,
+          "allowInterruptions": "always",
+          "defaultLocale": "en-us",
+          "style": "Auto",
+          "choiceOptions": {
+            "inlineSeparator": ", ",
+            "inlineOr": " or ",
+            "inlineOrMore": ", or ",
+            "includeNumbers": true
+          }
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "438406",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-09-23T08:06:14.767Z"
+          },
+          "condition": "turn.choice == true",
+          "actions": [
+            {
+              "$type": "Microsoft.RepeatDialog",
+              "$designer": {
+                "id": "573337",
+                "name": "Repeat this Dialog"
+              }
+            }
+          ],
+          "elseActions": [
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "746153",
+                "name": "Send an Activity",
+                "updatedAt": "2019-09-23T08:06:47.232Z"
+              },
+              "activity": "[bfdactivity-746153]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "191886",
+        "name": "ShowDetails",
+        "updatedAt": "2019-09-23T11:24:35.076Z"
+      },
+      "constraint": "@ordinal != null || @number != null",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "236913",
+            "name": "Send an Activity",
+            "updatedAt": "2019-09-23T11:27:06.608Z"
+          },
+          "activity": "[bfdactivity-236913]"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "753875",
+            "name": "Set a Property",
+            "updatedAt": "2019-09-23T10:37:02.388Z"
+          },
+          "value": "@ordinal",
+          "property": "turn.ShowAllMeetingDialog_ordinal"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "342381",
+            "name": "Set a Property",
+            "updatedAt": "2019-09-23T10:37:45.890Z"
+          },
+          "value": "@number",
+          "property": "turn.ShowAllMeetingDialog_number"
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "121407",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-09-23T11:28:27.154Z"
+          },
+          "condition": "turn.ShowAllMeetingDialog_ordinal != null",
+          "actions": [
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "459418",
+                "name": "Set a Property",
+                "updatedAt": "2019-09-23T11:05:46.680Z"
+              },
+              "property": "turn.ShowAllMeetingDialog_index",
+              "value": "turn.ShowAllMeetingDialog_ordinal"
+            }
+          ],
+          "elseActions": [
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "625959",
+                "name": "Set a Property",
+                "updatedAt": "2019-09-23T11:06:13.407Z"
+              },
+              "property": "turn.ShowAllMeetingDialog_index",
+              "value": "turn.ShowAllMeetingDialog_number"
+            }
+          ]
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "628958",
+            "name": "Set a Property",
+            "updatedAt": "2019-09-23T11:40:41.206Z"
+          },
+          "property": "turn.ShowAllMeetingDialog_index",
+          "value": "turn.ShowAllMeetingDialog_index - 1+ user.ShowAllMeetingDialog_pageIndex * 3"
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "214613",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-09-23T11:41:23.767Z"
+          },
+          "condition": "dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index] != null",
+          "actions": [
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "371576",
+                "name": "Send an Activity",
+                "updatedAt": "2019-09-23T11:16:07.650Z"
+              },
+              "activity": "[bfdactivity-371576]"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "362966",
+                "name": "Set a Property",
+                "updatedAt": "2019-09-23T11:41:47.498Z"
+              },
+              "property": "user.focusedMeeting",
+              "value": "dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index]"
+            }
+          ]
+        }
+      ],
+      "intent": "SelectItem"
+    }
+  ],
+  "$schema": "../../BotProject/CSharp/Schemas/app.schema",
+  "recognizer": "ShowMeeting.lu"
+}
