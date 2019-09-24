@@ -254,15 +254,6 @@
       "constraint": "turn.dialogevent.value.intents.SetAttendees.score > 0.6",
       "actions": [
         {
-          "$type": "Microsoft.DeleteProperty",
-          "$designer": {
-            "name": "Delete a Property",
-            "id": "728162",
-            "updatedAt": "2019-09-17T09:29:10.094Z"
-          },
-          "property": "dialog.attendees"
-        },
-        {
           "$type": "Microsoft.TextInput",
           "$designer": {
             "name": "Prompt for text",
