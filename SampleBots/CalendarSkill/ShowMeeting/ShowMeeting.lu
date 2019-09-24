@@ -168,74 +168,6 @@
 - i want them all
 - i want to all of them
 
-## ReadAloud
-- can you read it
-- can you read that
-- can you read that for me
-- can you you read page aloud
-- could you tell me what that says
-- detail aloud what that says
-- hey read that for me
-- i need to hear this page
-- i would like you to read that for me
-- make a reading of this page
-- please read
-- please read it
-- please read me the page
-- please read my latest email
-- please read this
-- please read this out loud
-- please read this page
-- please read this page aloud
-- please read this page out loud
-- please read this to me
-- read all on the screen to me
-- read aloud
-- read aloud the current text onscreen
-- read file aloud
-- read it
-- read it aloud
-- read it out loud
-- read it outloud
-- read it please
-- read it to me
-- read me this page
-- read my to list
-- read outloud
-- read page
-- read page aloud
-- read page outloud
-- read sentence out loud
-- read text
-- read text aloud
-- read that
-- read that out loud
-- read the page
-- read the page onscreen to me
-- read the page out loud
-- read the page to me
-- read the text to me
-- read the words on this page
-- read this for me please
-- read this page
-- read this page aloud
-- read this page out loud
-- read this page to me
-- read to me
-- read what is currently on the screen to me
-- speak of what is on this page
-- speak out
-- start reading this
-- state it
-- tell me about the information on the screen
-- tell me the current text on screen
-- vocalize what's on the page
-- what does the page say
-- would you please read that for me
-- would you read that out loud please
-- would you read that to me please
-
-
 ## Reject
 - i don't like it
 - i don't need
@@ -289,24 +221,7 @@
 - what did you say
 - what was that again
 
-
-## SelectAny
-- any of it
-- any one is ok
-- anyone is fine
-- anything
-- choose anyone
-- choose one of it randomly
-- opt for a random one
-- opt for any of it
-- select a random choice
-- select a random one
-- select any
-- select any choice
-- select any of it
-
-
-## SelectItem
+## SelectionAndRead
 - 1
 - 2
 - 3
@@ -391,6 +306,71 @@
 - two
 - what about the last
 - what about the third one
+- can you read it
+- can you read that
+- can you read that for me
+- can you you read page aloud
+- could you tell me what that says
+- detail aloud what that says
+- hey read that for me
+- i need to hear this page
+- i would like you to read that for me
+- make a reading of this page
+- please read
+- please read it
+- please read me the page
+- please read my latest email
+- please read this
+- please read this out loud
+- please read this page
+- please read this page aloud
+- please read this page out loud
+- please read this to me
+- read all on the screen to me
+- read aloud
+- read aloud the current text onscreen
+- read file aloud
+- read it
+- read it aloud
+- read it out loud
+- read it outloud
+- read it please
+- read it to me
+- read me this page
+- read my to list
+- read outloud
+- read page
+- read page aloud
+- read page outloud
+- read sentence out loud
+- read text
+- read text aloud
+- read that
+- read that out loud
+- read the page
+- read the page onscreen to me
+- read the page out loud
+- read the page to me
+- read the text to me
+- read the words on this page
+- read this for me please
+- read this page
+- read this page aloud
+- read this page out loud
+- read this page to me
+- read to me
+- read what is currently on the screen to me
+- speak of what is on this page
+- speak out
+- start reading this
+- state it
+- tell me about the information on the screen
+- tell me the current text on screen
+- vocalize what's on the page
+- what does the page say
+- would you please read that for me
+- would you read that out loud please
+- would you read that to me please
 
 
 ## SelectNone
