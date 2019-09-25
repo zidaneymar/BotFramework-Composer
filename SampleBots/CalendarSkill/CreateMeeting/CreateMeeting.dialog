@@ -21,24 +21,54 @@
         {
           "$type": "Microsoft.SetProperty",
           "$designer": {
+            "id": "006604",
             "name": "Set a Property",
-            "id": "733457",
-            "updatedAt": "2019-09-17T07:30:36.399Z"
+            "updatedAt": "2019-09-25T03:44:07.616Z"
+          },
+          "property": "dialog.CreateCalendarEntry_FromTime",
+          "value": "@FromTime"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "654456",
+            "name": "Set a Property",
+            "updatedAt": "2019-09-25T03:44:35.666Z"
+          },
+          "property": "dialog.CreateCalendarEntry_ToTime",
+          "value": "@ToTime"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "810080",
+            "name": "Set a Property",
+            "updatedAt": "2019-09-25T03:45:01.324Z"
+          },
+          "property": "dialog.CreateCalendarEntry_Location",
+          "value": "@Location"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "279000",
+            "name": "Set a Property",
+            "updatedAt": "2019-09-25T03:45:32.636Z"
           },
           "property": "dialog.CreateCalendarEntry_Subject",
-          "value": "@title"
+          "value": "@Subject"
         },
         {
           "$type": "Microsoft.TextInput",
           "$designer": {
             "name": "Set Attendees",
             "id": "952488",
-            "updatedAt": "2019-09-20T06:14:17.659Z"
+            "updatedAt": "2019-09-25T03:00:13.623Z"
           },
           "prompt": "Sure, who will join?",
           "unrecognizedPrompt": "Please input a valid email address.",
           "maxTurnCount": 2147483647,
-          "value": "dialog.attendees",
+          "value": "@personName",
           "property": "dialog.attendees",
           "alwaysPrompt": false,
           "allowInterruptions": "always",
@@ -49,10 +79,11 @@
           "$designer": {
             "name": "Input Subject",
             "id": "193662",
-            "updatedAt": "2019-09-17T09:10:34.303Z"
+            "updatedAt": "2019-09-25T02:36:50.692Z"
           },
           "prompt": "Alright, I will send this to {dialog.attendees}. What is the subject of the event?",
           "maxTurnCount": 2147483647,
+          "value": "@Subject",
           "property": "dialog.CreateCalendarEntry_Subject",
           "alwaysPrompt": false,
           "allowInterruptions": "always",
@@ -63,10 +94,11 @@
           "$designer": {
             "name": "Set Content",
             "id": "978399",
-            "updatedAt": "2019-09-17T09:10:49.278Z"
+            "updatedAt": "2019-09-25T02:37:18.210Z"
           },
           "prompt": "OK, please enter the content of your event.",
           "maxTurnCount": 2147483647,
+          "value": "@Message",
           "property": "dialog.CreateCalendarEntry_Content",
           "alwaysPrompt": false,
           "allowInterruptions": "always",
@@ -77,11 +109,12 @@
           "$designer": {
             "name": "Get date",
             "id": "606573",
-            "updatedAt": "2019-09-18T01:20:54.792Z"
+            "updatedAt": "2019-09-25T02:40:26.647Z"
           },
           "prompt": "For what date?",
           "unrecognizedPrompt": "Let's try again. For what date?",
           "maxTurnCount": 2147483647,
+          "value": "@FromDate",
           "property": "dialog.CreateCalendarEntry_FromDate",
           "alwaysPrompt": false,
           "allowInterruptions": "notRecognized",
@@ -92,13 +125,14 @@
           "$designer": {
             "name": "Get start time",
             "id": "627794",
-            "updatedAt": "2019-09-18T01:21:07.927Z"
+            "updatedAt": "2019-09-25T02:40:42.857Z"
           },
           "id": "GetStartTime",
           "prompt": "What time does it start? You can help me by naming out AM or PM for the event.",
           "unrecognizedPrompt": "Let's try again, What time does it start?",
           "invalidPrompt": "Please input something like 11:00pm.",
           "maxTurnCount": 2147483647,
+          "value": "@FromTime",
           "property": "dialog.CreateCalendarEntry_FromTime",
           "alwaysPrompt": false,
           "allowInterruptions": "notRecognized",
@@ -109,12 +143,13 @@
           "$designer": {
             "name": "Type: Date",
             "id": "688917",
-            "updatedAt": "2019-09-17T03:39:03.574Z"
+            "updatedAt": "2019-09-25T02:41:01.276Z"
           },
           "prompt": "For how long?",
           "unrecognizedPrompt": "Let's try again For how long?",
           "invalidPrompt": "Please input something like one hour.",
           "maxTurnCount": 2147483647,
+          "value": "@Duration",
           "property": "dialog.CreateCalendarEntry_ToTime",
           "alwaysPrompt": false,
           "allowInterruptions": "notRecognized",
@@ -148,7 +183,7 @@
           "$designer": {
             "name": "Prompt for confirmation",
             "id": "539233",
-            "updatedAt": "2019-09-20T09:38:09.458Z"
+            "updatedAt": "2019-09-25T04:34:00.994Z"
           },
           "prompt": "[ShowMeetingConfirmCard]",
           "maxTurnCount": 2147483647,
@@ -169,10 +204,44 @@
           "$designer": {
             "name": "Branch: If/Else",
             "id": "090579",
-            "updatedAt": "2019-09-20T03:59:23.770Z"
+            "updatedAt": "2019-09-25T04:39:30.816Z"
           },
-          "condition": "turn.confirm_result==ture",
+          "condition": "turn.confirm_result==true",
           "actions": [
+            {
+              "$type": "Microsoft.OAuthInput",
+              "$designer": {
+                "id": "370791",
+                "name": "OAuth Login",
+                "updatedAt": "2019-09-25T03:47:35.793Z"
+              },
+              "prompt": "Please login.",
+              "unrecognizedPrompt": "Sorry I don't understand, please login.",
+              "invalidPrompt": "Input invalid. Retry login please.",
+              "maxTurnCount": 2147483647,
+              "property": "dialog.token",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "text": "Please log in to your calendar account",
+              "title": "Sign in",
+              "timeout": "900000",
+              "connectionName": "Outlook"
+            },
+            {
+              "$type": "Microsoft.HttpRequest",
+              "$designer": {
+                "id": "040772",
+                "name": "HTTP Request",
+                "updatedAt": "2019-09-25T04:47:17.014Z"
+              },
+              "method": "POST",
+              "url": "https://graph.microsoft.com/v1.0/me/events",
+              "property": "dialog.createMeetingHttpResult",
+              "headers": {
+                "Authorization": "Bearer {dialog.token.Token}"
+              },
+              "responseType": "Json"
+            },
             {
               "$type": "Microsoft.SendActivity",
               "$designer": {
@@ -189,7 +258,7 @@
               "$designer": {
                 "name": "Adjust slot dialog",
                 "id": "032702",
-                "updatedAt": "2019-09-17T07:22:21.044Z"
+                "updatedAt": "2019-09-25T04:52:00.640Z"
               },
               "prompt": "Sure, what would you like to adjust?",
               "maxTurnCount": 2147483647,
@@ -211,7 +280,7 @@
                   "value": "Attendees"
                 },
                 {
-                  "value": "Subject"
+                  "value": "Content"
                 },
                 {
                   "value": "Content"
@@ -231,13 +300,133 @@
               }
             },
             {
-              "$type": "Microsoft.SendActivity",
+              "$type": "Microsoft.SwitchCondition",
               "$designer": {
-                "name": "Send an Activity",
-                "id": "928206",
-                "updatedAt": "2019-09-17T06:43:02.696Z"
+                "id": "879363",
+                "name": "Branch: Switch",
+                "updatedAt": "2019-09-25T05:16:55.742Z"
               },
-              "activity": "[bfdactivity-928206]"
+              "condition": "turn.adjust",
+              "cases": [
+                {
+                  "value": "Time",
+                  "actions": [
+                    {
+                      "$type": "Microsoft.DateTimeInput",
+                      "$designer": {
+                        "id": "001833",
+                        "name": "Prompt for a date",
+                        "updatedAt": "2019-09-25T04:57:37.888Z"
+                      },
+                      "prompt": "What's the new start time?",
+                      "unrecognizedPrompt": "Let's retry, what's the new start time?",
+                      "invalidPrompt": "Invalid, what's the new start time?",
+                      "maxTurnCount": 2147483647,
+                      "value": "@FromTime",
+                      "property": "dialog.CreateCalendarEntry_FromTime",
+                      "alwaysPrompt": true,
+                      "allowInterruptions": "notRecognized",
+                      "defaultLocale": "en-us"
+                    }
+                  ]
+                },
+                {
+                  "value": "Subject",
+                  "actions": [
+                    {
+                      "$type": "Microsoft.TextInput",
+                      "$designer": {
+                        "id": "960141",
+                        "name": "Prompt for text",
+                        "updatedAt": "2019-09-25T05:01:39.843Z"
+                      },
+                      "prompt": "What's the new subject?",
+                      "unrecognizedPrompt": "Let's try again, what's the new subject?",
+                      "invalidPrompt": "Not valid, what's the new subject?",
+                      "maxTurnCount": 2147483647,
+                      "value": "@Subject",
+                      "property": "dialog.CreateCalendarEntry_Subject",
+                      "alwaysPrompt": true,
+                      "allowInterruptions": "always",
+                      "outputFormat": "none"
+                    }
+                  ]
+                },
+                {
+                  "value": "Location",
+                  "actions": [
+                    {
+                      "$type": "Microsoft.TextInput",
+                      "$designer": {
+                        "id": "651702",
+                        "name": "Prompt for text",
+                        "updatedAt": "2019-09-25T05:15:53.945Z"
+                      },
+                      "prompt": "What's the new location?",
+                      "unrecognizedPrompt": "Let's try again, what's the new location?",
+                      "invalidPrompt": "Invalid, what's the new location?",
+                      "maxTurnCount": 2147483647,
+                      "value": "@Lcation",
+                      "property": "dialog.CreateCalendarEntry_Location",
+                      "alwaysPrompt": true,
+                      "allowInterruptions": "always",
+                      "outputFormat": "none"
+                    }
+                  ]
+                },
+                {
+                  "value": "Attendee",
+                  "actions": [
+                    {
+                      "$type": "Microsoft.TextInput",
+                      "$designer": {
+                        "id": "261554",
+                        "name": "Prompt for text",
+                        "updatedAt": "2019-09-25T05:14:03.236Z"
+                      },
+                      "prompt": "What's the new attendee?",
+                      "unrecognizedPrompt": "Let's try again, what's the new attendee?",
+                      "invalidPrompt": "Invalid, what's the new attendee?",
+                      "maxTurnCount": 2147483647,
+                      "value": "@personName",
+                      "property": "dialog.attendees",
+                      "alwaysPrompt": true,
+                      "allowInterruptions": "always",
+                      "outputFormat": "none"
+                    }
+                  ]
+                },
+                {
+                  "value": "Content",
+                  "actions": [
+                    {
+                      "$type": "Microsoft.TextInput",
+                      "$designer": {
+                        "id": "022987",
+                        "name": "Prompt for text",
+                        "updatedAt": "2019-09-25T05:15:36.219Z"
+                      },
+                      "prompt": "What's the content?",
+                      "unrecognizedPrompt": "Let's try again, what's the content?",
+                      "invalidPrompt": "Invalid, what's the content?",
+                      "maxTurnCount": 2147483647,
+                      "value": "@Message",
+                      "property": "dialog.CreateCalendarEntry_Content",
+                      "alwaysPrompt": true,
+                      "allowInterruptions": "always",
+                      "outputFormat": "none"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "$type": "Microsoft.RepeatDialog",
+              "$designer": {
+                "id": "598410",
+                "name": "Repeat this Dialog",
+                "updatedAt": "2019-09-25T05:20:03.366Z"
+              }
             }
           ]
         }

@@ -208,9 +208,9 @@
           "$designer": {
             "id": "145936",
             "name": "Emit a trace event",
-            "updatedAt": "2019-09-24T10:29:07.701Z"
+            "updatedAt": "2019-09-24T11:21:43.663Z"
           },
-          "name": "TriggeFlow",
+          "name": "ShowDetailsTrigger",
           "valueType": "memory",
           "value": "user"
         },
@@ -271,19 +271,6 @@
               "property": "user.focusedMeeting",
               "value": "dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index]"
             }
-          ],
-          "elseActions": [
-            {
-              "$type": "Microsoft.TraceActivity",
-              "$designer": {
-                "id": "612635",
-                "name": "Emit a trace event",
-                "updatedAt": "2019-09-24T10:17:20.953Z"
-              },
-              "name": "Test",
-              "valueType": "memory",
-              "value": "turn.readDetailChoice"
-            }
           ]
         },
         {
@@ -308,6 +295,17 @@
       },
       "intent": "ShowNext",
       "actions": [
+        {
+          "$type": "Microsoft.TraceActivity",
+          "$designer": {
+            "id": "175682",
+            "name": "Emit a trace event",
+            "updatedAt": "2019-09-24T11:22:29.204Z"
+          },
+          "name": "ShowNextPageTrigger",
+          "valueType": "memory",
+          "value": "user"
+        },
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {
@@ -358,6 +356,17 @@
       },
       "intent": "ShowPrevious",
       "actions": [
+        {
+          "$type": "Microsoft.TraceActivity",
+          "$designer": {
+            "id": "354377",
+            "name": "Emit a trace event",
+            "updatedAt": "2019-09-24T11:24:16.295Z"
+          },
+          "name": "ShowPreviousTrigger",
+          "valueType": "memory",
+          "value": "user"
+        },
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {

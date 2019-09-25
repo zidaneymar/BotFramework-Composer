@@ -61,6 +61,18 @@
                     "maxLines": 5
                 }
             ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "@{if(empty(dialog.CreateCalendarEntry_Content) != true,
+                        dialog.CreateCalendarEntry_Content,'dialog.CreateCalendarEntry_Content')}",
+                    "wrap": true,
+                    "maxLines": 5
+                }
+            ]
         }
     ],
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
@@ -329,3 +341,7 @@ hahaha
 
 # bfdactivity-991602
 - It is already the first page.
+
+
+# bfdactivity-949580
+-What's the new meeting time?
