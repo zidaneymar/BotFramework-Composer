@@ -61,6 +61,18 @@
                     "maxLines": 5
                 }
             ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "@{if(empty(dialog.CreateCalendarEntry_Content) != true,
+                        dialog.CreateCalendarEntry_Content,'dialog.CreateCalendarEntry_Content')}",
+                    "wrap": true,
+                    "maxLines": 5
+                }
+            ]
         }
     ],
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
@@ -109,3 +121,227 @@ hahaha
 
 # bfdactivity-874185
 - begin
+
+
+# bfdactivity-933018
+- {dialog.ShowAllMeetingDialog_GraphAll}
+
+# SingleMeeting(x)
+- ```
+{
+    "type": "Container",
+    "items": 
+    [
+        {
+            "type": "ColumnSet",
+            "columns": 
+            [
+                {
+                    "type": "Column",
+                    "style": "emphasis",
+                    "verticalContentAlignment": "Center",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "horizontalAlignment": "Center",
+                            "spacing": "Medium",
+                            "size": "Medium",
+                            "weight": "Bolder",
+                            "color": "Dark",
+                            "text": "@{if(x != null, formatDateTime(x.start.dateTime,'HH:mm'), 'N/A')}",
+                            "isSubtle": false
+                        },
+                        {
+                            "type": "TextBlock",
+                            "horizontalAlignment": "Center",
+                            "color": "Dark",
+                            "text": "@{if(x != null, formatDateTime(x.end.dateTime,'HH:mm'), 'N/A')}"
+                        }
+                    ],
+                    "width": 20
+                },
+                {
+                    "type": "Column",
+                    "style": "emphasis",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "spacing": "Medium",
+                            "separator": true,
+                            "size": "Medium",
+                            "weight": "Bolder",
+                            "color": "Dark",
+                            "text": "@{if(x != null, x.subject, 'N/A')}",
+                            "isSubtle": false,
+                            "wrap": true,
+                            "maxLines": 2
+                        },
+                        {
+                            "type": "TextBlock",
+                            "spacing": "None",
+                            "color": "Accent",
+                            "text": "@{if(x.location.displayName!= null && empty(x.location.displayName) != true,
+                                x.location.displayName,'No Location Specified')}",
+                            "isSubtle": false
+                        }
+                    ],
+                    "width": 80
+                }
+            ]
+        }
+    ]
+}
+```
+
+# stitchMeeting(meetingList, startIndex, endIndex)
+- @{join(foreach(subArray(meetingList, int(startIndex),int(endIndex)), x, SingleMeeting(x)), ', ')}
+
+# stitchedEntryTemplate(meetingList, startIndex, endIndex)
+- ```
+[adaptivecard
+{
+    "type": "AdaptiveCard",
+    "height": "stretch",
+    "backgroundImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAACeCAYAAACvg+F+AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAAhdEVYdENyZWF0aW9uIFRpbWUAMjAxOTowMzoxMyAxOTo0Mjo0OBCBEeIAAAG8SURBVHhe7dJBDQAgEMCwA/+egQcmlrSfGdg6z0DE/oUEw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phCZm52U4FOCAVGHQAAAAASUVORK5CYII=",
+    "body": 
+    [
+        {
+            "type": "Container",
+            "items": 
+            [
+                    @{stitchMeeting(meetingList, startIndex, endIndex)}
+            ]
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.0"
+}
+]
+```
+
+
+# bfdactivity-621773
+- [stitchedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value, user.ShowAllMeetingDialog_pageIndex*3, user.ShowAllMeetingDialog_pageIndex*3+3)]
+
+
+# bfdactivity-611720
+- [stitchedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value, user.ShowAllMeetingDialog_pageIndex*3, count(dialog.ShowAllMeetingDialog_GraphAll.content.value))]
+
+# AskForShowOverview
+- Would you like to see your calendar overview again? Or you can ask me to read meeting details, accept a meeting or delete a meeting.
+
+
+# ReadOutMorePrompt
+- Do you want to hear the content of the first event? I can read out any event for you, just let me know by providing the subject, time or attendees.
+
+
+# bfdactivity-746153
+- OK, I'll be here.
+
+
+# detailedEntryTemplate(x)
+- ```
+[adaptivecard
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "size": "Medium",
+                    "weight": "Bolder",
+                    "text": "@{x.subject}"
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "@{x.start.dateTime} - @{x.end.dateTime}",
+                    "wrap": true,
+                    "maxLines": 5
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "@{if(x.attendees[0].emailAddress.address != null &&
+                        empty(x.attendees[0].emailAddress.address) != true,
+                        x.attendees[0].emailAddress.address,'No Attendee Specified')}",
+                    "wrap": true,
+                    "maxLines": 5
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "@{if(empty(x.location.displayName) != true,
+                        x.location.displayName,'No Location Specified')}",
+                    "wrap": true,
+                    "maxLines": 5
+                }
+            ]
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.0"
+}
+]
+```
+
+# bfdactivity-371576
+-[detailedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index])]
+
+
+# bfdactivity-236913
+- show detail flow
+
+
+# bfdactivity-378213
+-{turn.ShowAllMeetingDialog_index}
+
+
+# bfdactivity-244965
+-{dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index] }
+
+
+# bfdactivity-592767
+-[ReadOutMorePrompt]
+
+
+# bfdactivity-087699
+-[detailedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index])]
+
+
+# bfdactivity-191265
+-{turn.ShowAllMeetingDialog_index}
+
+
+# bfdactivity-735512
+- warning
+
+
+# bfdactivity-322098
+- turn.readDetailChoice is false
+
+
+# bfdactivity-506377
+- This is already the last page!
+
+
+# bfdactivity-991602
+- It is already the first page.
+
+
+# bfdactivity-949580
+-What's the new meeting time?
