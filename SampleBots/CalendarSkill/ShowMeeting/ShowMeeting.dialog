@@ -22,14 +22,14 @@
           "$designer": {
             "id": "652281",
             "name": "OAuth Login",
-            "updatedAt": "2019-09-23T06:33:47.439Z"
+            "updatedAt": "2019-09-29T09:32:55.356Z"
           },
           "prompt": "Please login.",
           "unrecognizedPrompt": "Sorry I don't understand, please login.",
           "invalidPrompt": "Input invalid. Retry login please.",
           "maxTurnCount": 2147483647,
           "property": "dialog.token",
-          "alwaysPrompt": false,
+          "alwaysPrompt": true,
           "allowInterruptions": "notRecognized",
           "connectionName": "Outlook",
           "text": "Please log in to your calendar account",
@@ -74,11 +74,18 @@
             {
               "$type": "Microsoft.SendActivity",
               "$designer": {
-                "id": "611720",
+                "id": "268745",
                 "name": "Send an Activity",
-                "updatedAt": "2019-09-23T06:46:41.362Z"
+                "updatedAt": "2019-09-29T09:46:01.007Z"
               },
-              "activity": "[bfdactivity-611720]"
+              "activity": "[bfdactivity-268745]"
+            },
+            {
+              "$type": "Microsoft.EndDialog",
+              "$designer": {
+                "id": "871750",
+                "name": "End Dialog"
+              }
             }
           ]
         },
@@ -148,7 +155,7 @@
           "$designer": {
             "id": "242595",
             "name": "Prompt for confirmation",
-            "updatedAt": "2019-09-24T09:49:23.281Z"
+            "updatedAt": "2019-09-29T09:44:31.620Z"
           },
           "prompt": "[AskForShowOverview]",
           "maxTurnCount": 2147483647,
