@@ -16,9 +16,10 @@
       "$designer": {
         "name": "CreateMeeting",
         "createdAt": "2019-09-16T02:06:50.945Z",
-        "updatedAt": "2019-09-23T04:18:41.458Z",
+        "updatedAt": "2019-09-29T08:13:44.421Z",
         "id": "860795"
       },
+      "constraint": "turn.dialogevent.value.intents.CreateCalendarEntry.score > 0.6",
       "actions": [
         {
           "$type": "Microsoft.BeginDialog",
@@ -57,16 +58,16 @@
       "$designer": {
         "id": "112834",
         "name": "ShowMeeting",
-        "updatedAt": "2019-09-23T06:03:48.677Z"
+        "updatedAt": "2019-09-29T09:03:03.076Z"
       },
-      "intent": "FindCalendarEntry",
+      "constraint": "turn.dialogevent.value.intents.FindCalendarEntry.score > 0.6",
       "actions": [
         {
           "$type": "Microsoft.SetProperty",
           "$designer": {
-            "id": "026376",
+            "id": "666915",
             "name": "Set a Property",
-            "updatedAt": "2019-09-23T06:50:32.969Z"
+            "updatedAt": "2019-09-29T09:13:49.288Z"
           },
           "property": "user.ShowAllMeetingDialog_pageIndex",
           "value": "0"
@@ -80,7 +81,8 @@
           },
           "dialog": "ShowMeeting"
         }
-      ]
+      ],
+      "intent": "FindCalendarEntry"
     }
   ],
   "$schema": "../../app.schema",

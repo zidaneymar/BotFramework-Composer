@@ -345,3 +345,27 @@ hahaha
 
 # bfdactivity-949580
 -What's the new meeting time?
+
+
+# bfdactivity-903997
+-{dialog.ShowAllMeetingDialog_GraphAll}
+
+
+# bfdactivity-712639
+-{dialog.adaptiveDialogState.actions[0].dialogStack.count}
+
+
+# bfdactivity-777619
+-{dialog.token}
+
+
+# bfdactivity-298446
+-{dialog.token}
+
+
+# bfdactivity-760792
+-{dialog.ShowAllMeetingDialog_GraphAll}
+
+
+# bfdactivity-268745
+- You don't have any meetings.
