@@ -23,7 +23,8 @@
                     "type": "TextBlock",
                     "size": "Medium",
                     "weight": "Bolder",
-                    "text": "@{dialog.CreateCalendarEntry_Subject}"
+                    "text": "@{if(empty(dialog.CreateCalendarEntry_Subject) != true && toLower(dialog.CreateCalendarEntry_Subject) != 'skip',
+                        dialog.CreateCalendarEntry_Subject,'Empty subject')}"
                 }
             ]
         },
@@ -44,7 +45,7 @@
                 {
                     "type": "TextBlock",
                     "text": "@{if(dialog.attendees != null,
-                        dialog.attendees,'No Attendee Specified')}",
+                        dialog.attendees,'No attendee specified')}",
                     "wrap": true,
                     "maxLines": 5
                 }
@@ -55,8 +56,8 @@
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "@{if(empty(dialog.CreateCalendarEntry_Location) != true,
-                        dialog.CreateCalendarEntry_Location,'dialog.CreateCalendarEntry_Location')}",
+                    "text": "@{if(empty(dialog.CreateCalendarEntry_Location) != true && toLower(dialog.CreateCalendarEntry_Location) != 'skip',
+                        dialog.CreateCalendarEntry_Location,'No location sprcified')}",
                     "wrap": true,
                     "maxLines": 5
                 }
@@ -67,8 +68,8 @@
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "@{if(empty(dialog.CreateCalendarEntry_Content) != true,
-                        dialog.CreateCalendarEntry_Content,'dialog.CreateCalendarEntry_Content')}",
+                    "text": "@{if(empty(dialog.CreateCalendarEntry_Content) != true && toLower(dialog.CreateCalendarEntry_Content) != 'skip',
+                        dialog.CreateCalendarEntry_Content,'Empty content.')}",
                     "wrap": true,
                     "maxLines": 5
                 }
