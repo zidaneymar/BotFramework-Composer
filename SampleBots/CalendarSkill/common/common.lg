@@ -32,7 +32,7 @@
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "@{dialog.CreateCalendarEntry_FromTime[0].value} - @{dialog.CreateCalendarEntry_ToTime[0].value}",
+                    "text": "@{formatDateTime(dialog.CreateCalendarEntry_FromTime[0].value)} - @{formatDateTime(dialog.CreateCalendarEntry_ToTime[0].value)}",
                     "wrap": true,
                     "maxLines": 5
                 }
@@ -377,3 +377,11 @@ hahaha
 
 # bfdactivity-464903
 - OK, let me cancel it.
+
+
+# bfdactivity-151703
+-{turn.dialogevent.value.intents}
+
+
+# bfdactivity-004330
+-dialog.CreateCalendarEntry_Test
