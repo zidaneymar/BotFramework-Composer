@@ -207,8 +207,9 @@
       "$designer": {
         "id": "191886",
         "name": "ShowDetails",
-        "updatedAt": "2019-09-24T07:59:24.415Z"
+        "updatedAt": "2019-09-29T10:59:16.508Z"
       },
+      "constraint": "turn.dialogevent.value.intents.SelectionAndRead.score > 0.6",
       "actions": [
         {
           "$type": "Microsoft.TraceActivity",
@@ -298,9 +299,9 @@
       "$designer": {
         "id": "148604",
         "name": "ShowNextPage",
-        "updatedAt": "2019-09-24T10:34:09.779Z"
+        "updatedAt": "2019-09-29T10:59:35.848Z"
       },
-      "intent": "ShowNext",
+      "constraint": "turn.dialogevent.value.intents.ShowNext.score > 0.6",
       "actions": [
         {
           "$type": "Microsoft.TraceActivity",
@@ -352,16 +353,17 @@
             "name": "Repeat this Dialog"
           }
         }
-      ]
+      ],
+      "intent": "ShowNext"
     },
     {
       "$type": "Microsoft.OnIntent",
       "$designer": {
         "id": "074154",
         "name": "ShowPreviousPage",
-        "updatedAt": "2019-09-24T10:34:20.001Z"
+        "updatedAt": "2019-09-29T10:59:58.475Z"
       },
-      "intent": "ShowPrevious",
+      "constraint": "turn.dialogevent.value.intents.ShowPrevious.score > 0.6",
       "actions": [
         {
           "$type": "Microsoft.TraceActivity",
@@ -411,6 +413,35 @@
           "$designer": {
             "id": "269399",
             "name": "Repeat this Dialog"
+          }
+        }
+      ],
+      "intent": "ShowPrevious"
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "003711",
+        "name": "Cancel",
+        "updatedAt": "2019-09-29T11:00:19.835Z"
+      },
+      "constraint": "turn.dialogevent.value.intents.Cancel.score > 0.6",
+      "intent": "Cancel",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "632233",
+            "name": "Send an Activity",
+            "updatedAt": "2019-09-29T11:01:08.256Z"
+          },
+          "activity": "[bfdactivity-632233]"
+        },
+        {
+          "$type": "Microsoft.EndDialog",
+          "$designer": {
+            "id": "268329",
+            "name": "End Dialog"
           }
         }
       ]

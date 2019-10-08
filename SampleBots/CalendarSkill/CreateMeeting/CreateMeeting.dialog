@@ -232,10 +232,35 @@
               "$designer": {
                 "id": "040772",
                 "name": "HTTP Request",
-                "updatedAt": "2019-09-25T04:47:17.014Z"
+                "updatedAt": "2019-10-08T03:41:28.698Z"
               },
               "method": "POST",
               "url": "https://graph.microsoft.com/v1.0/me/events",
+              "body": {
+                "subject": "{dialog.CreateCalendarEntry_Subject}",
+                "body": {
+                  "contentType": "HTML",
+                  "content": "{dialog.CreateCalendarEntry_Conte}"
+                },
+                "start": {
+                  "dateTime": "{formatDateTime(dialog.CreateCalendarEntry_FromTime[0].value, 'yyyy-MM-ddTHH:mm:ss')}",
+                  "timeZone": "UTC"
+                },
+                "end": {
+                  "dateTime": "2019-10-15T03:05:06.050Z",
+                  "timeZone": "UTC"
+                },
+                "location": {
+                  "displayName": "{dialog.CreateCalendarEntry_Location}"
+                },
+                "attendees": [
+                  {
+                    "emailAddress": {
+                      "address": "{dialog.attendees}"
+                    }
+                  }
+                ]
+              },
               "property": "dialog.createMeetingHttpResult",
               "headers": {
                 "Authorization": "Bearer {dialog.token.Token}"
@@ -770,6 +795,34 @@
             "updatedAt": "2019-09-19T10:48:02.076Z"
           },
           "activity": "[bfdactivity-432643]"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "040311",
+        "name": "Cancel",
+        "updatedAt": "2019-09-29T11:03:34.221Z"
+      },
+      "constraint": "turn.dialogevent.value.intents.Cancel.score > 0.6",
+      "intent": "Cancel",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "464903",
+            "name": "Send an Activity",
+            "updatedAt": "2019-09-29T11:05:14.612Z"
+          },
+          "activity": "[bfdactivity-464903]"
+        },
+        {
+          "$type": "Microsoft.EndDialog",
+          "$designer": {
+            "id": "828883",
+            "name": "End Dialog"
+          }
         }
       ]
     }
