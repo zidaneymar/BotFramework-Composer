@@ -229,48 +229,6 @@
           "condition": "turn.confirm_result==true",
           "actions": [
             {
-              "$type": "Microsoft.IfCondition",
-              "$designer": {
-                "id": "983753",
-                "name": "Branch: If/Else",
-                "updatedAt": "2019-10-08T08:38:28.170Z"
-              },
-              "condition": "toLower(dialog.CreateCalendarEntry_Subject)=='skip'",
-              "actions": [
-                {
-                  "$type": "Microsoft.SetProperty",
-                  "$designer": {
-                    "id": "698829",
-                    "name": "Set a Property",
-                    "updatedAt": "2019-10-08T08:43:31.949Z"
-                  },
-                  "property": "dialog.CreateCalendarEntry_Subject",
-                  "value": "''"
-                }
-              ]
-            },
-            {
-              "$type": "Microsoft.IfCondition",
-              "$designer": {
-                "id": "983753",
-                "name": "Branch: If/Else",
-                "updatedAt": "2019-10-08T08:38:28.170Z"
-              },
-              "condition": "toLower(dialog.CreateCalendarEntry_Content)=='skip'",
-              "actions": [
-                {
-                  "$type": "Microsoft.SetProperty",
-                  "$designer": {
-                    "id": "698829",
-                    "name": "Set a Property",
-                    "updatedAt": "2019-10-08T08:43:31.949Z"
-                  },
-                  "property": "dialog.CreateCalendarEntry_Content",
-                  "value": "''"
-                }
-              ]
-            },
-            {
               "$type": "Microsoft.OAuthInput",
               "$designer": {
                 "id": "370791",
@@ -294,15 +252,15 @@
               "$designer": {
                 "id": "040772",
                 "name": "HTTP Request",
-                "updatedAt": "2019-10-08T08:22:00.818Z"
+                "updatedAt": "2019-10-08T11:34:05.904Z"
               },
               "method": "POST",
               "url": "https://graph.microsoft.com/v1.0/me/events",
               "body": {
-                "subject": "{dialog.CreateCalendarEntry_Subject}",
+                "subject": "{if(empty(dialog.CreateCalendarEntry_Subject) != true && toLower(dialog.CreateCalendarEntry_Subject) != 'skip', dialog.CreateCalendarEntry_Subject,'')}",
                 "body": {
                   "contentType": "HTML",
-                  "content": "{dialog.CreateCalendarEntry_Content}"
+                  "content": "{if(empty(dialog.CreateCalendarEntry_Content) != true && toLower(dialog.CreateCalendarEntry_Content) != 'skip', dialog.CreateCalendarEntry_Content,'')}"
                 },
                 "start": {
                   "dateTime": "{formatDateTime(dialog.CreateCalendarEntry_FromTime[0].value, 'yyyy-MM-ddTHH:mm:ss')}",
@@ -313,7 +271,7 @@
                   "timeZone": "UTC"
                 },
                 "location": {
-                  "displayName": "{dialog.CreateCalendarEntry_Location}"
+                  "displayName": "{if(empty(dialog.CreateCalendarEntry_Location) != true && toLower(dialog.CreateCalendarEntry_Location) != 'skip', dialog.CreateCalendarEntry_Location,'')}"
                 },
                 "attendees": [
                   {
