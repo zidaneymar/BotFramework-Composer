@@ -386,3 +386,23 @@ hahaha
 
 # bfdactivity-004330
 -dialog.CreateCalendarEntry_Test
+
+
+# bfdactivity-204555
+-{dialog.CurrentAttendee}
+
+
+# bfdactivity-669815
+-{dialog.AttendeeResults.content.value}
+
+
+# bfdactivity-537115
+-{dialog.AttendeeList}
+
+
+# bfdactivity-386349
+-Find contact {dialog.AttendeeList}
+
+
+# bfdactivity-149606
+-{dialog.options['dialog.AttendeeList']}

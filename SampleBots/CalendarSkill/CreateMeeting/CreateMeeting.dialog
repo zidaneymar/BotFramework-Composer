@@ -75,6 +75,30 @@
           "outputFormat": "none"
         },
         {
+          "$type": "Microsoft.EditArray",
+          "$designer": {
+            "id": "846050",
+            "name": "Edit an Array Property",
+            "updatedAt": "2019-10-09T07:09:34.437Z"
+          },
+          "changeType": "Push",
+          "arrayProperty": "dialog.AttendeeList",
+          "value": "dialog.attendees"
+        },
+        {
+          "$type": "Microsoft.BeginDialog",
+          "$designer": {
+            "id": "725652",
+            "name": "Begin a Dialog",
+            "updatedAt": "2019-10-09T07:17:12.355Z"
+          },
+          "dialog": "FindContact",
+          "options": {
+            "dialog.AttendeeList": "dialog.AttendeeList"
+          },
+          "property": "dialog.ResolvedAttendeeList"
+        },
+        {
           "$type": "Microsoft.TextInput",
           "$designer": {
             "name": "Input Subject",

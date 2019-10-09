@@ -1,0 +1,95 @@
+{
+  "$type": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "name": "FindContact",
+    "createdAt": "2019-10-09T02:59:37.584Z",
+    "updatedAt": "2019-10-09T02:59:41.580Z",
+    "id": "841379"
+  },
+  "autoEndDialog": "true",
+  "defaultResultProperty": "dialog.result",
+  "events": [
+    {
+      "$type": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "678028",
+            "name": "Set a Property",
+            "updatedAt": "2019-10-09T10:02:06.629Z"
+          },
+          "property": "dialog.AttendeeList",
+          "value": "dialog.options['dialog.AttendeeList']"
+        },
+        {
+          "$type": "Microsoft.OAuthInput",
+          "$designer": {
+            "id": "792664",
+            "name": "OAuth Login",
+            "updatedAt": "2019-10-09T03:57:50.462Z"
+          },
+          "prompt": "Please log in to your calendar account.",
+          "unrecognizedPrompt": "Sorry I don't understand, please login.",
+          "invalidPrompt": "Input invalid. Retry login please.",
+          "maxTurnCount": 2147483647,
+          "property": "dialog.token",
+          "alwaysPrompt": false,
+          "allowInterruptions": "notRecognized",
+          "connectionName": "Outlook",
+          "text": "Please log in to your calendar account",
+          "timeout": "900000",
+          "title": "Sign in"
+        },
+        {
+          "$type": "Microsoft.Foreach",
+          "$designer": {
+            "id": "861689",
+            "name": "Loop: For Each",
+            "updatedAt": "2019-10-09T07:07:12.550Z"
+          },
+          "listProperty": "dialog.AttendeeList",
+          "actions": [
+            {
+              "$type": "Microsoft.HttpRequest",
+              "$designer": {
+                "id": "134230",
+                "name": "HTTP Request",
+                "updatedAt": "2019-10-09T10:24:08.054Z"
+              },
+              "method": "GET",
+              "url": "https://graph.microsoft.com/v1.0/users?$filter=startswith(displayName, '{dialog.CurrentAttendee}') or startswith(givenName,'{dialog.CurrentAttendee}') or startswith(surname,'{dialog.CurrentAttendee}') or startswith(mail,'{dialog.CurrentAttendee}') or startswith(userPrincipalName,'{dialog.CurrentAttendee}')",
+              "property": "dialog.AttendeeResults",
+              "headers": {
+                "Authorization": "Bearer {dialog.token.Token}"
+              },
+              "responseType": "Json"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "669815",
+                "name": "Send an Activity",
+                "updatedAt": "2019-10-09T06:49:03.524Z"
+              },
+              "activity": "[bfdactivity-669815]"
+            }
+          ],
+          "indexProperty": "dialog.AttendeeIndex",
+          "valueProperty": "dialog.CurrentAttendee"
+        },
+        {
+          "$type": "Microsoft.EndDialog",
+          "$designer": {
+            "id": "916682",
+            "name": "End Dialog"
+          }
+        }
+      ]
+    }
+  ],
+  "$schema": "../../BotProject/CSharp/Schemas/app.schema"
+}
