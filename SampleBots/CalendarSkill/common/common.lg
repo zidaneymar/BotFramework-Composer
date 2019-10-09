@@ -406,3 +406,23 @@ hahaha
 
 # bfdactivity-149606
 -{dialog.options['dialog.AttendeeList']}
+
+
+# bfdactivity-510077
+-{dialog.ResolvedAttendees}
+
+
+# bfdactivity-421764
+-No such attendee!
+
+
+# bfdactivity-542836
+-{dialog.options['dialog.CurrentAttendee']}
+
+
+# bfdactivity-859298
+-'Megan'
+
+
+# bfdactivity-140612
+-'Megan1'
