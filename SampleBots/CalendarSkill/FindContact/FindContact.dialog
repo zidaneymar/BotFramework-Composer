@@ -16,6 +16,27 @@
       },
       "actions": [
         {
+          "$type": "Microsoft.TraceActivity",
+          "$designer": {
+            "id": "606412",
+            "name": "Emit a trace event",
+            "updatedAt": "2019-10-10T10:29:04.948Z"
+          },
+          "name": "FindContactDialog",
+          "valueType": "memory",
+          "value": "user"
+        },
+        {
+          "$type": "Microsoft.EditArray",
+          "$designer": {
+            "id": "311983",
+            "name": "Edit an Array Property",
+            "updatedAt": "2019-10-10T10:29:56.545Z"
+          },
+          "changeType": "Clear",
+          "arrayProperty": "user.ResolvedAttendees"
+        },
+        {
           "$type": "Microsoft.SetProperty",
           "$designer": {
             "id": "678028",
@@ -54,31 +75,22 @@
               "$designer": {
                 "id": "491758",
                 "name": "Edit an Array Property",
-                "updatedAt": "2019-10-09T11:21:34.368Z"
+                "updatedAt": "2019-10-10T09:59:09.320Z"
               },
               "changeType": "Push",
-              "arrayProperty": "dialog.ResolvedAttendees",
-              "value": "dialog.ResolvedAttendee"
+              "arrayProperty": "user.ResolvedAttendees",
+              "value": "user.ResolvedAttendee"
             }
           ]
-        },
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "id": "510077",
-            "name": "Send an Activity",
-            "updatedAt": "2019-10-09T11:23:45.978Z"
-          },
-          "activity": "[bfdactivity-510077]"
         },
         {
           "$type": "Microsoft.EndDialog",
           "$designer": {
             "id": "916682",
             "name": "End Dialog",
-            "updatedAt": "2019-10-09T11:21:50.981Z"
+            "updatedAt": "2019-10-10T09:44:17.417Z"
           },
-          "property": "dialog.ResolvedAttendees"
+          "property": "user.ResolvedAttendees"
         }
       ]
     }

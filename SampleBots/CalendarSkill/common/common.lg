@@ -426,3 +426,11 @@ hahaha
 
 # bfdactivity-140612
 -'Megan1'
+
+
+# bfdactivity-297887
+-{dialog.AttendeeResults.content.value[0]}
+
+
+# bfdactivity-177699
+-{user.ResolvedAttendee}

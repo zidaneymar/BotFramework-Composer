@@ -16,13 +16,15 @@
       },
       "actions": [
         {
-          "$type": "Microsoft.SendActivity",
+          "$type": "Microsoft.TraceActivity",
           "$designer": {
-            "id": "542836",
-            "name": "Send an Activity",
-            "updatedAt": "2019-10-09T11:41:27.849Z"
+            "id": "197644",
+            "name": "Emit a trace event",
+            "updatedAt": "2019-10-10T10:28:11.173Z"
           },
-          "activity": "[bfdactivity-542836]"
+          "name": "FindSingleContactDialog",
+          "valueType": "memory",
+          "value": "user"
         },
         {
           "$type": "Microsoft.SetProperty",
@@ -83,15 +85,6 @@
           "responseType": "Json"
         },
         {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "id": "669815",
-            "name": "Send an Activity",
-            "updatedAt": "2019-10-09T06:49:03.524Z"
-          },
-          "activity": "[bfdactivity-669815]"
-        },
-        {
           "$type": "Microsoft.IfCondition",
           "$designer": {
             "id": "688580",
@@ -105,9 +98,9 @@
               "$designer": {
                 "id": "595605",
                 "name": "Prompt for text",
-                "updatedAt": "2019-10-09T12:06:53.199Z"
+                "updatedAt": "2019-10-10T11:17:18.565Z"
               },
-              "prompt": "No such attendee! Please retry input an attendee.",
+              "prompt": "No such attendee named {dialog.CurrentAttendee}! Please retry input an attendee.",
               "maxTurnCount": 2147483647,
               "property": "dialog.NewAttendee",
               "alwaysPrompt": true,
@@ -134,13 +127,23 @@
           ]
         },
         {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "715194",
+            "name": "Set a Property",
+            "updatedAt": "2019-10-10T09:51:05.621Z"
+          },
+          "value": "dialog.AttendeeResults.content.value[0].mail",
+          "property": "user.ResolvedAttendee"
+        },
+        {
           "$type": "Microsoft.EndDialog",
           "$designer": {
             "id": "010353",
             "name": "End Dialog",
-            "updatedAt": "2019-10-09T11:59:08.000Z"
+            "updatedAt": "2019-10-10T09:51:14.976Z"
           },
-          "property": "dialog.AttendeeResults.content.value[0]"
+          "property": "user.ResolvedAttendee"
         }
       ]
     }

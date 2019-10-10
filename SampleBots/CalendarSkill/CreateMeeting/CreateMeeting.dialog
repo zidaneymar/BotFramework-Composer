@@ -103,9 +103,9 @@
           "$designer": {
             "name": "Input Subject",
             "id": "193662",
-            "updatedAt": "2019-10-08T08:21:01.341Z"
+            "updatedAt": "2019-10-10T10:06:25.281Z"
           },
-          "prompt": "Alright, I will send this to {dialog.attendees}. What is the subject of the event?  You can also say \"skip\" to skip.",
+          "prompt": "Alright, I will send this to {join(user.ResolvedAttendees, ', ', ' and ')}. What is the subject of the event?  You can also say \"skip\" to skip.",
           "maxTurnCount": 2147483647,
           "value": "@Subject",
           "property": "dialog.CreateCalendarEntry_Subject",
@@ -227,7 +227,7 @@
           "$designer": {
             "name": "Prompt for confirmation",
             "id": "539233",
-            "updatedAt": "2019-09-25T04:34:00.994Z"
+            "updatedAt": "2019-10-10T11:07:56.932Z"
           },
           "prompt": "[ShowMeetingConfirmCard]",
           "maxTurnCount": 2147483647,
@@ -276,7 +276,7 @@
               "$designer": {
                 "id": "040772",
                 "name": "HTTP Request",
-                "updatedAt": "2019-10-08T11:34:05.904Z"
+                "updatedAt": "2019-10-10T10:50:55.144Z"
               },
               "method": "POST",
               "url": "https://graph.microsoft.com/v1.0/me/events",
@@ -300,7 +300,7 @@
                 "attendees": [
                   {
                     "emailAddress": {
-                      "address": "{dialog.attendees}"
+                      "address": "{user.ResolvedAttendees[0]}"
                     }
                   }
                 ]
@@ -847,10 +847,9 @@
       "$designer": {
         "id": "040311",
         "name": "Cancel",
-        "updatedAt": "2019-09-29T11:03:34.221Z"
+        "updatedAt": "2019-10-10T11:13:04.713Z"
       },
-      "constraint": "turn.dialogevent.value.intents.Cancel.score > 0.6",
-      "intent": "Cancel",
+      "constraint": "turn.dialogevent.value.intents.Cancel.score > 0.99",
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
@@ -868,7 +867,8 @@
             "name": "End Dialog"
           }
         }
-      ]
+      ],
+      "intent": "Cancel"
     }
   ],
   "$schema": "../../BotProject/CSharp/Schemas/app.schema",
