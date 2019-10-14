@@ -113,7 +113,7 @@ hahaha
 -ELSEIF:{@PersonName}
   - The meeting attendee is {@PersonName}.
 -ELSE:
-  - OK.
+  - No entites founded.
 
 
 # bfdactivity-512634
@@ -434,3 +434,86 @@ hahaha
 
 # bfdactivity-177699
 -{user.ResolvedAttendee}
+
+
+# bfdprompt-297662
+-{what }
+
+
+# bfdprompt-680650
+-OK, who do you want to join?
+
+
+# bfdprompt-646374
+-[AskForNewTitle]
+
+
+# bfdactivity-767144
+-What's the new attendee?
+
+
+# bfdprompt-515322
+-What's the new attendee?
+
+
+# bfdprompt-039846
+-What's the new message body?
+
+
+# bfdprompt-051283
+-What's the new start date?
+
+
+# bfdprompt-350260
+-What's the new start date?
+
+
+# bfdactivity-325858
+-IF:{count(user.ResolvedAttendees)==0}
+  - You don't have any attendee.
+-ELSEIF:{count(user.ResolvedAttendees)==1}
+  - Alright, now you have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
+-ELSE:
+  - Alright, now you have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
+
+
+# bfdprompt-193662
+-Alright, I will send this to {join(user.ResolvedAttendees, ', ', ' and ')}. What is the subject of the event?  You can also say "skip" to skip.
+
+# AskForNewTitle
+-What's the new subject?
+
+# AskForNewAttendee
+-What's the new attendee?
+
+# AskForNewContent
+-What's the new message body?
+
+# AskForNewStartDate
+-What's the new start date?
+
+
+
+
+# bfdprompt-789029
+-[AskForNewContent]
+
+
+# bfdprompt-482672
+-What's the new start date?
+
+
+# bfdprompt-038398
+-What's the new duration?
+
+
+# bfdprompt-305912
+-What's the new end time?
+
+
+# bfdprompt-917550
+-What's the new duration?
+
+
+# bfdprompt-364583
+-What's the new location?
