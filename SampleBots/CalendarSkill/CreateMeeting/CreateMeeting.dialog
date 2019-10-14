@@ -103,9 +103,9 @@
           "$designer": {
             "name": "Input Subject",
             "id": "193662",
-            "updatedAt": "2019-10-10T10:06:25.281Z"
+            "updatedAt": "2019-10-14T08:26:29.474Z"
           },
-          "prompt": "Alright, I will send this to {join(user.ResolvedAttendees, ', ', ' and ')}. What is the subject of the event?  You can also say \"skip\" to skip.",
+          "prompt": "[bfdprompt-193662]",
           "maxTurnCount": 2147483647,
           "value": "@Subject",
           "property": "dialog.CreateCalendarEntry_Subject",
@@ -504,33 +504,6 @@
     {
       "$type": "Microsoft.OnIntent",
       "$designer": {
-        "name": "UpdateAttendees",
-        "createdAt": "2019-09-17T08:55:53.380Z",
-        "updatedAt": "2019-09-17T09:26:55.252Z",
-        "id": "661010"
-      },
-      "constraint": "turn.dialogevent.value.intents.SetAttendees.score > 0.6",
-      "actions": [
-        {
-          "$type": "Microsoft.TextInput",
-          "$designer": {
-            "name": "Prompt for text",
-            "id": "680650",
-            "updatedAt": "2019-09-17T09:30:32.976Z"
-          },
-          "prompt": "OK, who do you want to join?",
-          "maxTurnCount": 2147483647,
-          "property": "dialog.attendees",
-          "alwaysPrompt": true,
-          "allowInterruptions": "notRecognized",
-          "outputFormat": "none"
-        }
-      ],
-      "intent": "SetAttendees"
-    },
-    {
-      "$type": "Microsoft.OnIntent",
-      "$designer": {
         "name": "UpdateSubject",
         "createdAt": "2019-09-17T09:07:43.428Z",
         "updatedAt": "2019-09-17T09:27:16.946Z",
@@ -776,71 +749,503 @@
       "$designer": {
         "name": "GetInput",
         "createdAt": "2019-09-19T06:59:09.622Z",
-        "updatedAt": "2019-09-19T07:00:01.579Z",
+        "updatedAt": "2019-10-14T11:28:05.080Z",
         "id": "317576"
       },
-      "intent": "GetInput",
       "actions": [
         {
-          "$type": "Microsoft.SetProperty",
+          "$type": "Microsoft.LogAction",
           "$designer": {
-            "name": "Set a Property",
-            "id": "478114",
-            "updatedAt": "2019-09-19T10:29:52.084Z"
+            "id": "178336",
+            "name": "Log to console",
+            "updatedAt": "2019-10-14T11:44:08.885Z"
           },
-          "property": "dialog.CreateCalendarEntry_FromTime",
-          "value": "@FromTime"
+          "traceActivity": true,
+          "text": "GetInput"
         },
         {
-          "$type": "Microsoft.SetProperty",
+          "$type": "Microsoft.IfCondition",
           "$designer": {
-            "name": "Set a Property",
-            "id": "133531",
-            "updatedAt": "2019-09-19T10:32:03.202Z"
+            "id": "501121",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-10-14T04:39:42.233Z"
           },
-          "property": "dialog.CreateCalendarEntry_ToTime",
-          "value": "@ToTime"
+          "condition": "@OperateSubject != null || @Subject != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "411272",
+                "name": "Delete a Property",
+                "updatedAt": "2019-10-14T06:51:17.832Z"
+              },
+              "property": "turn.NewSubject"
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "id": "646374",
+                "name": "Prompt for text",
+                "updatedAt": "2019-10-14T06:50:56.651Z"
+              },
+              "prompt": "[bfdprompt-646374]",
+              "maxTurnCount": 3,
+              "value": "@Subject",
+              "property": "turn.NewSubject",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "none"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "183062",
+                "name": "Set a Property",
+                "updatedAt": "2019-10-14T07:18:34.926Z"
+              },
+              "property": "dialog.CreateCalendarEntry_Subject",
+              "value": "turn.NewSubject"
+            }
+          ]
         },
         {
-          "$type": "Microsoft.SetProperty",
+          "$type": "Microsoft.IfCondition",
           "$designer": {
-            "name": "Set a Property",
-            "id": "642252",
-            "updatedAt": "2019-09-19T10:32:25.643Z"
+            "id": "501121",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-10-14T08:09:36.063Z"
           },
-          "property": "dialog.CreateCalendarEntry_Location",
-          "value": "@Location"
+          "condition": "@OperateAttendee != null || @PersonName != null",
+          "actions": [
+            {
+              "$type": "Microsoft.LogAction",
+              "$designer": {
+                "id": "510732",
+                "name": "Log to console",
+                "updatedAt": "2019-10-14T09:04:11.527Z"
+              },
+              "text": "attendee ",
+              "traceActivity": true
+            },
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "411272",
+                "name": "Delete a Property",
+                "updatedAt": "2019-10-14T07:28:10.897Z"
+              },
+              "property": "turn.NewAttendee"
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "id": "646374",
+                "name": "Prompt for text",
+                "updatedAt": "2019-10-14T08:07:51.054Z"
+              },
+              "prompt": "[bfdprompt-646374]",
+              "maxTurnCount": 3,
+              "value": "@PersonName",
+              "property": "turn.NewAttendee",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "none"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "071493",
+                "name": "Set a Property",
+                "updatedAt": "2019-10-14T07:51:24.573Z"
+              },
+              "property": "dialog.attendees",
+              "value": "turn.NewAttendee"
+            },
+            {
+              "$type": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "804586",
+                "name": "Branch: If/Else",
+                "updatedAt": "2019-10-14T08:44:05.865Z"
+              },
+              "condition": "@DeleteOperation != null",
+              "actions": [
+                {
+                  "$type": "Microsoft.EditArray",
+                  "$designer": {
+                    "id": "504395",
+                    "name": "Edit an Array Property",
+                    "updatedAt": "2019-10-14T08:30:14.939Z"
+                  },
+                  "changeType": "Remove",
+                  "arrayProperty": "dialog.AttendeeList",
+                  "value": "dialog.attendees"
+                },
+                {
+                  "$type": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "736369",
+                    "name": "Begin a Dialog",
+                    "updatedAt": "2019-10-14T07:52:40.044Z"
+                  },
+                  "dialog": "FindSingleContact",
+                  "options": {
+                    "dialog.CurrentAttendee": "dialog.attendees"
+                  }
+                },
+                {
+                  "$type": "Microsoft.EditArray",
+                  "$designer": {
+                    "id": "985381",
+                    "name": "Edit an Array Property",
+                    "updatedAt": "2019-10-14T08:44:23.359Z"
+                  },
+                  "changeType": "Remove",
+                  "arrayProperty": "user.ResolvedAttendees",
+                  "value": "user.ResolvedAttendee"
+                },
+                {
+                  "$type": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "325858",
+                    "name": "Send an Activity",
+                    "updatedAt": "2019-10-14T08:13:24.890Z"
+                  },
+                  "activity": "[bfdactivity-325858]"
+                }
+              ],
+              "elseActions": [
+                {
+                  "$type": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "804586",
+                    "name": "Branch: If/Else",
+                    "updatedAt": "2019-10-14T11:20:57.022Z"
+                  },
+                  "condition": "true",
+                  "actions": [
+                    {
+                      "$type": "Microsoft.EditArray",
+                      "$designer": {
+                        "id": "504395",
+                        "name": "Edit an Array Property",
+                        "updatedAt": "2019-10-14T07:51:02.144Z"
+                      },
+                      "changeType": "Push",
+                      "arrayProperty": "dialog.AttendeeList",
+                      "value": "dialog.attendees"
+                    },
+                    {
+                      "$type": "Microsoft.BeginDialog",
+                      "$designer": {
+                        "id": "736369",
+                        "name": "Begin a Dialog",
+                        "updatedAt": "2019-10-14T07:52:40.044Z"
+                      },
+                      "dialog": "FindSingleContact",
+                      "options": {
+                        "dialog.CurrentAttendee": "dialog.attendees"
+                      }
+                    },
+                    {
+                      "$type": "Microsoft.EditArray",
+                      "$designer": {
+                        "id": "985381",
+                        "name": "Edit an Array Property",
+                        "updatedAt": "2019-10-14T08:01:19.852Z"
+                      },
+                      "changeType": "Push",
+                      "arrayProperty": "user.ResolvedAttendees",
+                      "value": "user.ResolvedAttendee"
+                    },
+                    {
+                      "$type": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "325858",
+                        "name": "Send an Activity",
+                        "updatedAt": "2019-10-14T08:13:24.890Z"
+                      },
+                      "activity": "[bfdactivity-325858]"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
-          "$type": "Microsoft.SetProperty",
+          "$type": "Microsoft.IfCondition",
           "$designer": {
-            "name": "Set a Property",
-            "id": "990153",
-            "updatedAt": "2019-09-19T10:39:22.931Z"
+            "id": "501121",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-10-14T10:18:43.654Z"
           },
-          "property": "dialog.CreateCalendarEntry_Subject",
-          "value": "@Subject"
+          "condition": "@OperateContent != null || @Messages != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "411272",
+                "name": "Delete a Property",
+                "updatedAt": "2019-10-14T10:19:20.689Z"
+              },
+              "property": "turn.NewContent"
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "id": "789029",
+                "name": "Prompt for text",
+                "updatedAt": "2019-10-14T10:20:11.326Z"
+              },
+              "prompt": "[bfdprompt-789029]",
+              "maxTurnCount": 3,
+              "property": "turn.NewContent",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "none",
+              "value": "@Messages"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "183062",
+                "name": "Set a Property",
+                "updatedAt": "2019-10-14T10:30:42.254Z"
+              },
+              "property": "dialog.CreateCalendarEntry_Content",
+              "value": "turn.NewContent"
+            }
+          ]
         },
         {
-          "$type": "Microsoft.SetProperty",
+          "$type": "Microsoft.IfCondition",
           "$designer": {
-            "name": "Set a Property",
-            "id": "699421",
-            "updatedAt": "2019-09-19T10:40:17.796Z"
+            "id": "501121",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-10-14T10:41:22.619Z"
           },
-          "property": "dialog.attendees",
-          "value": "@personName"
+          "condition": "@OperateStartTime != null || @FromTime != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "411272",
+                "name": "Delete a Property",
+                "updatedAt": "2019-10-14T10:39:52.965Z"
+              },
+              "property": "turn.NewStartDate"
+            },
+            {
+              "$type": "Microsoft.DateTimeInput",
+              "$designer": {
+                "id": "482672",
+                "name": "Prompt for a date",
+                "updatedAt": "2019-10-14T10:45:28.500Z"
+              },
+              "prompt": "[bfdprompt-482672]",
+              "maxTurnCount": 3,
+              "property": "turn.NewStartDate",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "defaultLocale": "en-us",
+              "value": "@FromDate"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "183062",
+                "name": "Set a Property",
+                "updatedAt": "2019-10-14T10:40:32.179Z"
+              },
+              "property": "dialog.CreateCalendarEntry_FromDate",
+              "value": "turn.NewStartDate"
+            }
+          ]
         },
         {
-          "$type": "Microsoft.SendActivity",
+          "$type": "Microsoft.IfCondition",
           "$designer": {
-            "name": "Send an Activity",
-            "id": "432643",
-            "updatedAt": "2019-09-19T10:48:02.076Z"
+            "id": "501121",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-10-14T10:42:40.833Z"
           },
-          "activity": "[bfdactivity-432643]"
+          "condition": "@OperateStartTime != null || @FromTime != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "411272",
+                "name": "Delete a Property",
+                "updatedAt": "2019-10-14T10:42:05.925Z"
+              },
+              "property": "turn.NewStartTime"
+            },
+            {
+              "$type": "Microsoft.DateTimeInput",
+              "$designer": {
+                "id": "038398",
+                "name": "Prompt for a date",
+                "updatedAt": "2019-10-14T10:44:44.913Z"
+              },
+              "prompt": "[bfdprompt-038398]",
+              "maxTurnCount": 3,
+              "property": "turn.NewStartTime",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "defaultLocale": "en-us",
+              "value": "@FromTime"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "183062",
+                "name": "Set a Property",
+                "updatedAt": "2019-10-14T10:30:42.254Z"
+              },
+              "property": "dialog.CreateCalendarEntry_Content",
+              "value": "turn.NewContent"
+            }
+          ]
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "501121",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-10-14T10:55:55.940Z"
+          },
+          "condition": "@OperateDuration != null || @Duration != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "411272",
+                "name": "Delete a Property",
+                "updatedAt": "2019-10-14T10:50:59.109Z"
+              },
+              "property": "turn.NewEndTime"
+            },
+            {
+              "$type": "Microsoft.DateTimeInput",
+              "$designer": {
+                "id": "305912",
+                "name": "Prompt for a date",
+                "updatedAt": "2019-10-14T10:54:32.312Z"
+              },
+              "prompt": "[bfdprompt-305912]",
+              "maxTurnCount": 3,
+              "property": "turn.NewEndTime",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "defaultLocale": "en-us",
+              "value": "@ToTime"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "183062",
+                "name": "Set a Property",
+                "updatedAt": "2019-10-14T10:54:57.231Z"
+              },
+              "property": "dialog.CreateCalendarEntry_ToTime",
+              "value": "turn.NewEndTime"
+            }
+          ]
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "501121",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-10-14T11:33:06.740Z"
+          },
+          "condition": "@OperateDuration != null || @Duration != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "411272",
+                "name": "Delete a Property",
+                "updatedAt": "2019-10-14T10:56:23.025Z"
+              },
+              "property": "turn.NewDuration"
+            },
+            {
+              "$type": "Microsoft.DateTimeInput",
+              "$designer": {
+                "id": "917550",
+                "name": "Prompt for a date",
+                "updatedAt": "2019-10-14T10:58:07.973Z"
+              },
+              "prompt": "[bfdprompt-917550]",
+              "maxTurnCount": 3,
+              "property": "turn.NewDuration",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "defaultLocale": "en-us",
+              "value": "@Duration"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "183062",
+                "name": "Set a Property",
+                "updatedAt": "2019-10-14T11:04:27.327Z"
+              },
+              "property": "dialog.CreateCalendarEntry_Duration",
+              "value": "turn.NewDuration"
+            }
+          ]
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "501121",
+            "name": "Branch: If/Else",
+            "updatedAt": "2019-10-14T11:06:43.210Z"
+          },
+          "condition": "@OperateLocation != null || @Location != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "411272",
+                "name": "Delete a Property",
+                "updatedAt": "2019-10-14T11:06:02.885Z"
+              },
+              "property": "turn.NewLocation"
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "id": "364583",
+                "name": "Prompt for text",
+                "updatedAt": "2019-10-14T11:09:19.609Z"
+              },
+              "prompt": "[bfdprompt-364583]",
+              "maxTurnCount": 3,
+              "property": "turn.NewLocation",
+              "alwaysPrompt": false,
+              "allowInterruptions": "notRecognized",
+              "outputFormat": "none",
+              "value": "@Location"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "183062",
+                "name": "Set a Property",
+                "updatedAt": "2019-10-14T11:09:59.345Z"
+              },
+              "property": "dialog.CreateCalendarEntry_Location",
+              "value": "turn.NewLocation"
+            }
+          ]
         }
-      ]
+      ],
+      "intent": "GetInput",
+      "constraint": "turn.dialogevent.value.intents.GetInput.score > 0.6"
     },
     {
       "$type": "Microsoft.OnIntent",
