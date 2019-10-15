@@ -14,6 +14,7 @@ const getProjectSuccess: ReducerFunc = (state, { response }) => {
   state.dialogs = response.data.dialogs;
   state.botEnvironment = response.data.botEnvironment || state.botEnvironment;
   state.botName = response.data.botName;
+  state.location = response.data.location;
   state.lgFiles = response.data.lgFiles;
   state.schemas = response.data.schemas;
   state.luFiles = response.data.luFiles;
@@ -112,7 +113,7 @@ const getStorageFileSuccess: ReducerFunc = (state, { response }) => {
     } else {
       const path = file.path;
       const extension = getExtension(path);
-      if (projectFiles.indexOf(extension) >= 0) {
+      if (projectFiles.includes(extension)) {
         files.push(file);
       }
     }
