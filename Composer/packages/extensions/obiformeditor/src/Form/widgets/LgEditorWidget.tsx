@@ -1,6 +1,6 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { RichEditor } from 'code-editor';
+import React, { useState, useMemo } from 'react';
+import { LgEditor } from 'code-editor';
+import debounce from 'lodash.debounce';
 
 import { FormContext } from '../types';
 
@@ -8,7 +8,7 @@ const LG_HELP =
   'https://github.com/microsoft/BotBuilder-Samples/blob/master/experimental/language-generation/docs/lg-file-format.md';
 
 const getInitialTemplate = (fieldName: string, formData?: string): string => {
-  let newTemplate = formData || '';
+  let newTemplate = formData || '- ';
 
   if (newTemplate.includes(`bfd${fieldName}-`)) {
     return '';
@@ -29,57 +29,66 @@ interface LgEditorWidgetProps {
 
 export const LgEditorWidget: React.FC<LgEditorWidgetProps> = props => {
   const { formContext, name, value, height = 250 } = props;
-  const [templateToRender, setTemplateToRender] = useState({ Name: '', Body: '' });
-  const lgId = `bfd${name}-${formContext.dialogId}`;
   const [errorMsg, setErrorMsg] = useState('');
+  const lgId = `bfd${name}-${formContext.dialogId}`;
+  const lgFileId = formContext.currentDialog.lgFile || 'common';
+  const lgFile = formContext.lgFiles.find(file => file.id === lgFileId);
 
-  const ensureTemplate = async (newBody?: string): Promise<void> => {
-    const templates = await formContext.shellApi.getLgTemplates('common');
-    const template = templates.find(template => {
-      return template.Name === lgId;
-    });
-    if (template === null || template === undefined) {
-      const newTemplate = getInitialTemplate(name, newBody);
-
-      if (formContext.dialogId && newTemplate) {
-        formContext.shellApi.updateLgTemplate('common', lgId, newTemplate);
-        props.onChange(`[${lgId}]`);
-      }
-      setTemplateToRender({ Name: `# ${lgId}`, Body: newTemplate });
-    } else {
-      if (templateToRender.Name === '') {
-        setTemplateToRender({ Name: `# ${lgId}`, Body: template.Body });
-      }
-    }
-  };
-
-  const onChange = (data): void => {
-    // hit the lg api and replace it's Body with data
-    if (formContext.dialogId) {
-      let dataToEmit = data.trim();
-      if (dataToEmit.length > 0 && dataToEmit[0] !== '-') {
-        dataToEmit = `-${dataToEmit}`;
-      }
-
-      if (dataToEmit.length > 0) {
-        setTemplateToRender({ Name: templateToRender.Name, Body: data });
+  const updateLgTemplate = useMemo(
+    () =>
+      debounce((body: string) => {
         formContext.shellApi
-          .updateLgTemplate('common', lgId, dataToEmit)
+          .updateLgTemplate(lgFileId, lgId, body)
           .then(() => setErrorMsg(''))
           .catch(error => setErrorMsg(error));
-        props.onChange(`[${lgId}]`);
-      } else {
-        setTemplateToRender({ Name: templateToRender.Name, Body: '' });
-        formContext.shellApi.removeLgTemplate('common', lgId);
-        props.onChange(undefined);
-      }
-    }
+      }, 500),
+    [lgId, lgFileId]
+  );
+
+  const template = (lgFile &&
+    lgFile.templates.find(template => {
+      return template.Name === lgId;
+    })) || {
+    Name: lgId,
+    Body: getInitialTemplate(name, value),
+    Parameters: '',
+    Range: {
+      startLineNumber: 1,
+      endLineNumber: 1,
+    },
   };
 
-  useEffect(() => {
-    ensureTemplate(value);
-  }, [formContext.dialogId]);
+  // template body code range
+  const codeRange = {
+    startLineNumber: 2,
+    endLineNumber: template.Body.split('\n').length + 1,
+  };
 
-  const { Body } = templateToRender;
-  return <RichEditor errorMsg={errorMsg} value={Body} onChange={onChange} helpURL={LG_HELP} height={height} />;
+  const [localContent, setLocalContent] = useState(template.Body);
+  const content = `#${template.Name}\n${localContent}`;
+
+  const onChange = (newTemplate: string) => {
+    const body = newTemplate.slice(newTemplate.indexOf('\n') + 1);
+    if (formContext.dialogId) {
+      if (body) {
+        updateLgTemplate(body);
+      } else {
+        updateLgTemplate.flush();
+        formContext.shellApi.removeLgTemplate(lgFileId, lgId);
+      }
+      props.onChange(`[${lgId}]`);
+    }
+    setLocalContent(body);
+  };
+
+  return (
+    <LgEditor
+      codeRange={codeRange}
+      errorMsg={errorMsg}
+      value={content}
+      onChange={onChange}
+      helpURL={LG_HELP}
+      height={height}
+    />
+  );
 };

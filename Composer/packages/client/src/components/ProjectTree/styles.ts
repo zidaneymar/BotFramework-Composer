@@ -138,8 +138,9 @@ export const dropdownStyles = {
 
 export const dialogWindow = css`
   display: flex;
-  width: 400px;
   flex-direction: column;
+  width: 400px;
+  height: 250px;
 `;
 
 export const textFieldlabel = {
@@ -152,16 +153,12 @@ export const textFieldlabel = {
   },
 };
 
-export const name = {
+export const intent = {
   fieldGroup: {
     width: 200,
   },
   root: {
     height: '90px',
   },
-  subComponentStyles: textFieldlabel,
-};
-
-export const constraint = {
   subComponentStyles: textFieldlabel,
 };

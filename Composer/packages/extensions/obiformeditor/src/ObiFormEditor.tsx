@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import ErrorBoundary, { FallbackProps } from 'react-error-boundary';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react';
 import debounce from 'lodash.debounce';
 import get from 'lodash.get';
+import { CacheProvider } from '@emotion/core';
+import createCache from '@emotion/cache';
 
 import { FormEditor, FormEditorProps } from './FormEditor';
+
+const emotionCache = createCache({
+  // @ts-ignore
+  nonce: window.__nonce__,
+});
 
 const ErrorInfo: React.FC<FallbackProps> = ({ componentStack, error }) => (
   <div style={{ marginRight: '20px' }}>
@@ -32,13 +39,16 @@ const ObiFormEditor: React.FC<FormEditorProps> = props => {
     props.onChange(data, props.focusedSteps[0]);
   };
 
-  const debouncedOnChange = debounce(onChange, 750);
+  // only need to debounce the change handler when focusedSteps change
+  const debouncedOnChange = useMemo(() => debounce(onChange, 750), [props.focusedSteps[0]]);
   const key = get(props.data, '$designer.id', props.focusPath);
 
   return (
-    <ErrorBoundary key={key} FallbackComponent={ErrorInfo}>
-      <FormEditor {...props} onChange={debouncedOnChange} />
-    </ErrorBoundary>
+    <CacheProvider value={emotionCache}>
+      <ErrorBoundary key={key} FallbackComponent={ErrorInfo}>
+        <FormEditor {...props} onChange={debouncedOnChange} />
+      </ErrorBoundary>
+    </CacheProvider>
   );
 };
 
