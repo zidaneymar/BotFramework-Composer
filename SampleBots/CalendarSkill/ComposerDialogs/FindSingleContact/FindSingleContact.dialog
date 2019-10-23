@@ -2,13 +2,11 @@
   "$type": "Microsoft.AdaptiveDialog",
   "$designer": {
     "name": "FindSingleContact",
-    "createdAt": "2019-10-09T10:46:23.440Z",
-    "updatedAt": "2019-10-09T11:02:28.737Z",
     "id": "207459"
   },
   "autoEndDialog": "true",
   "defaultResultProperty": "dialog.result",
-  "events": [
+  "triggers": [
     {
       "$type": "Microsoft.OnBeginDialog",
       "$designer": {
@@ -19,8 +17,7 @@
           "$type": "Microsoft.TraceActivity",
           "$designer": {
             "id": "197644",
-            "name": "Emit a trace event",
-            "updatedAt": "2019-10-10T10:28:11.173Z"
+            "name": "Emit a trace event"
           },
           "name": "FindSingleContactDialog",
           "valueType": "memory",
@@ -30,8 +27,7 @@
           "$type": "Microsoft.SetProperty",
           "$designer": {
             "id": "678028",
-            "name": "Set a Property",
-            "updatedAt": "2019-10-09T11:25:14.700Z"
+            "name": "Set a Property"
           },
           "property": "dialog.CurrentAttendee",
           "value": "dialog.options['dialog.CurrentAttendee']"
@@ -40,13 +36,12 @@
           "$type": "Microsoft.TextInput",
           "$designer": {
             "id": "668370",
-            "name": "Prompt for text",
-            "updatedAt": "2019-10-09T11:38:15.729Z"
+            "name": "Prompt for text"
           },
           "prompt": "Please input an attendee.",
           "maxTurnCount": 2147483647,
           "alwaysPrompt": false,
-          "allowInterruptions": "notRecognized",
+          "allowInterruptions": "true",
           "outputFormat": "none",
           "property": "dialog.CurrentAttendee"
         },
@@ -54,42 +49,39 @@
           "$type": "Microsoft.OAuthInput",
           "$designer": {
             "id": "792664",
-            "name": "OAuth Login",
-            "updatedAt": "2019-10-09T03:57:50.462Z"
+            "name": "OAuth Login"
           },
+          "connectionName": "Outlook",
+          "text": "Please log in to your calendar account",
+          "title": "Sign in",
+          "timeout": "900000",
           "prompt": "Please log in to your calendar account.",
           "unrecognizedPrompt": "Sorry I don't understand, please login.",
           "invalidPrompt": "Input invalid. Retry login please.",
-          "maxTurnCount": 2147483647,
-          "property": "dialog.token",
+          "maxTurnCount": 3,
           "alwaysPrompt": false,
-          "allowInterruptions": "notRecognized",
-          "connectionName": "Outlook",
-          "text": "Please log in to your calendar account",
-          "timeout": "900000",
-          "title": "Sign in"
+          "allowInterruptions": "true",
+          "tokenProperty": "dialog.token"
         },
         {
           "$type": "Microsoft.HttpRequest",
           "$designer": {
             "id": "134230",
-            "name": "HTTP Request",
-            "updatedAt": "2019-10-09T10:24:08.054Z"
+            "name": "HTTP Request"
           },
           "method": "GET",
           "url": "https://graph.microsoft.com/v1.0/users?$filter=startswith(displayName, '{dialog.CurrentAttendee}') or startswith(givenName,'{dialog.CurrentAttendee}') or startswith(surname,'{dialog.CurrentAttendee}') or startswith(mail,'{dialog.CurrentAttendee}') or startswith(userPrincipalName,'{dialog.CurrentAttendee}')",
-          "property": "dialog.AttendeeResults",
           "headers": {
             "Authorization": "Bearer {dialog.token.Token}"
           },
-          "responseType": "Json"
+          "responseType": "Json",
+          "resultProperty": "dialog.AttendeeResults"
         },
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {
             "id": "688580",
-            "name": "Branch: If/Else",
-            "updatedAt": "2019-10-09T11:26:38.785Z"
+            "name": "Branch: If/Else"
           },
           "condition": "dialog.AttendeeResults.content.value!=null && count(dialog.AttendeeResults.content.value) > 0",
           "elseActions": [
@@ -97,22 +89,20 @@
               "$type": "Microsoft.TextInput",
               "$designer": {
                 "id": "595605",
-                "name": "Prompt for text",
-                "updatedAt": "2019-10-10T11:17:18.565Z"
+                "name": "Prompt for text"
               },
               "prompt": "No such attendee named {dialog.CurrentAttendee}! Please retry input an attendee.",
-              "maxTurnCount": 2147483647,
+              "maxTurnCount": 3,
               "property": "dialog.NewAttendee",
               "alwaysPrompt": true,
-              "allowInterruptions": "notRecognized",
+              "allowInterruptions": "true",
               "outputFormat": "none"
             },
             {
               "$type": "Microsoft.SetProperty",
               "$designer": {
                 "id": "515655",
-                "name": "Set a Property",
-                "updatedAt": "2019-10-09T12:05:39.969Z"
+                "name": "Set a Property"
               },
               "property": "dialog.options['dialog.CurrentAttendee']",
               "value": "dialog.NewAttendee"
@@ -130,8 +120,7 @@
           "$type": "Microsoft.SetProperty",
           "$designer": {
             "id": "715194",
-            "name": "Set a Property",
-            "updatedAt": "2019-10-10T09:51:05.621Z"
+            "name": "Set a Property"
           },
           "value": "dialog.AttendeeResults.content.value[0].mail",
           "property": "user.ResolvedAttendee"
@@ -140,8 +129,7 @@
           "$type": "Microsoft.EndDialog",
           "$designer": {
             "id": "010353",
-            "name": "End Dialog",
-            "updatedAt": "2019-10-10T09:51:14.976Z"
+            "name": "End Dialog"
           },
           "property": "user.ResolvedAttendee"
         }

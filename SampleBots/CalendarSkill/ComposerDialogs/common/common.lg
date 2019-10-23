@@ -12,7 +12,6 @@
 
 # ShowMeetingConfirmCard
 - ```
-[adaptivecard
 {
     "type": "AdaptiveCard",
     "body": [
@@ -23,8 +22,7 @@
                     "type": "TextBlock",
                     "size": "Medium",
                     "weight": "Bolder",
-                    "text": "@{if(empty(dialog.CreateCalendarEntry_Subject) != true && toLower(dialog.CreateCalendarEntry_Subject) != 'skip',
-                        dialog.CreateCalendarEntry_Subject,'Empty subject')}"
+                    "text": "@{if(empty(dialog.CreateCalendarEntry_Subject) != true && toLower(dialog.CreateCalendarEntry_Subject) != 'skip', dialog.CreateCalendarEntry_Subject,'Empty subject')}"
                 }
             ]
         },
@@ -44,8 +42,7 @@
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "@{if(dialog.attendees != null,
-                        dialog.attendees,'No attendee specified')}",
+                    "text": "@{if(dialog.attendees != null, dialog.attendees,'No attendee specified')}",
                     "wrap": true,
                     "maxLines": 5
                 }
@@ -56,8 +53,7 @@
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "@{if(empty(dialog.CreateCalendarEntry_Location) != true && toLower(dialog.CreateCalendarEntry_Location) != 'skip',
-                        dialog.CreateCalendarEntry_Location,'No location sprcified')}",
+                    "text": "@{if(empty(dialog.CreateCalendarEntry_Location) != true && toLower(dialog.CreateCalendarEntry_Location) != 'skip', dialog.CreateCalendarEntry_Location,'No location sprcified')}",
                     "wrap": true,
                     "maxLines": 5
                 }
@@ -68,8 +64,7 @@
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "@{if(empty(dialog.CreateCalendarEntry_Content) != true && toLower(dialog.CreateCalendarEntry_Content) != 'skip',
-                        dialog.CreateCalendarEntry_Content,'Empty content.')}",
+                    "text": "@{if(empty(dialog.CreateCalendarEntry_Content) != true && toLower(dialog.CreateCalendarEntry_Content) != 'skip', dialog.CreateCalendarEntry_Content,'Empty content.')}",
                     "wrap": true,
                     "maxLines": 5
                 }
@@ -79,7 +74,6 @@
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
     "version": "1.0"
 }
-]
 ```
 
 
@@ -181,8 +175,7 @@ hahaha
                             "type": "TextBlock",
                             "spacing": "None",
                             "color": "Accent",
-                            "text": "@{if(x.location.displayName!= null && empty(x.location.displayName) != true,
-                                x.location.displayName,'No Location Specified')}",
+                            "text": "@{if(x.location.displayName!= null && empty(x.location.displayName) != true, x.location.displayName,'No Location Specified')}",
                             "isSubtle": false
                         }
                     ],
@@ -199,7 +192,6 @@ hahaha
 
 # stitchedEntryTemplate(meetingList, startIndex, endIndex)
 - ```
-[adaptivecard
 {
     "type": "AdaptiveCard",
     "height": "stretch",
@@ -217,12 +209,13 @@ hahaha
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
     "version": "1.0"
 }
-]
 ```
 
 
 # bfdactivity-621773
-- [stitchedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value, user.ShowAllMeetingDialog_pageIndex*3, user.ShowAllMeetingDialog_pageIndex*3+3)]
+[Activity
+    Attachments = {json(stitchedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value, user.ShowAllMeetingDialog_pageIndex*3, user.ShowAllMeetingDialog_pageIndex*3+3))}
+]
 
 
 # bfdactivity-611720
@@ -242,7 +235,6 @@ hahaha
 
 # detailedEntryTemplate(x)
 - ```
-[adaptivecard
 {
     "type": "AdaptiveCard",
     "body": [
@@ -273,9 +265,7 @@ hahaha
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "@{if(x.attendees[0].emailAddress.address != null &&
-                        empty(x.attendees[0].emailAddress.address) != true,
-                        x.attendees[0].emailAddress.address,'No Attendee Specified')}",
+                    "text": "@{if(x.attendees[0].emailAddress.address != null && empty(x.attendees[0].emailAddress.address) != true, x.attendees[0].emailAddress.address,'No Attendee Specified')}",
                     "wrap": true,
                     "maxLines": 5
                 }
@@ -286,8 +276,7 @@ hahaha
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "@{if(empty(x.location.displayName) != true,
-                        x.location.displayName,'No Location Specified')}",
+                    "text": "@{if(empty(x.location.displayName) != true, x.location.displayName,'No Location Specified')}",
                     "wrap": true,
                     "maxLines": 5
                 }
@@ -297,11 +286,9 @@ hahaha
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
     "version": "1.0"
 }
-]
 ```
 
-# bfdactivity-371576
--[detailedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index])]
+
 
 
 # bfdactivity-236913
@@ -445,7 +432,7 @@ hahaha
 
 
 # bfdprompt-646374
--[AskForNewTitle]
+-Who is the new attendee?
 
 
 # bfdactivity-767144
@@ -504,7 +491,7 @@ hahaha
 
 
 # bfdprompt-038398
--What's the new duration?
+-What's the new start time?
 
 
 # bfdprompt-305912
@@ -517,3 +504,55 @@ hahaha
 
 # bfdprompt-364583
 -What's the new location?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# bfdprompt-055373
+-[ReadOutMorePrompt]
+
+
+
+
+
+
+
+
+# bfdactivity-371576
+-[detailedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index])]
+
+
+# bfdprompt-539233
+[Activity
+    Attachments = {json(ShowMeetingConfirmCard())}
+]
+
+
+# bfdprompt-634964
+- What's the new subject?
+
+
+# bfdactivity-167988
+- {dialog.CreateCalendarEntry_FromTime} Format time {formatDateTime(dialog.CreateCalendarEntry_FromTime[0].value)}
+
+
+# bfdactivity-702996
+- From time {dialog.CreateCalendarEntry_FromTime}
+
+
+# bfdactivity-852960
+- To time {dialog.CreateCalendarEntry_ToTime}  From time {dialog.CreateCalendarEntry_FromTime}
+
+
+# bfdactivity-471706
+- To time {dialog.CreateCalendarEntry_ToTime}  From time {dialog.CreateCalendarEntry_FromTime}
