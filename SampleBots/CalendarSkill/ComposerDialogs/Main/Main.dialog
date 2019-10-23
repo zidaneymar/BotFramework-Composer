@@ -1,8 +1,6 @@
 {
   "$type": "Microsoft.AdaptiveDialog",
   "$designer": {
-    "createdAt": "2019-09-16T01:52:57.042Z",
-    "updatedAt": "2019-09-20T09:28:35.409Z",
     "id": "761416",
     "name": "CalendarSkill"
   },
@@ -10,23 +8,20 @@
   "defaultResultProperty": "dialog.result",
   "recognizer": "Main.lu",
   "generator": "common.lg",
-  "events": [
+  "triggers": [
     {
       "$type": "Microsoft.OnIntent",
       "$designer": {
         "name": "CreateMeeting",
-        "createdAt": "2019-09-16T02:06:50.945Z",
-        "updatedAt": "2019-09-29T08:13:44.421Z",
         "id": "860795"
       },
-      "constraint": "turn.dialogevent.value.intents.CreateCalendarEntry.score > 0.6",
+      "condition": "turn.dialogevent.value.intents.CreateCalendarEntry.score > 0.6",
       "actions": [
         {
           "$type": "Microsoft.BeginDialog",
           "$designer": {
             "name": "Begin a Dialog",
-            "id": "187768",
-            "updatedAt": "2019-09-16T04:48:04.300Z"
+            "id": "187768"
           },
           "id": "CreateMeeting",
           "dialog": "CreateMeeting"
@@ -40,14 +35,13 @@
         "id": "874795",
         "name": "Welcome"
       },
-      "constraint": "toLower(turn.Activity.membersAdded[0].name) != 'bot'",
+      "condition": "toLower(turn.Activity.membersAdded[0].name) != 'bot'",
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
           "$designer": {
             "id": "512634",
-            "name": "Send an Activity",
-            "updatedAt": "2019-09-23T02:44:38.412Z"
+            "name": "Send an Activity"
           },
           "activity": "[bfdactivity-512634]"
         }
@@ -57,17 +51,15 @@
       "$type": "Microsoft.OnIntent",
       "$designer": {
         "id": "112834",
-        "name": "ShowMeeting",
-        "updatedAt": "2019-09-29T09:03:03.076Z"
+        "name": "ShowMeeting"
       },
-      "constraint": "turn.dialogevent.value.intents.FindCalendarEntry.score > 0.6",
+      "condition": "turn.dialogevent.value.intents.FindCalendarEntry.score > 0.6",
       "actions": [
         {
           "$type": "Microsoft.SetProperty",
           "$designer": {
             "id": "666915",
-            "name": "Set a Property",
-            "updatedAt": "2019-09-29T09:13:49.288Z"
+            "name": "Set a Property"
           },
           "property": "user.ShowAllMeetingDialog_pageIndex",
           "value": "0"
@@ -76,8 +68,7 @@
           "$type": "Microsoft.BeginDialog",
           "$designer": {
             "id": "605040",
-            "name": "Begin a Dialog",
-            "updatedAt": "2019-09-23T06:30:09.199Z"
+            "name": "Begin a Dialog"
           },
           "dialog": "ShowMeeting"
         }
@@ -85,14 +76,5 @@
       "intent": "FindCalendarEntry"
     }
   ],
-  "$schema": "../../app.schema",
-  "rules": [
-    {
-      "$type": "Microsoft.OnConversationUpdateActivity",
-      "$designer": {
-        "id": "376720"
-      },
-      "constraint": "toLower(turn.Activity.membersAdded[0].name) != 'bot'"
-    }
-  ]
+  "$schema": "../../app.schema"
 }

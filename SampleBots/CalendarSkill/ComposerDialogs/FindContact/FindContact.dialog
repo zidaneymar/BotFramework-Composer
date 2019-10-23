@@ -2,13 +2,11 @@
   "$type": "Microsoft.AdaptiveDialog",
   "$designer": {
     "name": "FindContact",
-    "createdAt": "2019-10-09T02:59:37.584Z",
-    "updatedAt": "2019-10-09T02:59:41.580Z",
     "id": "841379"
   },
   "autoEndDialog": "true",
   "defaultResultProperty": "dialog.result",
-  "events": [
+  "triggers": [
     {
       "$type": "Microsoft.OnBeginDialog",
       "$designer": {
@@ -19,8 +17,7 @@
           "$type": "Microsoft.TraceActivity",
           "$designer": {
             "id": "606412",
-            "name": "Emit a trace event",
-            "updatedAt": "2019-10-10T10:29:04.948Z"
+            "name": "Emit a trace event"
           },
           "name": "FindContactDialog",
           "valueType": "memory",
@@ -30,18 +27,16 @@
           "$type": "Microsoft.EditArray",
           "$designer": {
             "id": "311983",
-            "name": "Edit an Array Property",
-            "updatedAt": "2019-10-10T10:29:56.545Z"
+            "name": "Edit an Array Property"
           },
           "changeType": "Clear",
-          "arrayProperty": "user.ResolvedAttendees"
+          "itemsProperty": "user.ResolvedAttendees"
         },
         {
           "$type": "Microsoft.SetProperty",
           "$designer": {
             "id": "678028",
-            "name": "Set a Property",
-            "updatedAt": "2019-10-09T10:02:06.629Z"
+            "name": "Set a Property"
           },
           "property": "dialog.AttendeeList",
           "value": "dialog.options['dialog.AttendeeList']"
@@ -50,10 +45,9 @@
           "$type": "Microsoft.Foreach",
           "$designer": {
             "id": "861689",
-            "name": "Loop: For Each",
-            "updatedAt": "2019-10-09T07:07:12.550Z"
+            "name": "Loop: For Each"
           },
-          "listProperty": "dialog.AttendeeList",
+          "itemsProperty": "dialog.AttendeeList",
           "indexProperty": "dialog.AttendeeIndex",
           "valueProperty": "dialog.CurrentAttendee",
           "actions": [
@@ -61,12 +55,11 @@
               "$type": "Microsoft.BeginDialog",
               "$designer": {
                 "id": "906353",
-                "name": "Begin a Dialog",
-                "updatedAt": "2019-10-09T11:20:45.929Z"
+                "name": "Begin a Dialog"
               },
               "dialog": "FindSingleContact",
               "options": {
-                "dialog.CurrentAttendee": "dialog.CurrentAttendee"
+                "dialog.CurrentAttendee": "dialog.foreach.value"
               },
               "property": "dialog.ResolvedAttendee"
             },
@@ -74,11 +67,10 @@
               "$type": "Microsoft.EditArray",
               "$designer": {
                 "id": "491758",
-                "name": "Edit an Array Property",
-                "updatedAt": "2019-10-10T09:59:09.320Z"
+                "name": "Edit an Array Property"
               },
               "changeType": "Push",
-              "arrayProperty": "user.ResolvedAttendees",
+              "itemsProperty": "user.ResolvedAttendees",
               "value": "user.ResolvedAttendee"
             }
           ]
@@ -87,8 +79,7 @@
           "$type": "Microsoft.EndDialog",
           "$designer": {
             "id": "916682",
-            "name": "End Dialog",
-            "updatedAt": "2019-10-10T09:44:17.417Z"
+            "name": "End Dialog"
           },
           "property": "user.ResolvedAttendees"
         }

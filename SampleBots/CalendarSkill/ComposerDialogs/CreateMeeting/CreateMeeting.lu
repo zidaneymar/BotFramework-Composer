@@ -202,7 +202,7 @@
 - can you tell me if my husband is free on {FromDate=sunday}
 - can you tell me something about {Subject=shakespeare}
 - cancel {FromTime=1 pm} {Subject=staff meeting}
-- cancel all events
+- cancel all triggers
 - cancel an appointment
 - cancel appointment
 - cancel appointment {FromDate=today}
@@ -689,7 +689,7 @@
 - tell me how much free time i have before {OrderReference=next} appt
 - tell me how much time before my {OrderReference=next} meeting
 - tell me the duration of the {Subject=product introducation}
-- tell me the events scheduled at calendar {Location=constitution hall}
+- tell me the triggers scheduled at calendar {Location=constitution hall}
 - tell {OrderReference=next} meeting that {Message=i'm running late}
 - the {OrderReference=next} appointment after that
 - this meeting should be changed to {ToDate=tomorrow}
@@ -742,7 +742,7 @@
 - what are my appointments for {FromDate=this week}
 - what are my appointments {FromDate=today}
 - what are my meetings at {FromTime=night}
-- what are the {OrderReference=next 3} events on my calendar
+- what are the {OrderReference=next 3} triggers on my calendar
 - what are the particulars for the {Subject=picnic} {FromDate=next week}
 - what are the plans for the {Subject=dinner date} with stacey
 - what day is {Subject=lego land} scheduled for
@@ -934,7 +934,7 @@
 - who will be at the {Subject=kids game}
 - who will be attending {Subject=picnic}
 - who will be in the {Subject=banking meeting}
-- who's going to be at those two events
+- who's going to be at those two triggers
 - will amber join {Subject=office meeting} {FromDate=today}
 - will amy be at {FromDate=today} ' s meeting
 - will anthony be at the meeting
