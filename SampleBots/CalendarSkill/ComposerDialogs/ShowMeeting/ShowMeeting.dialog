@@ -214,14 +214,6 @@
           "value": "coalesce(@ordinal, @number, 1)"
         },
         {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "id": "191265",
-            "name": "Send an Activity"
-          },
-          "activity": "[bfdactivity-191265]"
-        },
-        {
           "$type": "Microsoft.SetProperty",
           "$designer": {
             "id": "628958",

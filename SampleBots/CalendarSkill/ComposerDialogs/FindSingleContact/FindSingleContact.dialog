@@ -14,16 +14,6 @@
       },
       "actions": [
         {
-          "$type": "Microsoft.TraceActivity",
-          "$designer": {
-            "id": "197644",
-            "name": "Emit a trace event"
-          },
-          "name": "FindSingleContactDialog",
-          "valueType": "memory",
-          "value": "user"
-        },
-        {
           "$type": "Microsoft.SetProperty",
           "$designer": {
             "id": "678028",
@@ -31,6 +21,16 @@
           },
           "property": "dialog.CurrentAttendee",
           "value": "dialog.options['dialog.CurrentAttendee']"
+        },
+        {
+          "$type": "Microsoft.TraceActivity",
+          "$designer": {
+            "id": "802025",
+            "name": "Emit a trace event"
+          },
+          "name": "FindSingleContactDialog",
+          "valueType": "memory",
+          "value": "dialog.CurrentAttendee"
         },
         {
           "$type": "Microsoft.TextInput",

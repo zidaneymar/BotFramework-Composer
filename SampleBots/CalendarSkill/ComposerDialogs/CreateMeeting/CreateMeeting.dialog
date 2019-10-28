@@ -47,7 +47,7 @@
             "id": "279000",
             "name": "Set a Property"
           },
-          "property": "dialog.CreateCalendarEntry_Subject",
+          "property": "dialog.createcalendarentry_subject",
           "value": "@Subject"
         },
         {
@@ -59,11 +59,22 @@
           "prompt": "Sure, who will join?",
           "unrecognizedPrompt": "Please input a valid email address.",
           "maxTurnCount": 2147483647,
-          "value": "@personName",
           "property": "dialog.attendees",
           "alwaysPrompt": false,
           "allowInterruptions": "true",
-          "outputFormat": "none"
+          "outputFormat": "none",
+          "value": "@personName",
+          "defaultValue": "@PersonName"
+        },
+        {
+          "$type": "Microsoft.EditArray",
+          "$designer": {
+            "id": "492781",
+            "name": "Edit an Array Property"
+          },
+          "changeType": "Remove",
+          "itemsProperty": "dialog.AttendeeList",
+          "value": "dialog.attendees"
         },
         {
           "$type": "Microsoft.EditArray",
@@ -95,11 +106,12 @@
           },
           "prompt": "[bfdprompt-193662]",
           "maxTurnCount": 3,
-          "value": "@Subject",
-          "property": "dialog.CreateCalendarEntry_Subject",
+          "property": "dialog.createcalendarentry_subject",
           "alwaysPrompt": false,
           "allowInterruptions": "true",
-          "outputFormat": "none"
+          "outputFormat": "none",
+          "value": "@Subject",
+          "defaultValue": "@Subject"
         },
         {
           "$type": "Microsoft.TextInput",
@@ -109,11 +121,12 @@
           },
           "prompt": "OK, please enter the content of your event.",
           "maxTurnCount": 3,
-          "value": "@Message",
           "property": "dialog.CreateCalendarEntry_Content",
           "alwaysPrompt": false,
           "allowInterruptions": "true",
-          "outputFormat": "none"
+          "outputFormat": "none",
+          "value": "@Message",
+          "defaultValue": "@Message"
         },
         {
           "$type": "Microsoft.DateTimeInput",
@@ -123,10 +136,11 @@
           },
           "prompt": "For what date?",
           "unrecognizedPrompt": "Let's try again. For what date?",
-          "maxTurnCount": 2147483647,
+          "maxTurnCount": 3,
           "property": "dialog.CreateCalendarEntry_FromDate",
+          "defaultValue": "1",
           "alwaysPrompt": false,
-          "allowInterruptions": "this.value != null",
+          "allowInterruptions": "true",
           "defaultLocale": "en-us",
           "value": "@FromDate"
         },
@@ -142,18 +156,11 @@
           "invalidPrompt": "Please input something like 11:00pm.",
           "maxTurnCount": 3,
           "property": "dialog.CreateCalendarEntry_FromTime",
+          "defaultValue": "@FromTime",
           "alwaysPrompt": false,
-          "allowInterruptions": "this.value != null",
+          "allowInterruptions": "false",
           "defaultLocale": "en-us",
           "value": "@FromTime"
-        },
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "id": "167988",
-            "name": "Send an Activity"
-          },
-          "activity": "[bfdactivity-167988]"
         },
         {
           "$type": "Microsoft.DateTimeInput",
@@ -166,18 +173,11 @@
           "invalidPrompt": "Please input something like one hour.",
           "maxTurnCount": 3,
           "property": "dialog.CreateCalendarEntry_Duration",
+          "defaultValue": "@Duration",
           "alwaysPrompt": false,
-          "allowInterruptions": "this.value != null",
+          "allowInterruptions": "false",
           "defaultLocale": "en-us",
           "value": "@Duration"
-        },
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "id": "702996",
-            "name": "Send an Activity"
-          },
-          "activity": "[bfdactivity-702996]"
         },
         {
           "$type": "Microsoft.SetProperty",
@@ -189,14 +189,6 @@
           "value": "dialog.CreateCalendarEntry_FromTime"
         },
         {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "id": "852960",
-            "name": "Send an Activity"
-          },
-          "activity": "[bfdactivity-852960]"
-        },
-        {
           "$type": "Microsoft.SetProperty",
           "$designer": {
             "id": "698829",
@@ -204,14 +196,6 @@
           },
           "property": "dialog.CreateCalendarEntry_ToTime[0].value",
           "value": "addSeconds(formatDateTime(dialog.CreateCalendarEntry_FromTime[0].value), int(dialog.CreateCalendarEntry_Duration[0].value))"
-        },
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "id": "471706",
-            "name": "Send an Activity"
-          },
-          "activity": "[bfdactivity-471706]"
         },
         {
           "$type": "Microsoft.TextInput",
@@ -224,7 +208,9 @@
           "property": "dialog.CreateCalendarEntry_Location",
           "alwaysPrompt": false,
           "allowInterruptions": "true",
-          "outputFormat": "none"
+          "outputFormat": "none",
+          "defaultValue": "@Location",
+          "value": "@Location"
         },
         {
           "$type": "Microsoft.SendActivity",
@@ -289,7 +275,7 @@
               "method": "POST",
               "url": "https://graph.microsoft.com/v1.0/me/triggers",
               "body": {
-                "subject": "{if(empty(dialog.CreateCalendarEntry_Subject) != true && toLower(dialog.CreateCalendarEntry_Subject) != 'skip', dialog.CreateCalendarEntry_Subject,'')}",
+                "subject": "{if(empty(dialog.createcalendarentry_subject) != true && toLower(dialog.createcalendarentry_subject) != 'skip', dialog.createcalendarentry_subject,'')}",
                 "body": {
                   "contentType": "HTML",
                   "content": "{if(empty(dialog.CreateCalendarEntry_Content) != true && toLower(dialog.CreateCalendarEntry_Content) != 'skip', dialog.CreateCalendarEntry_Content,'')}"
@@ -336,10 +322,10 @@
                 "id": "032702"
               },
               "prompt": "Sure, what would you like to adjust?",
-              "maxTurnCount": 2147483647,
+              "maxTurnCount": 3,
               "property": "turn.adjust",
               "alwaysPrompt": false,
-              "allowInterruptions": "true",
+              "allowInterruptions": "this.value!=null",
               "outputFormat": "value",
               "choices": [
                 {
@@ -417,7 +403,7 @@
                       "invalidPrompt": "Not valid, what's the new subject?",
                       "maxTurnCount": 2147483647,
                       "value": "@Subject",
-                      "property": "dialog.CreateCalendarEntry_Subject",
+                      "property": "dialog.createcalendarentry_subject",
                       "alwaysPrompt": true,
                       "allowInterruptions": "true",
                       "outputFormat": "none"
@@ -506,6 +492,7 @@
         "name": "GetInput",
         "id": "317576"
       },
+      "condition": "turn.dialogevent.value.intents.GetInput.score > 0.5",
       "actions": [
         {
           "$type": "Microsoft.LogAction",
@@ -538,11 +525,14 @@
                 "id": "634964",
                 "name": "Prompt for text"
               },
+              "prompt": "[bfdprompt-634964]",
               "maxTurnCount": 3,
+              "defaultValue": "@Subject",
+              "value": "@Subject",
               "alwaysPrompt": false,
               "allowInterruptions": "true",
               "outputFormat": "none",
-              "prompt": "[bfdprompt-634964]"
+              "property": "turn.NewSubject"
             },
             {
               "$type": "Microsoft.SetProperty",
@@ -550,8 +540,16 @@
                 "id": "183062",
                 "name": "Set a Property"
               },
-              "property": "dialog.CreateCalendarEntry_Subject",
+              "property": "dialog.createcalendarentry_subject",
               "value": "turn.NewSubject"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "995295",
+                "name": "Send an Activity"
+              },
+              "activity": "[bfdactivity-995295]"
             }
           ]
         },
@@ -588,11 +586,12 @@
               },
               "prompt": "[bfdprompt-646374]",
               "maxTurnCount": 3,
-              "value": "@PersonName",
               "property": "turn.NewAttendee",
+              "defaultValue": "@PersonName",
               "alwaysPrompt": false,
               "allowInterruptions": "true",
-              "outputFormat": "none"
+              "outputFormat": "none",
+              "value": "@PersonName"
             },
             {
               "$type": "Microsoft.SetProperty",
@@ -663,6 +662,16 @@
                     {
                       "$type": "Microsoft.EditArray",
                       "$designer": {
+                        "id": "636559",
+                        "name": "Edit an Array Property"
+                      },
+                      "changeType": "Remove",
+                      "itemsProperty": "dialog.AttendeeList",
+                      "value": "dialog.attendees"
+                    },
+                    {
+                      "$type": "Microsoft.EditArray",
+                      "$designer": {
                         "id": "504395",
                         "name": "Edit an Array Property"
                       },
@@ -680,6 +689,16 @@
                       "options": {
                         "dialog.CurrentAttendee": "dialog.attendees"
                       }
+                    },
+                    {
+                      "$type": "Microsoft.EditArray",
+                      "$designer": {
+                        "id": "962758",
+                        "name": "Edit an Array Property"
+                      },
+                      "changeType": "Remove",
+                      "itemsProperty": "user.ResolvedAttendees",
+                      "value": "user.ResolvedAttendee"
                     },
                     {
                       "$type": "Microsoft.EditArray",
@@ -730,10 +749,11 @@
               "prompt": "[bfdprompt-789029]",
               "maxTurnCount": 3,
               "property": "turn.NewContent",
+              "defaultValue": "@Message",
               "alwaysPrompt": false,
-              "allowInterruptions": "true",
+              "allowInterruptions": "false",
               "outputFormat": "none",
-              "value": "@Messages"
+              "value": "@Message"
             },
             {
               "$type": "Microsoft.SetProperty",
@@ -771,8 +791,9 @@
               "prompt": "[bfdprompt-482672]",
               "maxTurnCount": 3,
               "property": "turn.NewStartDate",
+              "defaultValue": "@FromDate",
               "alwaysPrompt": false,
-              "allowInterruptions": "this.value != null",
+              "allowInterruptions": "false",
               "defaultLocale": "en-us",
               "value": "@FromDate"
             },
@@ -815,7 +836,8 @@
               "alwaysPrompt": false,
               "allowInterruptions": "true",
               "defaultLocale": "en-us",
-              "value": "@FromTime"
+              "value": "@FromTime",
+              "defaultValue": "@FromTime"
             },
             {
               "$type": "Microsoft.SetProperty",
@@ -856,7 +878,8 @@
               "alwaysPrompt": false,
               "allowInterruptions": "this.value != null",
               "defaultLocale": "en-us",
-              "value": "@ToTime"
+              "value": "@ToTime",
+              "defaultValue": "@ToTime"
             },
             {
               "$type": "Microsoft.SetProperty",
@@ -897,7 +920,8 @@
               "alwaysPrompt": false,
               "allowInterruptions": "this.value != null",
               "defaultLocale": "en-us",
-              "value": "@Duration"
+              "value": "@Duration",
+              "defaultValue": "@Duration"
             },
             {
               "$type": "Microsoft.SetProperty",
@@ -938,7 +962,8 @@
               "alwaysPrompt": false,
               "allowInterruptions": "true",
               "outputFormat": "none",
-              "value": "@Location"
+              "value": "@Location",
+              "defaultValue": "@Location"
             },
             {
               "$type": "Microsoft.SetProperty",
@@ -952,8 +977,7 @@
           ]
         }
       ],
-      "intent": "GetInput",
-      "condition": "turn.dialogevent.value.intents.GetInput.score > 0.6"
+      "intent": "GetInput"
     },
     {
       "$type": "Microsoft.OnIntent",
@@ -961,7 +985,7 @@
         "id": "040311",
         "name": "Cancel"
       },
-      "condition": "turn.dialogevent.value.intents.Cancel.score > 0.99",
+      "condition": "turn.dialogevent.value.intents.Cancel.score > 0.98",
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
@@ -970,6 +994,15 @@
             "name": "Send an Activity"
           },
           "activity": "[bfdactivity-464903]"
+        },
+        {
+          "$type": "Microsoft.EditArray",
+          "$designer": {
+            "id": "020344",
+            "name": "Edit an Array Property"
+          },
+          "changeType": "Clear",
+          "itemsProperty": "user.ResolvedAttendees"
         },
         {
           "$type": "Microsoft.EndDialog",
