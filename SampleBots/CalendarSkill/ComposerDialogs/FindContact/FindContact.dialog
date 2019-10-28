@@ -14,16 +14,6 @@
       },
       "actions": [
         {
-          "$type": "Microsoft.TraceActivity",
-          "$designer": {
-            "id": "606412",
-            "name": "Emit a trace event"
-          },
-          "name": "FindContactDialog",
-          "valueType": "memory",
-          "value": "user"
-        },
-        {
           "$type": "Microsoft.EditArray",
           "$designer": {
             "id": "311983",
@@ -40,6 +30,16 @@
           },
           "property": "dialog.AttendeeList",
           "value": "dialog.options['dialog.AttendeeList']"
+        },
+        {
+          "$type": "Microsoft.TraceActivity",
+          "$designer": {
+            "id": "098232",
+            "name": "Emit a trace event"
+          },
+          "name": "FindContactDialog",
+          "valueType": "memory",
+          "value": "dialog.AttendeeList"
         },
         {
           "$type": "Microsoft.Foreach",
