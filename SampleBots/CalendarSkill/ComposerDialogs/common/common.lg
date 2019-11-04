@@ -31,7 +31,7 @@
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "@{formatDateTime(dialog.CreateCalendarEntry_FromTime[0].value)} - @{formatDateTime(dialog.CreateCalendarEntry_ToTime[0].value)}",
+                    "text": "@{formatDateTime(dialog.CreateCalendarEntry_FromTime[0].value)} - @{formatDateTime(addSeconds(formatDateTime(dialog.CreateCalendarEntry_FromTime[0].value), int(dialog.CreateCalendarEntry_Duration[0].value)))}",
                     "wrap": true,
                     "maxLines": 5
                 }
@@ -576,3 +576,30 @@ hahaha
 
 
 
+
+
+
+
+
+# bfdactivity-487311
+- The content is {dialog.CreateCalendarEntry_Content}.
+
+
+# bfdactivity-112156
+- The start date is {dialog.CreateCalendarEntry_FromDate[0].value}
+
+
+# bfdactivity-756966
+- The meeting start time is {dialog.CreateCalendarEntry_StartTime[0].value}.
+
+
+# bfdactivity-691333
+- The meeting end time is {dialog.CreateCalendarEntry_ToTime[0].value}.
+
+
+# bfdactivity-116804
+- The meeting duration is {dialog.CreateCalendarEntry_Duration[0].value}
+
+
+# bfdactivity-977120
+- The meeting location is {dialog.CreateCalendarEntry_Location}

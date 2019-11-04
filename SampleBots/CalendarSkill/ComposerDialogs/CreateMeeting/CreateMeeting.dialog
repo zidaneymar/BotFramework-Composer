@@ -122,11 +122,11 @@
           "prompt": "OK, please enter the content of your event.",
           "maxTurnCount": 3,
           "property": "dialog.CreateCalendarEntry_Content",
+          "defaultValue": "@Message",
           "alwaysPrompt": false,
           "allowInterruptions": "true",
           "outputFormat": "none",
-          "value": "@Message",
-          "defaultValue": "@Message"
+          "value": "@Message"
         },
         {
           "$type": "Microsoft.DateTimeInput",
@@ -227,7 +227,7 @@
             "id": "539233"
           },
           "prompt": "[bfdprompt-539233]",
-          "maxTurnCount": 3,
+          "maxTurnCount": 100,
           "property": "turn.confirm_result",
           "alwaysPrompt": false,
           "allowInterruptions": "true",
@@ -273,7 +273,7 @@
                 "name": "HTTP Request"
               },
               "method": "POST",
-              "url": "https://graph.microsoft.com/v1.0/me/triggers",
+              "url": "https://graph.microsoft.com/v1.0/me/events",
               "body": {
                 "subject": "{if(empty(dialog.createcalendarentry_subject) != true && toLower(dialog.createcalendarentry_subject) != 'skip', dialog.createcalendarentry_subject,'')}",
                 "body": {
@@ -285,7 +285,7 @@
                   "timeZone": "UTC"
                 },
                 "end": {
-                  "dateTime": "2019-10-15T03:05:06.050Z",
+                  "dateTime": "{formatDateTime(dialog.CreateCalendarEntry_ToTime[0].value, 'yyyy-MM-ddTHH:mm:ss')}",
                   "timeZone": "UTC"
                 },
                 "location": {
@@ -763,6 +763,14 @@
               },
               "property": "dialog.CreateCalendarEntry_Content",
               "value": "turn.NewContent"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "487311",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-487311]"
             }
           ]
         },
@@ -805,6 +813,14 @@
               },
               "property": "dialog.CreateCalendarEntry_FromDate",
               "value": "turn.NewStartDate"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "112156",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-112156]"
             }
           ]
         },
@@ -845,8 +861,16 @@
                 "id": "183062",
                 "name": "Set a Property"
               },
-              "property": "dialog.CreateCalendarEntry_Content",
-              "value": "turn.NewContent"
+              "property": "dialog.CreateCalendarEntry_StartTime",
+              "value": "turn.NewStartTime"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "756966",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-756966]"
             }
           ]
         },
@@ -889,6 +913,14 @@
               },
               "property": "dialog.CreateCalendarEntry_ToTime",
               "value": "turn.NewEndTime"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "691333",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-691333]"
             }
           ]
         },
@@ -931,6 +963,14 @@
               },
               "property": "dialog.CreateCalendarEntry_Duration",
               "value": "turn.NewDuration"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "116804",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-116804]"
             }
           ]
         },
@@ -973,6 +1013,14 @@
               },
               "property": "dialog.CreateCalendarEntry_Location",
               "value": "turn.NewLocation"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "977120",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-977120]"
             }
           ]
         }

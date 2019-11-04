@@ -107,7 +107,11 @@
 - update meeting duration
 - update meeting start time
 - update meeting title
-
+- the meeting will start at {FromDate=tomorrow} {FromTime=10am}
+- Extend my meeting to {Duration=one hour}
+- extend to {Duration=one hour}
+- extend to {Duration=two hour}
+- delete megan and the meeting subject is {Subject=lunch together}
 
 ## Interruption
 - ^[(show|display)] next [page] [please]^
