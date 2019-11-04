@@ -681,7 +681,8 @@
 - (create|book|schedule) (a|an) (meeting|appointment|event) [with {personName}] (at|for|on) [{FromDate}] [{FromTime}]
 - (create|book|schedule) (a|an) (meeting|appointment|event) [with {personName}] from [{FromDate}] {FromTime} to [{ToDate}] {ToTime}
 - (create|book|schedule) (a|an) (meeting|appointment|event) [with {personName}] between {FromTime} and {ToTime}
-
+- Go back to create meeting
+- create meeting
 
 ## DeleteCalendarEntry
 - can you cancel the {PositionReference=1st} one
