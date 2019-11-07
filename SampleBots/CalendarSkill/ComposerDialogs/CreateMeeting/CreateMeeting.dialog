@@ -51,6 +51,15 @@
           "value": "@Subject"
         },
         {
+          "$type": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "018623",
+            "name": "Set a property"
+          },
+          "property": "dialog.createcalendarentry_content",
+          "value": "@Message"
+        },
+        {
           "$type": "Microsoft.TextInput",
           "$designer": {
             "name": "Set Attendees",
