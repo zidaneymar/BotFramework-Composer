@@ -69,11 +69,11 @@
           "unrecognizedPrompt": "Please input a valid email address.",
           "maxTurnCount": 2147483647,
           "property": "dialog.attendees",
+          "defaultValue": "@PersonName",
+          "value": "@personName",
           "alwaysPrompt": false,
           "allowInterruptions": "true",
-          "outputFormat": "none",
-          "value": "@personName",
-          "defaultValue": "@PersonName"
+          "outputFormat": "none"
         },
         {
           "$type": "Microsoft.EditArray",
@@ -166,10 +166,10 @@
           "maxTurnCount": 3,
           "property": "dialog.CreateCalendarEntry_FromTime",
           "defaultValue": "@FromTime",
+          "value": "@FromTime",
           "alwaysPrompt": false,
-          "allowInterruptions": "false",
-          "defaultLocale": "en-us",
-          "value": "@FromTime"
+          "allowInterruptions": "true",
+          "defaultLocale": "en-us"
         },
         {
           "$type": "Microsoft.DateTimeInput",
@@ -501,7 +501,7 @@
         "name": "GetInput",
         "id": "317576"
       },
-      "condition": "turn.dialogevent.value.intents.GetInput.score > 0.5",
+      "condition": "turn.dialogevent.value.intents.GetInput.score > 0.6",
       "actions": [
         {
           "$type": "Microsoft.LogAction",
