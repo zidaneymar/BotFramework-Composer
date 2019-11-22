@@ -308,7 +308,9 @@ hahaha
 
 
 # bfdactivity-087699
--[detailedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index])]
+[Activity
+    Attachments = {json(detailedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index]))}
+]
 
 
 
@@ -460,7 +462,7 @@ hahaha
 -ELSEIF:{count(user.ResolvedAttendees)==1}
   - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
 -ELSE:
-  - Alright, now you have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
+  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
 
 
 # bfdprompt-193662
@@ -527,8 +529,7 @@ hahaha
 
 
 
-# bfdactivity-371576
--[detailedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index])]
+
 
 
 # bfdprompt-539233
@@ -603,3 +604,8 @@ hahaha
 
 # bfdactivity-977120
 - The meeting location is {dialog.CreateCalendarEntry_Location}
+
+# bfdactivity-371576
+[Activity
+    Attachments = {json(detailedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index]))}
+]
