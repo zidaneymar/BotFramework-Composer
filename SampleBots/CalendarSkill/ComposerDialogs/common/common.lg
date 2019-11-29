@@ -77,8 +77,6 @@
 ```
 
 
-# bfdactivity-001552
-- I’m ready to create the event. The event is on date at time start till time end, with {join(user.ResolvedAttendees, ', ', ' and ')}. The subject of the event is {dialog.createcalendarentry_subject}. The event will take place at {dialog.CreateCalendarEntry_Location}. The message is {dialog.CreateCalendarEntry_Content}. Can you confirm this event?
 
 
 # bfdactivity-793355
@@ -87,8 +85,6 @@ hahaha
 ```
 
 
-# bfdactivity-069486
-- Okay, I have added the event to your calendar, named {dialog.createcalendarentry_subject}.
 
 
 # bfdactivity-928206
@@ -532,10 +528,6 @@ hahaha
 
 
 
-# bfdprompt-539233
-[Activity
-    Attachments = {json(ShowMeetingConfirmCard())}
-]
 
 
 # bfdprompt-634964
@@ -609,3 +601,14 @@ hahaha
 [Activity
     Attachments = {json(detailedEntryTemplate(dialog.ShowAllMeetingDialog_GraphAll.content.value[turn.ShowAllMeetingDialog_index]))}
 ]
+
+# bfdactivity-194820()
+- I’m ready to create the event. The event is on date at time start till time end, with {join(user.ResolvedAttendees, ', ', ' and ')}. The subject of the event is {dialog.createcalendarentry_subject}. The event will take place at {dialog.CreateCalendarEntry_Location}. The message is {dialog.CreateCalendarEntry_Content}. Can you confirm this event?
+# bfdprompt-630773()
+[Activity
+    Attachments = {json(ShowMeetingConfirmCard())}
+]
+# bfdactivity-672715()
+- Okay, I have added the event to your calendar, named {dialog.createcalendarentry_subject}.
+# bfdactivity-824784
+- Hello

@@ -15,7 +15,7 @@
         "name": "CreateMeeting",
         "id": "860795"
       },
-      "condition": "turn.dialogevent.value.intents.CreateCalendarEntry.score > 0.6",
+      "condition": "#CreateCalendarEntry.score > 0.6",
       "actions": [
         {
           "$type": "Microsoft.BeginDialog",
@@ -53,7 +53,7 @@
         "id": "112834",
         "name": "ShowMeeting"
       },
-      "condition": "turn.dialogevent.value.intents.FindCalendarEntry.score > 0.6",
+      "condition": "#FindCalendarEntry.score > 0.6",
       "actions": [
         {
           "$type": "Microsoft.SetProperty",
