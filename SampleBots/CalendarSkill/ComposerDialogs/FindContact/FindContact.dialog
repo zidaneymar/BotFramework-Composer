@@ -14,15 +14,6 @@
       },
       "actions": [
         {
-          "$type": "Microsoft.EditArray",
-          "$designer": {
-            "id": "311983",
-            "name": "Edit an Array Property"
-          },
-          "changeType": "Clear",
-          "itemsProperty": "user.ResolvedAttendees"
-        },
-        {
           "$type": "Microsoft.SetProperty",
           "$designer": {
             "id": "678028",
@@ -61,6 +52,7 @@
               "options": {
                 "dialog.CurrentAttendee": "dialog.foreach.value"
               },
+              "resultProperty": "$ResolvedAttendee",
               "property": "dialog.ResolvedAttendee"
             },
             {
@@ -70,8 +62,8 @@
                 "name": "Edit an Array Property"
               },
               "changeType": "Push",
-              "itemsProperty": "user.ResolvedAttendees",
-              "value": "user.ResolvedAttendee"
+              "itemsProperty": "$ResolvedAttendees",
+              "value": "$ResolvedAttendee"
             }
           ]
         },
@@ -81,6 +73,7 @@
             "id": "916682",
             "name": "End Dialog"
           },
+          "value": "$ResolvedAttendees",
           "property": "user.ResolvedAttendees"
         }
       ]

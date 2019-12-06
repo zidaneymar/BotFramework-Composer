@@ -76,36 +76,13 @@
           "outputFormat": "none"
         },
         {
-          "$type": "Microsoft.EditArray",
+          "$type": "Microsoft.EmitEvent",
           "$designer": {
-            "id": "492781",
-            "name": "Edit an Array Property"
+            "id": "260942",
+            "name": "Emit a custom event"
           },
-          "changeType": "Remove",
-          "itemsProperty": "dialog.AttendeeList",
-          "value": "dialog.attendees"
-        },
-        {
-          "$type": "Microsoft.EditArray",
-          "$designer": {
-            "id": "846050",
-            "name": "Edit an Array Property"
-          },
-          "changeType": "Push",
-          "itemsProperty": "dialog.AttendeeList",
-          "value": "dialog.attendees"
-        },
-        {
-          "$type": "Microsoft.BeginDialog",
-          "$designer": {
-            "id": "725652",
-            "name": "Begin a Dialog"
-          },
-          "dialog": "FindContact",
-          "options": {
-            "dialog.AttendeeList": "dialog.AttendeeList"
-          },
-          "property": "dialog.ResolvedAttendeeList"
+          "eventName": "AddAttendeeEvent",
+          "bubbleEvent": true
         },
         {
           "$type": "Microsoft.TextInput",
@@ -420,15 +397,6 @@
           "activity": "[bfdactivity-464903]"
         },
         {
-          "$type": "Microsoft.EditArray",
-          "$designer": {
-            "id": "020344",
-            "name": "Edit an Array Property"
-          },
-          "changeType": "Clear",
-          "itemsProperty": "user.ResolvedAttendees"
-        },
-        {
           "$type": "Microsoft.EndDialog",
           "$designer": {
             "id": "828883",
@@ -683,15 +651,24 @@
                         "id": "539329",
                         "name": "Prompt for text"
                       },
-                      "prompt": "What's the new attendee?",
+                      "prompt": "[bfdprompt-539329]",
                       "unrecognizedPrompt": "Let's try again, what's the new attendee?",
                       "invalidPrompt": "Invalid, what's the new attendee?",
                       "maxTurnCount": 2147483647,
-                      "value": "@personName",
                       "property": "dialog.attendees",
+                      "value": "@personName",
                       "alwaysPrompt": true,
                       "allowInterruptions": "true",
                       "outputFormat": "none"
+                    },
+                    {
+                      "$type": "Microsoft.EmitEvent",
+                      "$designer": {
+                        "id": "476303",
+                        "name": "Emit a custom event"
+                      },
+                      "eventName": "AddAttendeeEvent",
+                      "bubbleEvent": true
                     }
                   ]
                 },
@@ -804,116 +781,26 @@
                 "name": "Branch: If/Else"
               },
               "condition": "@DeleteOperation != null",
-              "actions": [
-                {
-                  "$type": "Microsoft.EditArray",
-                  "$designer": {
-                    "id": "376715",
-                    "name": "Edit an Array Property"
-                  },
-                  "changeType": "Remove",
-                  "itemsProperty": "dialog.AttendeeList",
-                  "value": "dialog.attendees"
-                },
-                {
-                  "$type": "Microsoft.BeginDialog",
-                  "$designer": {
-                    "id": "898062",
-                    "name": "Begin a Dialog"
-                  },
-                  "dialog": "FindSingleContact",
-                  "options": {
-                    "dialog.CurrentAttendee": "dialog.attendees"
-                  }
-                },
-                {
-                  "$type": "Microsoft.EditArray",
-                  "$designer": {
-                    "id": "832521",
-                    "name": "Edit an Array Property"
-                  },
-                  "changeType": "Remove",
-                  "itemsProperty": "user.ResolvedAttendees",
-                  "value": "user.ResolvedAttendee"
-                },
-                {
-                  "$type": "Microsoft.SendActivity",
-                  "$designer": {
-                    "id": "275833",
-                    "name": "Send an Activity"
-                  },
-                  "activity": "[bfdactivity-275833]"
-                }
-              ],
               "elseActions": [
                 {
-                  "$type": "Microsoft.IfCondition",
+                  "$type": "Microsoft.EmitEvent",
                   "$designer": {
-                    "id": "592254",
-                    "name": "Branch: If/Else"
+                    "id": "477575",
+                    "name": "Emit a custom event"
                   },
-                  "condition": "true",
-                  "actions": [
-                    {
-                      "$type": "Microsoft.EditArray",
-                      "$designer": {
-                        "id": "364722",
-                        "name": "Edit an Array Property"
-                      },
-                      "changeType": "Remove",
-                      "itemsProperty": "dialog.AttendeeList",
-                      "value": "dialog.attendees"
-                    },
-                    {
-                      "$type": "Microsoft.EditArray",
-                      "$designer": {
-                        "id": "503811",
-                        "name": "Edit an Array Property"
-                      },
-                      "changeType": "Push",
-                      "itemsProperty": "dialog.AttendeeList",
-                      "value": "dialog.attendees"
-                    },
-                    {
-                      "$type": "Microsoft.BeginDialog",
-                      "$designer": {
-                        "id": "012989",
-                        "name": "Begin a Dialog"
-                      },
-                      "dialog": "FindSingleContact",
-                      "options": {
-                        "dialog.CurrentAttendee": "dialog.attendees"
-                      }
-                    },
-                    {
-                      "$type": "Microsoft.EditArray",
-                      "$designer": {
-                        "id": "021813",
-                        "name": "Edit an Array Property"
-                      },
-                      "changeType": "Remove",
-                      "itemsProperty": "user.ResolvedAttendees",
-                      "value": "user.ResolvedAttendee"
-                    },
-                    {
-                      "$type": "Microsoft.EditArray",
-                      "$designer": {
-                        "id": "995261",
-                        "name": "Edit an Array Property"
-                      },
-                      "changeType": "Push",
-                      "itemsProperty": "user.ResolvedAttendees",
-                      "value": "user.ResolvedAttendee"
-                    },
-                    {
-                      "$type": "Microsoft.SendActivity",
-                      "$designer": {
-                        "id": "457135",
-                        "name": "Send an Activity"
-                      },
-                      "activity": "[bfdactivity-457135]"
-                    }
-                  ]
+                  "eventName": "AddAttendeeEvent",
+                  "bubbleEvent": true
+                }
+              ],
+              "actions": [
+                {
+                  "$type": "Microsoft.EmitEvent",
+                  "$designer": {
+                    "id": "538183",
+                    "name": "Emit a custom event"
+                  },
+                  "eventName": "DeleteAttendeeEvent",
+                  "bubbleEvent": true
                 }
               ]
             }
@@ -1402,6 +1289,143 @@
               "activity": "[bfdactivity-496322]"
             }
           ]
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnCustomEvent",
+      "$designer": {
+        "id": "876900",
+        "name": "AddAttendee"
+      },
+      "event": "AddAttendeeEvent",
+      "actions": [
+        {
+          "$type": "Microsoft.LogAction",
+          "$designer": {
+            "id": "926739",
+            "name": "Log to console"
+          },
+          "text": "AddAttendeeEvent",
+          "traceActivity": true
+        },
+        {
+          "$type": "Microsoft.EditArray",
+          "$designer": {
+            "id": "382131",
+            "name": "Edit an Array Property"
+          },
+          "changeType": "Remove",
+          "itemsProperty": "dialog.AttendeeList",
+          "value": "dialog.attendees"
+        },
+        {
+          "$type": "Microsoft.EditArray",
+          "$designer": {
+            "id": "900968",
+            "name": "Edit an Array Property"
+          },
+          "changeType": "Push",
+          "itemsProperty": "dialog.AttendeeList",
+          "value": "dialog.attendees"
+        },
+        {
+          "$type": "Microsoft.BeginDialog",
+          "$designer": {
+            "id": "204508",
+            "name": "Begin a Dialog"
+          },
+          "dialog": "FindSingleContact",
+          "options": {
+            "dialog.CurrentAttendee": "dialog.attendees"
+          },
+          "resultProperty": "dialog.ResolvedAttendee"
+        },
+        {
+          "$type": "Microsoft.EditArray",
+          "$designer": {
+            "id": "829954",
+            "name": "Edit an Array Property"
+          },
+          "changeType": "Remove",
+          "itemsProperty": "dialog.ResolvedAttendees",
+          "value": "dialog.ResolvedAttendee"
+        },
+        {
+          "$type": "Microsoft.EditArray",
+          "$designer": {
+            "id": "109332",
+            "name": "Edit an Array Property"
+          },
+          "changeType": "Push",
+          "itemsProperty": "dialog.ResolvedAttendees",
+          "value": "dialog.ResolvedAttendee"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "411581",
+            "name": "Send an Activity"
+          },
+          "activity": "[bfdactivity-411581]"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnCustomEvent",
+      "$designer": {
+        "id": "417209",
+        "name": "DeleteAttendee"
+      },
+      "event": "DeleteAttendeeEvent",
+      "actions": [
+        {
+          "$type": "Microsoft.LogAction",
+          "$designer": {
+            "id": "234227",
+            "name": "Log to console"
+          },
+          "text": "DeleteAttendeeEvent",
+          "traceActivity": true
+        },
+        {
+          "$type": "Microsoft.EditArray",
+          "$designer": {
+            "id": "650904",
+            "name": "Edit an Array Property"
+          },
+          "changeType": "Remove",
+          "itemsProperty": "dialog.AttendeeList",
+          "value": "dialog.attendees"
+        },
+        {
+          "$type": "Microsoft.BeginDialog",
+          "$designer": {
+            "id": "021925",
+            "name": "Begin a Dialog"
+          },
+          "dialog": "FindSingleContact",
+          "options": {
+            "dialog.CurrentAttendee": "dialog.attendees"
+          }
+        },
+        {
+          "$type": "Microsoft.EditArray",
+          "$designer": {
+            "id": "012734",
+            "name": "Edit an Array Property"
+          },
+          "changeType": "Remove",
+          "itemsProperty": "dialog.ResolvedAttendees",
+          "value": "dialog.ResolvedAttendee"
+        },
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "277430",
+            "name": "Send an Activity"
+          },
+          "activity": "[bfdactivity-277430]"
         }
       ]
     }

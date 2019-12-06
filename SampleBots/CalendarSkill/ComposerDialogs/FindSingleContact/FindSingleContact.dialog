@@ -122,8 +122,8 @@
             "id": "715194",
             "name": "Set a Property"
           },
-          "value": "dialog.AttendeeResults.content.value[0].mail",
-          "property": "user.ResolvedAttendee"
+          "property": "turn.ResolvedAttendee",
+          "value": "dialog.AttendeeResults.content.value[0].mail"
         },
         {
           "$type": "Microsoft.EndDialog",
@@ -131,7 +131,8 @@
             "id": "010353",
             "name": "End Dialog"
           },
-          "property": "user.ResolvedAttendee"
+          "property": "user.ResolvedAttendee",
+          "value": "turn.ResolvedAttendee"
         }
       ]
     }

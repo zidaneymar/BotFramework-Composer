@@ -42,7 +42,7 @@
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "@{if(user.ResolvedAttendees != null, join(user.ResolvedAttendees, ', ', ' and '),'No attendee specified')}",
+                    "text": "@{if(dialog.ResolvedAttendees != null, join(dialog.ResolvedAttendees, ', ', ' and '),'No attendee specified')}",
                     "wrap": true,
                     "maxLines": 5
                 }
@@ -448,7 +448,7 @@ hahaha
 
 
 # bfdprompt-193662
--Alright, I will send this to {join(user.ResolvedAttendees, ', ', ' and ')}. What is the subject of the event?  You can also say "skip" to skip.
+-What is the subject of the event?  You can also say "skip" to skip.
 
 # AskForNewTitle
 -What's the new subject?
@@ -589,7 +589,7 @@ hahaha
 ]
 
 # bfdactivity-194820()
-- I’m ready to create the event. The event is on date at time start till time end, with {join(user.ResolvedAttendees, ', ', ' and ')}. The subject of the event is {dialog.createcalendarentry_subject}. The event will take place at {dialog.CreateCalendarEntry_Location}. The message is {dialog.CreateCalendarEntry_Content}. Can you confirm this event?
+- I’m ready to create the event. The event is on date at time start till time end, with {join(dialo.ResolvedAttendees, ', ', ' and ')}. The subject of the event is {dialog.createcalendarentry_subject}. The event will take place at {dialog.CreateCalendarEntry_Location}. The message is {dialog.CreateCalendarEntry_Content}. Can you confirm this event?
 # bfdprompt-630773()
 [Activity
     Attachments = {json(ShowMeetingConfirmCard())}
@@ -626,20 +626,20 @@ hahaha
 - The new meeting subject {dialog.createcalendarentry_subject} is updated.
 # bfdprompt-799414()
 -Who is the new attendee?
-# bfdactivity-275833()
--IF:{count(user.ResolvedAttendees)==0}
+# bfdactivity-275833
+-IF:{count(dialog.ResolvedAttendees)==0}
   - You don't have any attendee.
--ELSEIF:{count(user.ResolvedAttendees)==1}
-  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
+-ELSEIF:{count(dialog.ResolvedAttendees)==1}
+  - You have {join(dialog.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
 -ELSE:
-  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
-# bfdactivity-457135()
--IF:{count(user.ResolvedAttendees)==0}
+  - You have {join(dialog.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
+# bfdactivity-457135
+-IF:{count(dialog.ResolvedAttendees)==0}
   - You don't have any attendee.
--ELSEIF:{count(user.ResolvedAttendees)==1}
-  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
+-ELSEIF:{count(dialog.ResolvedAttendees)==1}
+  - You have {join(dialog.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
 -ELSE:
-  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
+  - You have {join(dialog.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
 # bfdprompt-551237()
 -[AskForNewContent]
 # bfdactivity-848301()
@@ -664,3 +664,27 @@ hahaha
 -What's the new location?
 # bfdactivity-496322()
 - The meeting location is {dialog.CreateCalendarEntry_Location}
+
+# bfdactivity-075357()
+-IF:{count(dialog.ResolvedAttendees)==0}
+  - You don't have any attendee.
+-ELSEIF:{count(dialog.ResolvedAttendees)==1}
+  - You have {join(dialog.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
+-ELSE:
+  - You have {join(dialog.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
+# bfdactivity-277430()
+-IF:{count(dialog.ResolvedAttendees)==0}
+  - You don't have any attendee.
+-ELSEIF:{count(dialog.ResolvedAttendees)==1}
+  - You have {join(dialog.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
+-ELSE:
+  - You have {join(dialog.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
+# bfdactivity-411581()
+-IF:{count(dialog.ResolvedAttendees)==0}
+  - You don't have any attendee.
+-ELSEIF:{count(dialog.ResolvedAttendees)==1}
+  - You have {join(dialog.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
+-ELSE:
+  - You have {join(dialog.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
+# bfdprompt-539329
+-Who else do you want to add?
