@@ -252,523 +252,153 @@
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {
-            "id": "501121",
-            "name": "Branch: If/Else"
+            "id": "452054",
+            "name": "Branch: if/else"
           },
           "condition": "@OperateSubject != null || @Subject != null",
           "actions": [
             {
-              "$type": "Microsoft.DeleteProperty",
+              "$type": "Microsoft.EmitEvent",
               "$designer": {
-                "id": "411272",
-                "name": "Delete a Property"
+                "id": "458614",
+                "name": "Emit a custom event"
               },
-              "property": "turn.NewSubject"
-            },
-            {
-              "$type": "Microsoft.TextInput",
-              "$designer": {
-                "id": "634964",
-                "name": "Prompt for text"
-              },
-              "prompt": "[bfdprompt-634964]",
-              "maxTurnCount": 3,
-              "defaultValue": "@Subject",
-              "value": "@Subject",
-              "alwaysPrompt": false,
-              "allowInterruptions": "true",
-              "outputFormat": "none",
-              "property": "turn.NewSubject"
-            },
-            {
-              "$type": "Microsoft.SetProperty",
-              "$designer": {
-                "id": "183062",
-                "name": "Set a Property"
-              },
-              "property": "dialog.createcalendarentry_subject",
-              "value": "turn.NewSubject"
-            },
-            {
-              "$type": "Microsoft.SendActivity",
-              "$designer": {
-                "id": "995295",
-                "name": "Send an Activity"
-              },
-              "activity": "[bfdactivity-995295]"
+              "eventName": "ProcessSubjectEvent",
+              "bubbleEvent": true
             }
           ]
         },
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {
-            "id": "501121",
-            "name": "Branch: If/Else"
+            "id": "120397",
+            "name": "Branch: if/else"
           },
           "condition": "@OperateAttendee != null || @PersonName != null",
           "actions": [
             {
-              "$type": "Microsoft.LogAction",
+              "$type": "Microsoft.EmitEvent",
               "$designer": {
-                "id": "510732",
-                "name": "Log to console"
+                "id": "224658",
+                "name": "Emit a custom event"
               },
-              "text": "attendee ",
-              "traceActivity": true
-            },
-            {
-              "$type": "Microsoft.DeleteProperty",
-              "$designer": {
-                "id": "411272",
-                "name": "Delete a Property"
-              },
-              "property": "turn.NewAttendee"
-            },
-            {
-              "$type": "Microsoft.TextInput",
-              "$designer": {
-                "id": "646374",
-                "name": "Prompt for text"
-              },
-              "prompt": "[bfdprompt-646374]",
-              "maxTurnCount": 3,
-              "property": "turn.NewAttendee",
-              "defaultValue": "@PersonName",
-              "alwaysPrompt": false,
-              "allowInterruptions": "true",
-              "outputFormat": "none",
-              "value": "@PersonName"
-            },
-            {
-              "$type": "Microsoft.SetProperty",
-              "$designer": {
-                "id": "071493",
-                "name": "Set a Property"
-              },
-              "property": "dialog.attendees",
-              "value": "turn.NewAttendee"
-            },
-            {
-              "$type": "Microsoft.IfCondition",
-              "$designer": {
-                "id": "804586",
-                "name": "Branch: If/Else"
-              },
-              "condition": "@DeleteOperation != null",
-              "actions": [
-                {
-                  "$type": "Microsoft.EditArray",
-                  "$designer": {
-                    "id": "504395",
-                    "name": "Edit an Array Property"
-                  },
-                  "changeType": "Remove",
-                  "itemsProperty": "dialog.AttendeeList",
-                  "value": "dialog.attendees"
-                },
-                {
-                  "$type": "Microsoft.BeginDialog",
-                  "$designer": {
-                    "id": "736369",
-                    "name": "Begin a Dialog"
-                  },
-                  "dialog": "FindSingleContact",
-                  "options": {
-                    "dialog.CurrentAttendee": "dialog.attendees"
-                  }
-                },
-                {
-                  "$type": "Microsoft.EditArray",
-                  "$designer": {
-                    "id": "985381",
-                    "name": "Edit an Array Property"
-                  },
-                  "changeType": "Remove",
-                  "itemsProperty": "user.ResolvedAttendees",
-                  "value": "user.ResolvedAttendee"
-                },
-                {
-                  "$type": "Microsoft.SendActivity",
-                  "$designer": {
-                    "id": "325858",
-                    "name": "Send an Activity"
-                  },
-                  "activity": "[bfdactivity-325858]"
-                }
-              ],
-              "elseActions": [
-                {
-                  "$type": "Microsoft.IfCondition",
-                  "$designer": {
-                    "id": "804586",
-                    "name": "Branch: If/Else"
-                  },
-                  "condition": "true",
-                  "actions": [
-                    {
-                      "$type": "Microsoft.EditArray",
-                      "$designer": {
-                        "id": "636559",
-                        "name": "Edit an Array Property"
-                      },
-                      "changeType": "Remove",
-                      "itemsProperty": "dialog.AttendeeList",
-                      "value": "dialog.attendees"
-                    },
-                    {
-                      "$type": "Microsoft.EditArray",
-                      "$designer": {
-                        "id": "504395",
-                        "name": "Edit an Array Property"
-                      },
-                      "changeType": "Push",
-                      "itemsProperty": "dialog.AttendeeList",
-                      "value": "dialog.attendees"
-                    },
-                    {
-                      "$type": "Microsoft.BeginDialog",
-                      "$designer": {
-                        "id": "736369",
-                        "name": "Begin a Dialog"
-                      },
-                      "dialog": "FindSingleContact",
-                      "options": {
-                        "dialog.CurrentAttendee": "dialog.attendees"
-                      }
-                    },
-                    {
-                      "$type": "Microsoft.EditArray",
-                      "$designer": {
-                        "id": "962758",
-                        "name": "Edit an Array Property"
-                      },
-                      "changeType": "Remove",
-                      "itemsProperty": "user.ResolvedAttendees",
-                      "value": "user.ResolvedAttendee"
-                    },
-                    {
-                      "$type": "Microsoft.EditArray",
-                      "$designer": {
-                        "id": "985381",
-                        "name": "Edit an Array Property"
-                      },
-                      "changeType": "Push",
-                      "itemsProperty": "user.ResolvedAttendees",
-                      "value": "user.ResolvedAttendee"
-                    },
-                    {
-                      "$type": "Microsoft.SendActivity",
-                      "$designer": {
-                        "id": "325858",
-                        "name": "Send an Activity"
-                      },
-                      "activity": "[bfdactivity-325858]"
-                    }
-                  ]
-                }
-              ]
+              "eventName": "ProcessAttendeeEvent",
+              "bubbleEvent": true
             }
           ]
         },
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {
-            "id": "501121",
-            "name": "Branch: If/Else"
+            "id": "032743",
+            "name": "Branch: if/else"
           },
           "condition": "@OperateContent != null || @Messages != null",
           "actions": [
             {
-              "$type": "Microsoft.DeleteProperty",
+              "$type": "Microsoft.EmitEvent",
               "$designer": {
-                "id": "411272",
-                "name": "Delete a Property"
+                "id": "505148",
+                "name": "Emit a custom event"
               },
-              "property": "turn.NewContent"
-            },
-            {
-              "$type": "Microsoft.TextInput",
-              "$designer": {
-                "id": "789029",
-                "name": "Prompt for text"
-              },
-              "prompt": "[bfdprompt-789029]",
-              "maxTurnCount": 3,
-              "property": "turn.NewContent",
-              "defaultValue": "@Message",
-              "alwaysPrompt": false,
-              "allowInterruptions": "false",
-              "outputFormat": "none",
-              "value": "@Message"
-            },
-            {
-              "$type": "Microsoft.SetProperty",
-              "$designer": {
-                "id": "183062",
-                "name": "Set a Property"
-              },
-              "property": "dialog.CreateCalendarEntry_Content",
-              "value": "turn.NewContent"
-            },
-            {
-              "$type": "Microsoft.SendActivity",
-              "$designer": {
-                "id": "487311",
-                "name": "Send a response"
-              },
-              "activity": "[bfdactivity-487311]"
+              "eventName": "ProcessContentEvent",
+              "bubbleEvent": true
             }
           ]
         },
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {
-            "id": "501121",
-            "name": "Branch: If/Else"
+            "id": "015540",
+            "name": "Branch: if/else"
           },
           "condition": "@OperateStartDate != null || @FromDate != null",
           "actions": [
             {
-              "$type": "Microsoft.DeleteProperty",
+              "$type": "Microsoft.EmitEvent",
               "$designer": {
-                "id": "411272",
-                "name": "Delete a Property"
+                "id": "833824",
+                "name": "Emit a custom event"
               },
-              "property": "turn.NewStartDate"
-            },
-            {
-              "$type": "Microsoft.DateTimeInput",
-              "$designer": {
-                "id": "482672",
-                "name": "Prompt for a date"
-              },
-              "prompt": "[bfdprompt-482672]",
-              "maxTurnCount": 3,
-              "property": "turn.NewStartDate",
-              "defaultValue": "@FromDate",
-              "alwaysPrompt": false,
-              "allowInterruptions": "false",
-              "defaultLocale": "en-us",
-              "value": "@FromDate"
-            },
-            {
-              "$type": "Microsoft.SetProperty",
-              "$designer": {
-                "id": "183062",
-                "name": "Set a Property"
-              },
-              "property": "dialog.CreateCalendarEntry_FromDate",
-              "value": "turn.NewStartDate"
-            },
-            {
-              "$type": "Microsoft.SendActivity",
-              "$designer": {
-                "id": "112156",
-                "name": "Send a response"
-              },
-              "activity": "[bfdactivity-112156]"
+              "eventName": "ProcessStartDateEvent",
+              "bubbleEvent": true
             }
           ]
         },
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {
-            "id": "501121",
-            "name": "Branch: If/Else"
+            "id": "569304",
+            "name": "Branch: if/else"
           },
           "condition": "@OperateStartTime != null || @FromTime != null",
           "actions": [
             {
-              "$type": "Microsoft.DeleteProperty",
+              "$type": "Microsoft.EmitEvent",
               "$designer": {
-                "id": "411272",
-                "name": "Delete a Property"
+                "id": "389860",
+                "name": "Emit a custom event"
               },
-              "property": "turn.NewStartTime"
-            },
-            {
-              "$type": "Microsoft.DateTimeInput",
-              "$designer": {
-                "id": "038398",
-                "name": "Prompt for a date"
-              },
-              "prompt": "[bfdprompt-038398]",
-              "maxTurnCount": 3,
-              "property": "turn.NewStartTime",
-              "alwaysPrompt": false,
-              "allowInterruptions": "true",
-              "defaultLocale": "en-us",
-              "value": "@FromTime",
-              "defaultValue": "@FromTime"
-            },
-            {
-              "$type": "Microsoft.SetProperty",
-              "$designer": {
-                "id": "183062",
-                "name": "Set a Property"
-              },
-              "property": "dialog.CreateCalendarEntry_StartTime",
-              "value": "turn.NewStartTime"
-            },
-            {
-              "$type": "Microsoft.SendActivity",
-              "$designer": {
-                "id": "756966",
-                "name": "Send a response"
-              },
-              "activity": "[bfdactivity-756966]"
+              "eventName": "ProcessStartTimeEvent",
+              "bubbleEvent": true
             }
           ]
         },
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {
-            "id": "501121",
-            "name": "Branch: If/Else"
+            "id": "041892",
+            "name": "Branch: if/else"
           },
           "condition": "@OperateEndTime != null || @ToTime != null",
           "actions": [
             {
-              "$type": "Microsoft.DeleteProperty",
+              "$type": "Microsoft.EmitEvent",
               "$designer": {
-                "id": "411272",
-                "name": "Delete a Property"
+                "id": "940655",
+                "name": "Emit a custom event"
               },
-              "property": "turn.NewEndTime"
-            },
-            {
-              "$type": "Microsoft.DateTimeInput",
-              "$designer": {
-                "id": "305912",
-                "name": "Prompt for a date"
-              },
-              "prompt": "[bfdprompt-305912]",
-              "maxTurnCount": 3,
-              "property": "turn.NewEndTime",
-              "alwaysPrompt": false,
-              "allowInterruptions": "this.value != null",
-              "defaultLocale": "en-us",
-              "value": "@ToTime",
-              "defaultValue": "@ToTime"
-            },
-            {
-              "$type": "Microsoft.SetProperty",
-              "$designer": {
-                "id": "183062",
-                "name": "Set a Property"
-              },
-              "property": "dialog.CreateCalendarEntry_ToTime",
-              "value": "turn.NewEndTime"
-            },
-            {
-              "$type": "Microsoft.SendActivity",
-              "$designer": {
-                "id": "691333",
-                "name": "Send a response"
-              },
-              "activity": "[bfdactivity-691333]"
+              "eventName": "ProcessEndTime",
+              "bubbleEvent": true
             }
           ]
         },
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {
-            "id": "501121",
-            "name": "Branch: If/Else"
+            "id": "168302",
+            "name": "Branch: if/else"
           },
-          "condition": "@OperateDuration != null || @Duration != null",
           "actions": [
             {
-              "$type": "Microsoft.DeleteProperty",
+              "$type": "Microsoft.EmitEvent",
               "$designer": {
-                "id": "411272",
-                "name": "Delete a Property"
+                "id": "699497",
+                "name": "Emit a custom event"
               },
-              "property": "turn.NewDuration"
-            },
-            {
-              "$type": "Microsoft.DateTimeInput",
-              "$designer": {
-                "id": "917550",
-                "name": "Prompt for a date"
-              },
-              "prompt": "[bfdprompt-917550]",
-              "maxTurnCount": 3,
-              "property": "turn.NewDuration",
-              "alwaysPrompt": false,
-              "allowInterruptions": "this.value != null",
-              "defaultLocale": "en-us",
-              "value": "@Duration",
-              "defaultValue": "@Duration"
-            },
-            {
-              "$type": "Microsoft.SetProperty",
-              "$designer": {
-                "id": "183062",
-                "name": "Set a Property"
-              },
-              "property": "dialog.CreateCalendarEntry_Duration",
-              "value": "turn.NewDuration"
-            },
-            {
-              "$type": "Microsoft.SendActivity",
-              "$designer": {
-                "id": "116804",
-                "name": "Send a response"
-              },
-              "activity": "[bfdactivity-116804]"
+              "eventName": "ProcessDurationEvent"
             }
-          ]
+          ],
+          "condition": "@OperateDuration != null || @Duration != null"
         },
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {
-            "id": "501121",
-            "name": "Branch: If/Else"
+            "id": "286249",
+            "name": "Branch: if/else"
           },
-          "condition": "@OperateLocation != null || @Location != null",
           "actions": [
             {
-              "$type": "Microsoft.DeleteProperty",
+              "$type": "Microsoft.EmitEvent",
               "$designer": {
-                "id": "411272",
-                "name": "Delete a Property"
+                "id": "108615",
+                "name": "Emit a custom event"
               },
-              "property": "turn.NewLocation"
-            },
-            {
-              "$type": "Microsoft.TextInput",
-              "$designer": {
-                "id": "364583",
-                "name": "Prompt for text"
-              },
-              "prompt": "[bfdprompt-364583]",
-              "maxTurnCount": 3,
-              "property": "turn.NewLocation",
-              "alwaysPrompt": false,
-              "allowInterruptions": "true",
-              "outputFormat": "none",
-              "value": "@Location",
-              "defaultValue": "@Location"
-            },
-            {
-              "$type": "Microsoft.SetProperty",
-              "$designer": {
-                "id": "183062",
-                "name": "Set a Property"
-              },
-              "property": "dialog.CreateCalendarEntry_Location",
-              "value": "turn.NewLocation"
-            },
-            {
-              "$type": "Microsoft.SendActivity",
-              "$designer": {
-                "id": "977120",
-                "name": "Send a response"
-              },
-              "activity": "[bfdactivity-977120]"
+              "eventName": "ProcessLocationEvent",
+              "bubbleEvent": true
             }
-          ]
+          ],
+          "condition": "@OperateLocation != null || @Location != null"
         }
       ],
       "intent": "GetInput"
@@ -807,60 +437,6 @@
         }
       ],
       "intent": "Cancel"
-    },
-    {
-      "$type": "Microsoft.OnIntent",
-      "$designer": {
-        "id": "872494"
-      },
-      "condition": "#Interruption.score < 0.1",
-      "actions": [
-        {
-          "$type": "Microsoft.LogAction",
-          "$designer": {
-            "id": "579492",
-            "name": "Log to console"
-          },
-          "text": "Low score interruption",
-          "traceActivity": true
-        },
-        {
-          "$type": "Microsoft.SendActivity",
-          "$designer": {
-            "id": "824784",
-            "name": "Send a response"
-          },
-          "activity": "[bfdactivity-824784]"
-        },
-        {
-          "$type": "Microsoft.SetProperty",
-          "$designer": {
-            "id": "249152",
-            "name": "Set a property"
-          },
-          "property": "turn.processed",
-          "value": "false"
-        }
-      ],
-      "intent": "Interruption"
-    },
-    {
-      "$type": "Microsoft.OnIntent",
-      "$designer": {
-        "id": "921075"
-      },
-      "intent": "None",
-      "actions": [
-        {
-          "$type": "Microsoft.LogAction",
-          "$designer": {
-            "id": "201185",
-            "name": "Log to console"
-          },
-          "text": "None Intent",
-          "traceActivity": true
-        }
-      ]
     },
     {
       "$type": "Microsoft.OnCustomEvent",
@@ -1005,7 +581,7 @@
                   "value": "Location"
                 },
                 {
-                  "value": "Attendees"
+                  "value": "Attendee"
                 },
                 {
                   "value": "Content"
@@ -1155,6 +731,679 @@
         }
       ],
       "event": "ConfirmSlotEvent"
+    },
+    {
+      "$type": "Microsoft.OnCustomEvent",
+      "$designer": {
+        "id": "381100",
+        "name": "ProcessAttendee"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.LogAction",
+          "$designer": {
+            "id": "308624",
+            "name": "Log to console"
+          },
+          "text": "ProcessAttendee",
+          "traceActivity": true
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "711881",
+            "name": "Branch: If/Else"
+          },
+          "condition": "@OperateAttendee != null || @PersonName != null",
+          "actions": [
+            {
+              "$type": "Microsoft.LogAction",
+              "$designer": {
+                "id": "394837",
+                "name": "Log to console"
+              },
+              "text": "attendee ",
+              "traceActivity": true
+            },
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "338104",
+                "name": "Delete a Property"
+              },
+              "property": "turn.NewAttendee"
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "id": "799414",
+                "name": "Prompt for text"
+              },
+              "prompt": "[bfdprompt-799414]",
+              "maxTurnCount": 3,
+              "property": "turn.NewAttendee",
+              "defaultValue": "@PersonName",
+              "alwaysPrompt": false,
+              "allowInterruptions": "true",
+              "outputFormat": "none",
+              "value": "@PersonName"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "286520",
+                "name": "Set a Property"
+              },
+              "property": "dialog.attendees",
+              "value": "turn.NewAttendee"
+            },
+            {
+              "$type": "Microsoft.IfCondition",
+              "$designer": {
+                "id": "022498",
+                "name": "Branch: If/Else"
+              },
+              "condition": "@DeleteOperation != null",
+              "actions": [
+                {
+                  "$type": "Microsoft.EditArray",
+                  "$designer": {
+                    "id": "376715",
+                    "name": "Edit an Array Property"
+                  },
+                  "changeType": "Remove",
+                  "itemsProperty": "dialog.AttendeeList",
+                  "value": "dialog.attendees"
+                },
+                {
+                  "$type": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "898062",
+                    "name": "Begin a Dialog"
+                  },
+                  "dialog": "FindSingleContact",
+                  "options": {
+                    "dialog.CurrentAttendee": "dialog.attendees"
+                  }
+                },
+                {
+                  "$type": "Microsoft.EditArray",
+                  "$designer": {
+                    "id": "832521",
+                    "name": "Edit an Array Property"
+                  },
+                  "changeType": "Remove",
+                  "itemsProperty": "user.ResolvedAttendees",
+                  "value": "user.ResolvedAttendee"
+                },
+                {
+                  "$type": "Microsoft.SendActivity",
+                  "$designer": {
+                    "id": "275833",
+                    "name": "Send an Activity"
+                  },
+                  "activity": "[bfdactivity-275833]"
+                }
+              ],
+              "elseActions": [
+                {
+                  "$type": "Microsoft.IfCondition",
+                  "$designer": {
+                    "id": "592254",
+                    "name": "Branch: If/Else"
+                  },
+                  "condition": "true",
+                  "actions": [
+                    {
+                      "$type": "Microsoft.EditArray",
+                      "$designer": {
+                        "id": "364722",
+                        "name": "Edit an Array Property"
+                      },
+                      "changeType": "Remove",
+                      "itemsProperty": "dialog.AttendeeList",
+                      "value": "dialog.attendees"
+                    },
+                    {
+                      "$type": "Microsoft.EditArray",
+                      "$designer": {
+                        "id": "503811",
+                        "name": "Edit an Array Property"
+                      },
+                      "changeType": "Push",
+                      "itemsProperty": "dialog.AttendeeList",
+                      "value": "dialog.attendees"
+                    },
+                    {
+                      "$type": "Microsoft.BeginDialog",
+                      "$designer": {
+                        "id": "012989",
+                        "name": "Begin a Dialog"
+                      },
+                      "dialog": "FindSingleContact",
+                      "options": {
+                        "dialog.CurrentAttendee": "dialog.attendees"
+                      }
+                    },
+                    {
+                      "$type": "Microsoft.EditArray",
+                      "$designer": {
+                        "id": "021813",
+                        "name": "Edit an Array Property"
+                      },
+                      "changeType": "Remove",
+                      "itemsProperty": "user.ResolvedAttendees",
+                      "value": "user.ResolvedAttendee"
+                    },
+                    {
+                      "$type": "Microsoft.EditArray",
+                      "$designer": {
+                        "id": "995261",
+                        "name": "Edit an Array Property"
+                      },
+                      "changeType": "Push",
+                      "itemsProperty": "user.ResolvedAttendees",
+                      "value": "user.ResolvedAttendee"
+                    },
+                    {
+                      "$type": "Microsoft.SendActivity",
+                      "$designer": {
+                        "id": "457135",
+                        "name": "Send an Activity"
+                      },
+                      "activity": "[bfdactivity-457135]"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "event": "ProcessAttendeeEvent"
+    },
+    {
+      "$type": "Microsoft.OnCustomEvent",
+      "$designer": {
+        "id": "699676",
+        "name": "ProcessSubject"
+      },
+      "event": "ProcessSubjectEvent",
+      "actions": [
+        {
+          "$type": "Microsoft.LogAction",
+          "$designer": {
+            "id": "015008",
+            "name": "Log to console"
+          },
+          "text": "ProcessSubject",
+          "traceActivity": true
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "688954",
+            "name": "Branch: If/Else"
+          },
+          "condition": "@OperateSubject != null || @Subject != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "859988",
+                "name": "Delete a Property"
+              },
+              "property": "turn.NewSubject"
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "id": "627625",
+                "name": "Prompt for text"
+              },
+              "prompt": "[bfdprompt-627625]",
+              "maxTurnCount": 3,
+              "defaultValue": "@Subject",
+              "value": "@Subject",
+              "alwaysPrompt": false,
+              "allowInterruptions": "true",
+              "outputFormat": "none",
+              "property": "turn.NewSubject"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "223621",
+                "name": "Set a Property"
+              },
+              "property": "dialog.createcalendarentry_subject",
+              "value": "turn.NewSubject"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "384741",
+                "name": "Send an Activity"
+              },
+              "activity": "[bfdactivity-384741]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnCustomEvent",
+      "$designer": {
+        "id": "759230",
+        "name": "ProcessContent"
+      },
+      "event": "ProcessContentEvent",
+      "actions": [
+        {
+          "$type": "Microsoft.LogAction",
+          "$designer": {
+            "id": "809036",
+            "name": "Log to console"
+          },
+          "text": "ProcessContent",
+          "traceActivity": true
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "384186",
+            "name": "Branch: If/Else"
+          },
+          "condition": "@OperateContent != null || @Messages != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "268065",
+                "name": "Delete a Property"
+              },
+              "property": "turn.NewContent"
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "id": "551237",
+                "name": "Prompt for text"
+              },
+              "prompt": "[bfdprompt-551237]",
+              "maxTurnCount": 3,
+              "property": "turn.NewContent",
+              "defaultValue": "@Message",
+              "alwaysPrompt": false,
+              "allowInterruptions": "false",
+              "outputFormat": "none",
+              "value": "@Message"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "316013",
+                "name": "Set a Property"
+              },
+              "property": "dialog.CreateCalendarEntry_Content",
+              "value": "turn.NewContent"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "848301",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-848301]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnCustomEvent",
+      "$designer": {
+        "id": "319631",
+        "name": "ProcessStartDate"
+      },
+      "event": "ProcessStartDateEvent",
+      "actions": [
+        {
+          "$type": "Microsoft.LogAction",
+          "$designer": {
+            "id": "357538",
+            "name": "Log to console"
+          },
+          "text": "ProcessStartDate",
+          "traceActivity": true
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "450361",
+            "name": "Branch: If/Else"
+          },
+          "condition": "@OperateStartDate != null || @FromDate != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "098168",
+                "name": "Delete a Property"
+              },
+              "property": "turn.NewStartDate"
+            },
+            {
+              "$type": "Microsoft.DateTimeInput",
+              "$designer": {
+                "id": "569632",
+                "name": "Prompt for a date"
+              },
+              "prompt": "[bfdprompt-569632]",
+              "maxTurnCount": 3,
+              "property": "turn.NewStartDate",
+              "defaultValue": "@FromDate",
+              "alwaysPrompt": false,
+              "allowInterruptions": "false",
+              "defaultLocale": "en-us",
+              "value": "@FromDate"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "392580",
+                "name": "Set a Property"
+              },
+              "property": "dialog.CreateCalendarEntry_FromDate",
+              "value": "turn.NewStartDate"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "237153",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-237153]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnCustomEvent",
+      "$designer": {
+        "id": "620515",
+        "name": "ProcessStartTime"
+      },
+      "event": "ProcessStartTimeEvent",
+      "actions": [
+        {
+          "$type": "Microsoft.LogAction",
+          "$designer": {
+            "id": "033340",
+            "name": "Log to console"
+          },
+          "text": "ProcessStartTime",
+          "traceActivity": true
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "471866",
+            "name": "Branch: If/Else"
+          },
+          "condition": "@OperateStartTime != null || @FromTime != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "888908",
+                "name": "Delete a Property"
+              },
+              "property": "turn.NewStartTime"
+            },
+            {
+              "$type": "Microsoft.DateTimeInput",
+              "$designer": {
+                "id": "430174",
+                "name": "Prompt for a date"
+              },
+              "prompt": "[bfdprompt-430174]",
+              "maxTurnCount": 3,
+              "property": "turn.NewStartTime",
+              "alwaysPrompt": false,
+              "allowInterruptions": "true",
+              "defaultLocale": "en-us",
+              "value": "@FromTime",
+              "defaultValue": "@FromTime"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "593142",
+                "name": "Set a Property"
+              },
+              "property": "dialog.CreateCalendarEntry_StartTime",
+              "value": "turn.NewStartTime"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "076615",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-076615]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnCustomEvent",
+      "$designer": {
+        "id": "416549",
+        "name": "ProcessEndTime"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.LogAction",
+          "$designer": {
+            "id": "101953",
+            "name": "Log to console"
+          },
+          "text": "ProcessEndTime",
+          "traceActivity": true
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "429770",
+            "name": "Branch: If/Else"
+          },
+          "condition": "@OperateEndTime != null || @ToTime != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "828382",
+                "name": "Delete a Property"
+              },
+              "property": "turn.NewEndTime"
+            },
+            {
+              "$type": "Microsoft.DateTimeInput",
+              "$designer": {
+                "id": "868972",
+                "name": "Prompt for a date"
+              },
+              "prompt": "[bfdprompt-868972]",
+              "maxTurnCount": 3,
+              "property": "turn.NewEndTime",
+              "alwaysPrompt": false,
+              "allowInterruptions": "this.value != null",
+              "defaultLocale": "en-us",
+              "value": "@ToTime",
+              "defaultValue": "@ToTime"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "206672",
+                "name": "Set a Property"
+              },
+              "property": "dialog.CreateCalendarEntry_ToTime",
+              "value": "turn.NewEndTime"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "119760",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-119760]"
+            }
+          ]
+        }
+      ],
+      "event": "ProcessEndTimeEvent"
+    },
+    {
+      "$type": "Microsoft.OnCustomEvent",
+      "$designer": {
+        "id": "146565",
+        "name": "ProcessDuration"
+      },
+      "event": "ProcessDurationEvent",
+      "actions": [
+        {
+          "$type": "Microsoft.LogAction",
+          "$designer": {
+            "id": "657931",
+            "name": "Log to console"
+          },
+          "text": "ProcessDuration",
+          "traceActivity": true
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "584231",
+            "name": "Branch: If/Else"
+          },
+          "condition": "@OperateDuration != null || @Duration != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "747503",
+                "name": "Delete a Property"
+              },
+              "property": "turn.NewDuration"
+            },
+            {
+              "$type": "Microsoft.DateTimeInput",
+              "$designer": {
+                "id": "028075",
+                "name": "Prompt for a date"
+              },
+              "prompt": "[bfdprompt-028075]",
+              "maxTurnCount": 3,
+              "property": "turn.NewDuration",
+              "alwaysPrompt": false,
+              "allowInterruptions": "this.value != null",
+              "defaultLocale": "en-us",
+              "value": "@Duration",
+              "defaultValue": "@Duration"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "156800",
+                "name": "Set a Property"
+              },
+              "property": "dialog.CreateCalendarEntry_Duration",
+              "value": "turn.NewDuration"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "952157",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-952157]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnCustomEvent",
+      "$designer": {
+        "id": "938578",
+        "name": "ProcessLocation"
+      },
+      "event": "ProcessLocationEvent",
+      "actions": [
+        {
+          "$type": "Microsoft.LogAction",
+          "$designer": {
+            "id": "197444",
+            "name": "Log to console"
+          },
+          "text": "ProcessLocation",
+          "traceActivity": true
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "927250",
+            "name": "Branch: If/Else"
+          },
+          "condition": "@OperateLocation != null || @Location != null",
+          "actions": [
+            {
+              "$type": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "958393",
+                "name": "Delete a Property"
+              },
+              "property": "turn.NewLocation"
+            },
+            {
+              "$type": "Microsoft.TextInput",
+              "$designer": {
+                "id": "867029",
+                "name": "Prompt for text"
+              },
+              "prompt": "[bfdprompt-867029]",
+              "maxTurnCount": 3,
+              "property": "turn.NewLocation",
+              "alwaysPrompt": false,
+              "allowInterruptions": "true",
+              "outputFormat": "none",
+              "value": "@Location",
+              "defaultValue": "@Location"
+            },
+            {
+              "$type": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "836512",
+                "name": "Set a Property"
+              },
+              "property": "dialog.CreateCalendarEntry_Location",
+              "value": "turn.NewLocation"
+            },
+            {
+              "$type": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "496322",
+                "name": "Send a response"
+              },
+              "activity": "[bfdactivity-496322]"
+            }
+          ]
+        }
+      ]
     }
   ],
   "$schema": "../../BotProject/CSharp/Schemas/app.schema",

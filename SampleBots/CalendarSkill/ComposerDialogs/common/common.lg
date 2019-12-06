@@ -91,20 +91,6 @@ hahaha
 - {turn.adjust}
 
 
-# bfdactivity-432643
--IF:{@FromTime}
-  - The meeting start time is {@FromTime}.
--ELSEIF:{@ToTime}
-  - The meeting end time is {@ToTime}.
--ELSEIF:{@Location}
-  - The meeting location is {@Location}.
--ELSEIF:{@Subject}
-  - The meeting title is {@Subject}.
--ELSEIF:{@PersonName}
-  - The meeting attendee is {@PersonName}.
--ELSE:
-  - No entites founded.
-
 
 # bfdactivity-512634
 - Welcome, this is a calendar bot. You can say something like "create a meeting", "show my meetings".
@@ -453,9 +439,9 @@ hahaha
 
 
 # bfdactivity-325858
--IF:{count(user.ResolvedAttendees)==0}
+-IF: {count(user.ResolvedAttendees)==0}
   - You don't have any attendee.
--ELSEIF:{count(user.ResolvedAttendees)==1}
+-ELSEIF: {count(user.ResolvedAttendees)==1}
   - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
 -ELSE:
   - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
@@ -612,3 +598,69 @@ hahaha
 - Okay, I have added the event to your calendar, named {dialog.createcalendarentry_subject}.
 # bfdactivity-824784
 - Hello
+# bfdprompt-192486()
+- What's the new subject?
+# bfdactivity-809978()
+- The new meeting subject {dialog.createcalendarentry_subject} is updated.
+# bfdprompt-096118()
+-Who is the new attendee?
+# bfdactivity-019281()
+-IF:{count(user.ResolvedAttendees)==0}
+  - You don't have any attendee.
+-ELSEIF:{count(user.ResolvedAttendees)==1}
+  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
+-ELSE:
+  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
+# bfdactivity-744962()
+-IF:{count(user.ResolvedAttendees)==0}
+  - You don't have any attendee.
+-ELSEIF:{count(user.ResolvedAttendees)==1}
+  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
+-ELSE:
+  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
+# bfdactivity-697405
+- Hello
+# bfdprompt-627625()
+- What's the new subject?
+# bfdactivity-384741()
+- The new meeting subject {dialog.createcalendarentry_subject} is updated.
+# bfdprompt-799414()
+-Who is the new attendee?
+# bfdactivity-275833()
+-IF:{count(user.ResolvedAttendees)==0}
+  - You don't have any attendee.
+-ELSEIF:{count(user.ResolvedAttendees)==1}
+  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
+-ELSE:
+  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
+# bfdactivity-457135()
+-IF:{count(user.ResolvedAttendees)==0}
+  - You don't have any attendee.
+-ELSEIF:{count(user.ResolvedAttendees)==1}
+  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendee.
+-ELSE:
+  - You have {join(user.ResolvedAttendees, ', ', ' and ')} as meeting attendees.
+# bfdprompt-551237()
+-[AskForNewContent]
+# bfdactivity-848301()
+- The content is {dialog.CreateCalendarEntry_Content}.
+# bfdprompt-569632()
+-What's the new start date?
+# bfdactivity-237153()
+- The start date is {dialog.CreateCalendarEntry_FromDate[0].value}
+# bfdprompt-430174()
+-What's the new start time?
+# bfdactivity-076615()
+- The meeting start time is {dialog.CreateCalendarEntry_StartTime[0].value}.
+# bfdprompt-868972()
+-What's the new end time?
+# bfdactivity-119760()
+- The meeting end time is {dialog.CreateCalendarEntry_ToTime[0].value}.
+# bfdprompt-028075()
+-What's the new duration?
+# bfdactivity-952157()
+- The meeting duration is {dialog.CreateCalendarEntry_Duration[0].value}
+# bfdprompt-867029()
+-What's the new location?
+# bfdactivity-496322()
+- The meeting location is {dialog.CreateCalendarEntry_Location}

@@ -112,6 +112,7 @@
 - extend to {Duration=one hour}
 - extend to {Duration=two hour}
 - delete megan and the meeting subject is {Subject=lunch together}
+- add megan and set meeting title to {Subject=hello}
 
 ## Interruption
 - ^[(show|display)] next [page] [please]^
