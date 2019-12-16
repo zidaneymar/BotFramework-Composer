@@ -6,6 +6,7 @@ import fs from 'fs';
 import { getNewDesigner } from '@bfc/shared';
 import { FileInfo, DialogInfo, LgFile, LuFile, dialogIndexer, lgIndexer } from '@bfc/indexers';
 import { luIndexer } from '@bfc/indexers/lib/luIndexer';
+import get from 'lodash/get';
 
 import { Path } from '../../utility/path';
 import { copyDir } from '../../utility/storage';
@@ -264,12 +265,43 @@ export class BotProject {
 
   public updateLuFile = async (id: string, content: string): Promise<LuFile[]> => {
     const luFile = this.luFiles.find(lu => lu.id === id);
+    const intents = get(luFile, 'parsedContent.LUISJsonStructure.intents', []);
     if (luFile === undefined) {
       throw new Error(`no such lu file ${id}`);
     }
 
     await this._updateFile(luFile.relativePath, content);
     await this.luPublisher.onFileChange(luFile.relativePath, FileUpdateType.UPDATE);
+    const updatedLuFile = this.luFiles.find(lu => lu.id === id);
+    const updatedIntents = get(updatedLuFile, 'parsedContent.LUISJsonStructure.intents', []);
+    if (intents.length === updatedIntents.length) {
+      let nameChangedFrom = '';
+      let nameChangedTo = '';
+      intents.forEach(i => {
+        if (!updatedIntents.find(ui => ui.name === i.name)) {
+          nameChangedFrom = i.name;
+        }
+      });
+
+      updatedIntents.forEach(ui => {
+        if (!intents.find(i => i.name === ui.name)) {
+          nameChangedTo = ui.name;
+        }
+      });
+
+      const intent = intents.find(intent => intent.name === nameChangedFrom);
+      if (intent) {
+        const dialog = this.dialogs.find(d => d.id === id);
+        if (dialog) {
+          const triggers = dialog.content.triggers;
+          const trigger = triggers.find(t => t.intent === intent.name);
+          if (trigger) {
+            trigger.intent = nameChangedTo;
+            await this.updateDialog(id, dialog.content);
+          }
+        }
+      }
+    }
 
     return this.mergeLuStatus(this.luFiles, this.luPublisher.status);
   };

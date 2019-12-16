@@ -8,10 +8,17 @@ import httpClient from './../../utils/httpUtil';
 
 export const updateLuFile: ActionCreator = async ({ dispatch }, { id, content }) => {
   try {
-    const response = await httpClient.put(`/projects/opened/luFiles/${id}`, { id, content });
+    const response1 = await httpClient.put(`/projects/opened/luFiles/${id}`, { id, content });
+    const response2 = await httpClient.get(`/projects/opened`);
     dispatch({
       type: ActionTypes.UPDATE_LU_SUCCESS,
-      payload: { response },
+      payload: { response: response1 },
+    });
+    dispatch({
+      type: ActionTypes.GET_PROJECT_SUCCESS,
+      payload: {
+        response: response2,
+      },
     });
   } catch (err) {
     dispatch({
