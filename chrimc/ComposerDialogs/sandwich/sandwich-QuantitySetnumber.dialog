@@ -1,0 +1,18 @@
+
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+    "$type": "Microsoft.OnAssignEntity",
+    "property": "Quantity",
+    "entity": "number",
+    "actions": [
+        {
+            "$type": "Microsoft.SendActivity",
+            "activity": "@{setPropertyMessage('Quantity', @number)}"
+        },
+        {
+            "$type": "Microsoft.SetProperty",
+            "property": "$Quantity",
+            "value": "@number"          
+        }
+    ]               
+}

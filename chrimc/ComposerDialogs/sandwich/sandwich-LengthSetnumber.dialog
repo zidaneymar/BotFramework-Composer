@@ -1,0 +1,18 @@
+
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+    "$type": "Microsoft.OnAssignEntity",
+    "property": "Length",
+    "entity": "number",
+    "actions": [
+        {
+            "$type": "Microsoft.SendActivity",
+            "activity": "@{setPropertyMessage('Length', @number)}"
+        },
+        {
+            "$type": "Microsoft.SetProperty",
+            "property": "$Length",
+            "value": "@number"          
+        }
+    ]               
+}

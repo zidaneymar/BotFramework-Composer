@@ -1,0 +1,16 @@
+
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+    "$type": "Microsoft.OnEndOfActions",
+    "condition":"!$Bread",
+    "priority": "indexOf(dialog.requiredProperties, 'Bread')",
+    "actions": [       
+        {
+            "$type": "Microsoft.Ask",
+            "activity": "@{AskBread()}",
+            "expectedProperties": [
+                "Bread"
+            ]
+        }
+    ]
+}

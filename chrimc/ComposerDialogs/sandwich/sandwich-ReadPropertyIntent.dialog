@@ -1,0 +1,24 @@
+
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+    "$type": "Microsoft.OnIntent",
+    "intent": "ReadProperty",
+    "actions": [
+        {
+            "$type": "Microsoft.SendActivity",
+            "activity": "@{textProperty(@PropertyName)}"           
+        },
+        {
+            "$type": "Microsoft.SetProperty",
+            "property": "$PropertyToRemember",
+            "value": "@PROPERTYName" 
+        },
+        {
+            "$type": "Microsoft.Ask",
+            "activity": "@{confirmChangeProperty(@PropertyName)}",
+            "expectedProperties": [
+                "ChangePropertyConfirmation"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+    "$type": "Microsoft.OnEndOfActions",
+    "condition":"!$Length",
+    "priority": "indexOf(dialog.requiredProperties, 'Length')",
+    "actions": [        
+        {
+            "$type": "Microsoft.Ask",
+            "activity": "@{AskLength()}",
+            "expectedProperties": [
+                "Length"
+            ]
+        }
+    ]
+}
