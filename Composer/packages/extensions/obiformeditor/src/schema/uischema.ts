@@ -15,7 +15,7 @@ const promptFieldsSchemas = PROMPT_TYPES.reduce((schemas, type) => {
 
 const triggerUiSchema = {
   'ui:order': ['condition', '*'],
-  'ui:hidden': ['actions', ...globalHidden],
+  'ui:hidden': ['actions', ...globalHidden, '$kind'],
 };
 
 export const uiSchema: { [key in SDKTypes]?: UiSchema } = {
@@ -35,6 +35,9 @@ export const uiSchema: { [key in SDKTypes]?: UiSchema } = {
     ...triggerUiSchema,
   },
   [SDKTypes.OnClearProperty]: {
+    ...triggerUiSchema,
+  },
+  [SDKTypes.Ask]: {
     ...triggerUiSchema,
   },
   [SDKTypes.AdaptiveDialog]: {

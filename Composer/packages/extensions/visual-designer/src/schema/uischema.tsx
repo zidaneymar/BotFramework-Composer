@@ -29,6 +29,10 @@ export const uiSchema: UISchema = {
     'ui:widget': DialogRefCard,
     dialog: data => data.dialog,
   },
+  [SDKTypes.Ask]: {
+    'ui:widget': ActionCard,
+    content: data => data.activity,
+  },
   [SDKTypes.ReplaceDialog]: {
     'ui:widget': DialogRefCard,
     dialog: data => data.dialog,

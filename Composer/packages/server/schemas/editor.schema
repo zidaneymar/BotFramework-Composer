@@ -160,6 +160,10 @@
       "title": "On Assign Entity",
       "subtitle": "On entity assignment"
     },
+    "Microsoft.OnChooseEntity": {
+      "title": "On Choose Entity",
+      "subtitle": "On choose entity"
+    },
     "Microsoft.OnEndOfActions": {
       "title": "On End of Actions",
       "subtitle": "On end of actions"
