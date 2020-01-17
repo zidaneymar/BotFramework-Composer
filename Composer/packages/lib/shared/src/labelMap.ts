@@ -125,6 +125,10 @@ export const ConceptLabels: { [key in ConceptLabelKey]?: LabelOverride } = {
     title: formatMessage('Activities'),
     subtitle: formatMessage('Activity recieved'),
   },
+  [SDKTypes.OnChooseIntent]: {
+    title: formatMessage('On choose intent'),
+    subtitle: formatMessage('On choose intent'),
+  },
   [SDKTypes.OnBeginDialog]: {
     title: formatMessage('Dialog started'),
     subtitle: formatMessage('Begin dialog event'),
@@ -140,6 +144,14 @@ export const ConceptLabels: { [key in ConceptLabelKey]?: LabelOverride } = {
   [SDKTypes.OnChooseEntity]: {
     title: formatMessage('On Choose Entity'),
     subtitle: formatMessage('On choose entity'),
+  },
+  [SDKTypes.OnChooseProperty]: {
+    title: formatMessage('On choose property'),
+    subtitle: formatMessage('On choose property'),
+  },
+  [SDKTypes.Ask]: {
+    title: formatMessage('Ask a question'),
+    subtitle: formatMessage('Send Activity to ask a question'),
   },
   [SDKTypes.OnCancelDialog]: {
     title: formatMessage('Dialog cancelled'),

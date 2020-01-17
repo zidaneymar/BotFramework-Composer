@@ -360,9 +360,10 @@
           "condition": "$ChangePropertyConfirmation == 'yes'",
           "actions": [
             {
-              "$type": "Microsoft.Ask",
+              "$kind": "Microsoft.Ask",
               "activity": "@{template(concat('Ask',$PropertyToRemember))}",
-              "expectedProperties": "createArray($PropertyToRemember)"
+              "expectedProperties": "createArray($PropertyToRemember)",
+              "$type": "Microsoft.Ask"
             }
           ]
         }
@@ -516,11 +517,12 @@
           "value": "@PROPERTYName"
         },
         {
-          "$type": "Microsoft.Ask",
+          "$kind": "Microsoft.Ask",
           "activity": "@{confirmChangeProperty(@PropertyName)}",
           "expectedProperties": [
             "ChangePropertyConfirmation"
-          ]
+          ],
+          "$type": "Microsoft.Ask"
         }
       ]
     }

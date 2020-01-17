@@ -164,6 +164,18 @@
       "title": "On End of Actions",
       "subtitle": "On end of actions"
     },
+    "Microsoft.OnChooseProperty": {
+      "title": "On choose property",
+      "subtitle": "On choose property"
+    },
+    "Microsoft.OnChooseIntent": {
+      "title": "On choose intent",
+      "subtitle": "On choose intent"
+    },
+    "Microsoft.Ask": {
+      "title": "Ask a question",
+      "subtitle": "Send Activity to ask a question"
+    },
     "Microsoft.OnBeginDialog": {
       "title": "Dialog started",
       "subtitle": "Begin dialog event"

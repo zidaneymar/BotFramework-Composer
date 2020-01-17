@@ -58,6 +58,7 @@ export const dialogGroups: DialogGroupsMap = {
       SDKTypes.AttachmentInput,
       SDKTypes.DateTimeInput,
       SDKTypes.OAuthInput,
+      SDKTypes.Ask,
     ],
   },
   [DialogGroup.BRANCHING]: {
@@ -113,7 +114,17 @@ export const dialogGroups: DialogGroupsMap = {
   },
   [DialogGroup.DIALOG_EVENT_TYPES]: {
     label: 'OnDialogEvents Types',
-    types: [SDKTypes.OnBeginDialog, SDKTypes.OnCancelDialog, SDKTypes.OnError, SDKTypes.OnRepromptDialog],
+    types: [
+      SDKTypes.OnBeginDialog,
+      SDKTypes.OnCancelDialog,
+      SDKTypes.OnError,
+      SDKTypes.OnRepromptDialog,
+      SDKTypes.OnEndOfActions,
+      SDKTypes.OnAssignEntity,
+      SDKTypes.OnChooseEntity,
+      SDKTypes.OnChooseIntent,
+      SDKTypes.OnChooseProperty,
+    ],
   },
   [DialogGroup.ADVANCED_EVENTS]: {
     label: 'Advanced Events',
