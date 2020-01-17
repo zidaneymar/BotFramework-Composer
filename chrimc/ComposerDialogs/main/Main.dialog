@@ -1,5 +1,8 @@
 {
   "$type": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "name": "EventDrivenConversation"
+  },
   "autoEndDialog": "true",
   "defaultResultProperty": "dialog.result",
   "recognizer": "Main.lu",
@@ -20,15 +23,18 @@
     },
     {
       "$kind": "Microsoft.OnEndOfActions",
+      "$designer": {
+        "name": "QuantityMissing"
+      },
       "condition": "!$Quantity",
       "actions": [
         {
           "$kind": "Microsoft.Ask",
           "activity": "@{AskQuantity()}",
+          "$type": "Microsoft.Ask",
           "expectedProperties": [
             "Quantity"
-          ],
-          "$type": "Microsoft.Ask"
+          ]
         }
       ],
       "priority": "indexOf(dialog.requiredProperties, 'Quantity')",
@@ -36,6 +42,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "QuantityAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
@@ -59,11 +68,12 @@
       },
       "actions": [
         {
-          "$type": "Microsoft.Ask",
+          "$kind": "Microsoft.Ask",
           "activity": "@{chooseBreadEntity()}",
           "expectedProperties": [
             "Bread"
-          ]
+          ],
+          "$type": "Microsoft.Ask"
         }
       ],
       "entity": "BreadEntity",
@@ -71,6 +81,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "NumberAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
@@ -88,14 +101,18 @@
     },
     {
       "$kind": "Microsoft.OnEndOfActions",
+      "$designer": {
+        "name": "NameMissing"
+      },
       "condition": "!$Name",
       "actions": [
         {
-          "$type": "Microsoft.Ask",
+          "$kind": "Microsoft.Ask",
           "activity": "@{AskName()}",
           "expectedProperties": [
             "Name"
-          ]
+          ],
+          "$type": "Microsoft.Ask"
         }
       ],
       "priority": "indexOf(dialog.requiredProperties, 'Name')",
@@ -103,6 +120,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "PersonNameAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
@@ -120,6 +140,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "UtteranceAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
@@ -137,6 +160,9 @@
     },
     {
       "$kind": "Microsoft.OnEndOfActions",
+      "$designer": {
+        "name": "BreadMissing"
+      },
       "condition": "!$Bread",
       "actions": [
         {
@@ -153,6 +179,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "BreadEntityAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
@@ -170,6 +199,9 @@
     },
     {
       "$kind": "Microsoft.OnChooseEntity",
+      "$designer": {
+        "name": "BreadEntityChoose"
+      },
       "actions": [
         {
           "$type": "Microsoft.Ask",
@@ -184,6 +216,9 @@
     },
     {
       "$kind": "Microsoft.OnChooseEntity",
+      "$designer": {
+        "name": "BreadEntityChoose"
+      },
       "actions": [
         {
           "$type": "Microsoft.Ask",
@@ -198,6 +233,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "MeatEntityAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
@@ -215,6 +253,9 @@
     },
     {
       "$kind": "Microsoft.OnChooseEntity",
+      "$designer": {
+        "name": "MeatEntityChoose"
+      },
       "actions": [
         {
           "$type": "Microsoft.Ask",
@@ -229,6 +270,9 @@
     },
     {
       "$kind": "Microsoft.OnEndOfActions",
+      "$designer": {
+        "name": "CheeseMissing"
+      },
       "condition": "!$Cheese",
       "actions": [
         {
@@ -245,6 +289,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "CheeseEntityAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
@@ -262,6 +309,9 @@
     },
     {
       "$kind": "Microsoft.OnChooseEntity",
+      "$designer": {
+        "name": "CheeseEntityChoose"
+      },
       "actions": [
         {
           "$type": "Microsoft.Ask",
@@ -276,6 +326,9 @@
     },
     {
       "$kind": "Microsoft.OnEndOfActions",
+      "$designer": {
+        "name": "PriceMissing"
+      },
       "condition": "!$Price",
       "actions": [
         {
@@ -291,6 +344,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "MoneyAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SendActivity",
@@ -327,6 +383,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "ConfirmationAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SetProperty",
@@ -349,6 +408,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "ConfirmationAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SetProperty",
@@ -392,6 +454,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "ConfirmationAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SetProperty",
@@ -423,6 +488,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "PROPERTYNameAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.DeleteProperty",
@@ -435,6 +503,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "PROPERTYNameAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.DeleteProperty",
@@ -447,6 +518,9 @@
     },
     {
       "$kind": "Microsoft.OnAssignEntity",
+      "$designer": {
+        "name": "PROPERTYNameAssign"
+      },
       "actions": [
         {
           "$type": "Microsoft.SetProperty",
@@ -462,11 +536,12 @@
       "$kind": "Microsoft.OnChooseProperty",
       "actions": [
         {
-          "$type": "Microsoft.Ask",
+          "$kind": "Microsoft.Ask",
           "activity": "@{chooseProperties()}",
           "expectedProperties": [
             "PropertyToChange"
-          ]
+          ],
+          "$type": "Microsoft.Ask"
         }
       ],
       "$type": "Microsoft.OnChooseProperty"
