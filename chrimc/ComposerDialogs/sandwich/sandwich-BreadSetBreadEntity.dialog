@@ -1,18 +1,18 @@
-
 {
-    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
-    "$type": "Microsoft.OnAssignEntity",
-    "property": "Bread",
-    "entity": "BreadEntity",
-    "actions": [
-        {
-            "$type": "Microsoft.SendActivity",
-            "activity": "@{setPropertyMessage('Bread', @BreadEntity)}"
-        },    
-        {
-            "$type": "Microsoft.SetProperty",
-            "property": "$Bread",
-            "value": "@BreadEntity"
-        }
-    ]
+  "$kind": "Microsoft.OnAssignEntity",
+  "actions": [
+    {
+      "$type": "Microsoft.SendActivity",
+      "activity": "@{setPropertyMessage('Bread', @BreadEntity)}"
+    },
+    {
+      "$type": "Microsoft.SetProperty",
+      "property": "$Bread",
+      "value": "@BreadEntity"
+    }
+  ],
+  "property": "Bread",
+  "entity": "BreadEntity",
+  "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+  "$type": "Microsoft.OnAssignEntity"
 }

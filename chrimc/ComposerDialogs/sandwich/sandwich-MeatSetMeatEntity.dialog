@@ -1,18 +1,18 @@
-
 {
-    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
-    "$type": "Microsoft.OnAssignEntity",
-    "property": "Meat",
-    "entity": "MeatEntity",
-    "actions": [
-        {
-            "$type": "Microsoft.SendActivity",
-            "activity": "@{setPropertyMessage('Meat', @MeatEntity)}"
-        },    
-        {
-            "$type": "Microsoft.SetProperty",
-            "property": "$Meat",
-            "value": "@MeatEntity"
-        }
-    ]
+  "$kind": "Microsoft.OnAssignEntity",
+  "actions": [
+    {
+      "$type": "Microsoft.SendActivity",
+      "activity": "@{setPropertyMessage('Meat', @MeatEntity)}"
+    },
+    {
+      "$type": "Microsoft.SetProperty",
+      "property": "$Meat",
+      "value": "@MeatEntity"
+    }
+  ],
+  "property": "Meat",
+  "entity": "MeatEntity",
+  "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+  "$type": "Microsoft.OnAssignEntity"
 }

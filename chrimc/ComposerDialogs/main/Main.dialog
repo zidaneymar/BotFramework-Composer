@@ -2,40 +2,528 @@
   "$type": "Microsoft.AdaptiveDialog",
   "autoEndDialog": "true",
   "defaultResultProperty": "dialog.result",
-  "recognizer": "sandwich.lu",
+  "recognizer": "Main.lu",
   "triggers": [
-    "sandwich-QuantityAsk",
-    "sandwich-QuantitySetnumber",
-    "sandwich-LengthAsk",
-    "sandwich-LengthSetnumber",
-    "sandwich-NameAsk",
-    "sandwich-NameSetpersonName",
-    "sandwich-NameSetutterance",
-    "sandwich-BreadAsk",
-    "sandwich-BreadSetBreadEntity",
-    "sandwich-BreadEntityChoose",
-    "sandwich-MeatAsk",
-    "sandwich-MeatSetMeatEntity",
-    "sandwich-MeatEntityChoose",
-    "sandwich-CheeseAsk",
-    "sandwich-CheeseSetCheeseEntity",
-    "sandwich-CheeseEntityChoose",
-    "sandwich-PriceAsk",
-    "sandwich-PriceSetmoney",
-    "sandwich-CancelConfirmation",
-    "sandwich-CancelConfirmationSet",
-    "sandwich-ChangePropertyConfirmationSet",
-    "sandwich-CompleteConfirmation",
-    "sandwich-CompleteSetConfirmation",
-    "sandwich-CompleteSetPropertyname",
-    "sandwich-PropertyToChangeSet",
-    "sandwich-PropertyToRememberSet",
-    "sandwich-BeginDialog",
-    "sandwich-ChooseProperty",
-    "sandwich-HelpIntent",
-    "sandwich-NotUnderstood",
-    "sandwich-sandwichIntent",
-    "sandwich-ReadPropertyIntent"
+    {
+      "$type": "Microsoft.OnBeginDialog",
+      "$comment": "TODO: This is a hack to work around the lack of a way to remit activity or not when invoked.",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "559284",
+            "name": "Send a response"
+          },
+          "activity": "@{bfdactivity-559284()}"
+        }
+      ]
+    },
+    {
+      "$kind": "Microsoft.OnEndOfActions",
+      "condition": "!$Quantity",
+      "actions": [
+        {
+          "$kind": "Microsoft.Ask",
+          "activity": "@{AskQuantity()}",
+          "expectedProperties": [
+            "Quantity"
+          ],
+          "$type": "Microsoft.Ask"
+        }
+      ],
+      "priority": "indexOf(dialog.requiredProperties, 'Quantity')",
+      "$type": "Microsoft.OnEndOfActions"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{setPropertyMessage('Quantity', @number)}"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$Quantity",
+          "value": "@number"
+        }
+      ],
+      "property": "Quantity",
+      "entity": "number",
+      "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnChooseEntity",
+      "$designer": {
+        "name": "BreadEntityChoose"
+      },
+      "actions": [
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{chooseBreadEntity()}",
+          "expectedProperties": [
+            "Bread"
+          ]
+        }
+      ],
+      "entity": "BreadEntity",
+      "$type": "Microsoft.OnChooseEntity"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{setPropertyMessage('Length', @number)}"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$Length",
+          "value": "@number"
+        }
+      ],
+      "property": "Length",
+      "entity": "number",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnEndOfActions",
+      "condition": "!$Name",
+      "actions": [
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{AskName()}",
+          "expectedProperties": [
+            "Name"
+          ]
+        }
+      ],
+      "priority": "indexOf(dialog.requiredProperties, 'Name')",
+      "$type": "Microsoft.OnEndOfActions"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{setPropertyMessage('Name', @personName)}"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$Name",
+          "value": "@personName"
+        }
+      ],
+      "property": "Name",
+      "entity": "personName",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{setPropertyMessage('Name', @utterance)}"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$Name",
+          "value": "@utterance"
+        }
+      ],
+      "property": "Name",
+      "entity": "utterance",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnEndOfActions",
+      "condition": "!$Bread",
+      "actions": [
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{AskBread()}",
+          "expectedProperties": [
+            "Bread"
+          ]
+        }
+      ],
+      "priority": "indexOf(dialog.requiredProperties, 'Bread')",
+      "runOnce": false,
+      "$type": "Microsoft.OnEndOfActions"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{setPropertyMessage('Bread', @BreadEntity)}"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$Bread",
+          "value": "@BreadEntity"
+        }
+      ],
+      "property": "Bread",
+      "entity": "BreadEntity",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnChooseEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{chooseBreadEntity()}",
+          "expectedProperties": [
+            "Bread"
+          ]
+        }
+      ],
+      "entity": "BreadEntity",
+      "$type": "Microsoft.OnChooseEntity"
+    },
+    {
+      "$kind": "Microsoft.OnChooseEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{chooseBreadEntity()}",
+          "expectedProperties": [
+            "Bread"
+          ]
+        }
+      ],
+      "entity": "BreadEntity",
+      "$type": "Microsoft.OnChooseEntity"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{setPropertyMessage('Meat', @MeatEntity)}"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$Meat",
+          "value": "@MeatEntity"
+        }
+      ],
+      "property": "Meat",
+      "entity": "MeatEntity",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnChooseEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{chooseMeatEntity()}",
+          "expectedProperties": [
+            "Meat"
+          ]
+        }
+      ],
+      "entity": "MeatEntity",
+      "$type": "Microsoft.OnChooseEntity"
+    },
+    {
+      "$kind": "Microsoft.OnEndOfActions",
+      "condition": "!$Cheese",
+      "actions": [
+        {
+          "$kind": "Microsoft.Ask",
+          "activity": "@{AskCheese()}",
+          "expectedProperties": [
+            "Cheese"
+          ],
+          "$type": "Microsoft.Ask"
+        }
+      ],
+      "priority": "indexOf(dialog.requiredProperties, 'Cheese')",
+      "$type": "Microsoft.OnEndOfActions"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{setPropertyMessage('Cheese', @CheeseEntity)}"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$Cheese",
+          "value": "@CheeseEntity"
+        }
+      ],
+      "property": "Cheese",
+      "entity": "CheeseEntity",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnChooseEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{chooseCheeseEntity()}",
+          "expectedProperties": [
+            "Cheese"
+          ]
+        }
+      ],
+      "entity": "CheeseEntity",
+      "$type": "Microsoft.OnChooseEntity"
+    },
+    {
+      "$kind": "Microsoft.OnEndOfActions",
+      "condition": "!$Price",
+      "actions": [
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{AskPrice()}",
+          "expectedProperties": [
+            "Price"
+          ]
+        }
+      ],
+      "priority": "indexOf(dialog.requiredProperties, 'Price')",
+      "$type": "Microsoft.OnEndOfActions"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{setObjectPropertyMessage('Price', concat(string(@money.number), ' ', @money.units))}"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$Price.number",
+          "value": "@money.number"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$Price.units",
+          "value": "@money.units"
+        }
+      ],
+      "property": "Price",
+      "entity": "money",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "intent": "Cancel",
+      "condition": "turn.recognized.score > 0.5",
+      "actions": [
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{cancel()}",
+          "expectedProperties": [
+            "CancelConfirmation"
+          ]
+        }
+      ]
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$CancelConfirmation",
+          "value": "@Confirmation"
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "condition": "$CancelConfirmation == 'yes'",
+          "actions": [
+            {
+              "$type": "Microsoft.EndDialog"
+            }
+          ]
+        }
+      ],
+      "property": "CancelConfirmation",
+      "entity": "Confirmation",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$ChangePropertyConfirmation",
+          "value": "@Confirmation"
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "condition": "$ChangePropertyConfirmation == 'yes'",
+          "actions": [
+            {
+              "$type": "Microsoft.Ask",
+              "activity": "@{template(concat('Ask',$PropertyToRemember))}",
+              "expectedProperties": "createArray($PropertyToRemember)"
+            }
+          ]
+        }
+      ],
+      "property": "ChangePropertyConfirmation",
+      "entity": "Confirmation",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnEndOfActions",
+      "condition": "empty(where(dialog.requiredProperties, property, !dialog[property]))",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{readForm()}"
+        },
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{confirmChange()}",
+          "expectedProperties": [
+            "CompleteConfirmation"
+          ]
+        }
+      ],
+      "$type": "Microsoft.OnEndOfActions"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$CompleteConfirmation",
+          "value": "@Confirmation"
+        },
+        {
+          "$type": "Microsoft.IfCondition",
+          "condition": "$CompleteConfirmation == 'no'",
+          "actions": [
+            {
+              "$type": "Microsoft.EndDialog"
+            }
+          ],
+          "elseActions": [
+            {
+              "$type": "Microsoft.Ask",
+              "activity": "@{chooseProperty()}",
+              "expectedProperties": [
+                "PropertyToChange"
+              ]
+            }
+          ]
+        }
+      ],
+      "property": "CompleteConfirmation",
+      "entity": "Confirmation",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.DeleteProperty",
+          "property": "dialog[@PROPERTYName]"
+        }
+      ],
+      "property": "CompleteConfirmation",
+      "entity": "PROPERTYName",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.DeleteProperty",
+          "property": "dialog[@PROPERTYName]"
+        }
+      ],
+      "property": "PropertyToChange",
+      "entity": "PROPERTYName",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnAssignEntity",
+      "actions": [
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$PropertyToRemember",
+          "value": "@PROPERTYName"
+        }
+      ],
+      "property": "PropertyToRemember",
+      "entity": "PROPERTYName",
+      "$type": "Microsoft.OnAssignEntity"
+    },
+    {
+      "$kind": "Microsoft.OnChooseProperty",
+      "actions": [
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{chooseProperties()}",
+          "expectedProperties": [
+            "PropertyToChange"
+          ]
+        }
+      ],
+      "$type": "Microsoft.OnChooseProperty"
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "intent": "Help",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{help(@PropertyName)}"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "intent": "None",
+      "condition": "count(turn.recognizedentities) == 0",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{notUnderstood()}"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "intent": "sandwich",
+      "condition": "count(turn.recognizedentities) == 0",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{notUnderstood()}"
+        }
+      ]
+    },
+    {
+      "$type": "Microsoft.OnIntent",
+      "intent": "ReadProperty",
+      "actions": [
+        {
+          "$type": "Microsoft.SendActivity",
+          "activity": "@{textProperty(@PropertyName)}"
+        },
+        {
+          "$type": "Microsoft.SetProperty",
+          "property": "$PropertyToRemember",
+          "value": "@PROPERTYName"
+        },
+        {
+          "$type": "Microsoft.Ask",
+          "activity": "@{confirmChangeProperty(@PropertyName)}",
+          "expectedProperties": [
+            "ChangePropertyConfirmation"
+          ]
+        }
+      ]
+    }
   ],
   "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
   "generator": "sandwich.lg",

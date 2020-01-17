@@ -129,6 +129,18 @@ export const ConceptLabels: { [key in ConceptLabelKey]?: LabelOverride } = {
     title: formatMessage('Dialog started'),
     subtitle: formatMessage('Begin dialog event'),
   },
+  [SDKTypes.OnAssignEntity]: {
+    title: formatMessage('On Assign Entity'),
+    subtitle: formatMessage('On entity assignment'),
+  },
+  [SDKTypes.OnEndOfActions]: {
+    title: formatMessage('On End of Actions'),
+    subtitle: formatMessage('On end of actions'),
+  },
+  [SDKTypes.OnChooseEntity]: {
+    title: formatMessage('On Choose Entity'),
+    subtitle: formatMessage('On choose entity'),
+  },
   [SDKTypes.OnCancelDialog]: {
     title: formatMessage('Dialog cancelled'),
     subtitle: formatMessage('Cancel dialog event'),

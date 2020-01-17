@@ -1,13 +1,15 @@
-
 {
-    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
-    "$type": "Microsoft.OnChooseEntity",
-    "entity": "CheeseEntity",
-    "actions": [
-        {
-            "$type": "Microsoft.Ask",
-            "activity": "@{chooseCheeseEntity()}",
-            "expectedProperties": ["Cheese"]
-        }
-    ]
+  "$kind": "Microsoft.OnChooseEntity",
+  "actions": [
+    {
+      "$type": "Microsoft.Ask",
+      "activity": "@{chooseCheeseEntity()}",
+      "expectedProperties": [
+        "Cheese"
+      ]
+    }
+  ],
+  "entity": "CheeseEntity",
+  "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+  "$type": "Microsoft.OnChooseEntity"
 }

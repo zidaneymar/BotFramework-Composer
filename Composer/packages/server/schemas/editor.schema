@@ -156,6 +156,14 @@
       "title": "Activities",
       "subtitle": "Activity recieved"
     },
+    "Microsoft.OnAssignEntity": {
+      "title": "On Assign Entity",
+      "subtitle": "On entity assignment"
+    },
+    "Microsoft.OnEndOfActions": {
+      "title": "On End of Actions",
+      "subtitle": "On end of actions"
+    },
     "Microsoft.OnBeginDialog": {
       "title": "Dialog started",
       "subtitle": "Begin dialog event"

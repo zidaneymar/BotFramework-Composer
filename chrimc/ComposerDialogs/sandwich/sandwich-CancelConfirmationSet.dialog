@@ -1,23 +1,23 @@
-
 {
-    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
-    "$type": "Microsoft.OnAssignEntity",
-    "property": "CancelConfirmation",
-    "entity": "Confirmation",
-    "actions": [
+  "$kind": "Microsoft.OnAssignEntity",
+  "actions": [
+    {
+      "$type": "Microsoft.SetProperty",
+      "property": "$CancelConfirmation",
+      "value": "@Confirmation"
+    },
+    {
+      "$type": "Microsoft.IfCondition",
+      "condition": "$CancelConfirmation == 'yes'",
+      "actions": [
         {
-            "$type": "Microsoft.SetProperty",
-            "property": "$CancelConfirmation",
-            "value": "@Confirmation"
-        },
-        {
-            "$type": "Microsoft.IfCondition",
-            "condition":"$CancelConfirmation == 'yes'",
-            "actions": [
-                {
-                    "$type": "Microsoft.EndDialog"
-                }
-            ]
+          "$type": "Microsoft.EndDialog"
         }
-    ]
+      ]
+    }
+  ],
+  "property": "CancelConfirmation",
+  "entity": "Confirmation",
+  "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+  "$type": "Microsoft.OnAssignEntity"
 }

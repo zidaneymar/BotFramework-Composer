@@ -1,16 +1,16 @@
-
 {
-    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
-    "$type": "Microsoft.OnEndOfActions",
-    "condition":"!$Price",
-    "priority": "indexOf(dialog.requiredProperties, 'Price')",
-    "actions": [
-        {
-            "$type": "Microsoft.Ask",
-            "activity": "@{AskPrice()}",
-            "expectedProperties": [
-                "Price"
-            ]
-        }
-    ]
+  "$kind": "Microsoft.OnEndOfActions",
+  "condition": "!$Price",
+  "actions": [
+    {
+      "$type": "Microsoft.Ask",
+      "activity": "@{AskPrice()}",
+      "expectedProperties": [
+        "Price"
+      ]
+    }
+  ],
+  "priority": "indexOf(dialog.requiredProperties, 'Price')",
+  "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+  "$type": "Microsoft.OnEndOfActions"
 }

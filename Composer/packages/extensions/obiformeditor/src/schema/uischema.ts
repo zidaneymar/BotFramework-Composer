@@ -19,6 +19,24 @@ const triggerUiSchema = {
 };
 
 export const uiSchema: { [key in SDKTypes]?: UiSchema } = {
+  [SDKTypes.OnEndOfActions]: {
+    ...triggerUiSchema,
+  },
+  [SDKTypes.OnAssignEntity]: {
+    ...triggerUiSchema,
+  },
+  [SDKTypes.OnChooseEntity]: {
+    ...triggerUiSchema,
+  },
+  [SDKTypes.OnChooseIntent]: {
+    ...triggerUiSchema,
+  },
+  [SDKTypes.OnChooseProperty]: {
+    ...triggerUiSchema,
+  },
+  [SDKTypes.OnClearProperty]: {
+    ...triggerUiSchema,
+  },
   [SDKTypes.AdaptiveDialog]: {
     recognizer: {
       'ui:field': 'RecognizerField',

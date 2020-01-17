@@ -1,14 +1,14 @@
-
 {
-    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
-    "$type": "Microsoft.OnAssignEntity",
-    "property": "Length",
-    "entity": "dimension",
-    "actions": [
-        {
-            "$type": "Microsoft.SetProperty",
-            "property": "$Length",
-            "value": "@dimension"          
-        }
-    ]               
+  "$kind": "Microsoft.OnAssignEntity",
+  "actions": [
+    {
+      "$type": "Microsoft.SetProperty",
+      "property": "$Length",
+      "value": "@dimension"
+    }
+  ],
+  "property": "Length",
+  "entity": "dimension",
+  "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+  "$type": "Microsoft.OnAssignEntity"
 }

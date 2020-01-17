@@ -1,16 +1,17 @@
-
 {
-    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
-    "$type": "Microsoft.OnEndOfActions",
-    "condition":"!$Bread",
-    "priority": "indexOf(dialog.requiredProperties, 'Bread')",
-    "actions": [       
-        {
-            "$type": "Microsoft.Ask",
-            "activity": "@{AskBread()}",
-            "expectedProperties": [
-                "Bread"
-            ]
-        }
-    ]
+  "$kind": "Microsoft.OnEndOfActions",
+  "condition": "!$Bread",
+  "actions": [
+    {
+      "$type": "Microsoft.Ask",
+      "activity": "@{AskBread()}",
+      "expectedProperties": [
+        "Bread"
+      ]
+    }
+  ],
+  "priority": "indexOf(dialog.requiredProperties, 'Bread')",
+  "runOnce": false,
+  "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+  "$type": "Microsoft.OnEndOfActions"
 }

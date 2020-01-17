@@ -1,18 +1,18 @@
-
 {
-    "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
-    "$type": "Microsoft.OnAssignEntity",
-    "property": "Name",
-    "entity": "utterance",
-    "actions": [
-        {
-            "$type": "Microsoft.SendActivity",
-            "activity": "@{setPropertyMessage('Name', @utterance)}"
-        },
-        {
-            "$type": "Microsoft.SetProperty",
-            "property": "$Name",
-            "value": "@utterance"          
-        }
-    ]               
+  "$kind": "Microsoft.OnAssignEntity",
+  "actions": [
+    {
+      "$type": "Microsoft.SendActivity",
+      "activity": "@{setPropertyMessage('Name', @utterance)}"
+    },
+    {
+      "$type": "Microsoft.SetProperty",
+      "property": "$Name",
+      "value": "@utterance"
+    }
+  ],
+  "property": "Name",
+  "entity": "utterance",
+  "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
+  "$type": "Microsoft.OnAssignEntity"
 }

@@ -843,6 +843,530 @@ export const appschema: OBISchema = {
         },
       },
     },
+    'Microsoft.OnEndOfActions': {
+      $role: 'union(Microsoft.ITriggerCondition)',
+      title: 'On end of actions',
+      description: 'Actions to take when there are no more actions in the current dialog.',
+      type: 'object',
+      properties: {
+        $kind: {
+          title: '$kind',
+          description:
+            'Defines the valid properties for the component you are configuring (from a dialog .schema file)',
+          type: 'string',
+          pattern: '^[a-zA-Z][a-zA-Z0-9.]*$',
+          const: 'Microsoft.OnEndOfActions',
+        },
+        $copy: {
+          title: '$copy',
+          description: 'Copy the definition by id from a .dialog file.',
+          type: 'string',
+          pattern: '^(([a-zA-Z][a-zA-Z0-9.]*)?(#[a-zA-Z][a-zA-Z0-9.]*)?)$',
+        },
+        $id: {
+          title: '$id',
+          description: 'Inline id for reuse of an inline definition',
+          type: 'string',
+          pattern: '^([a-zA-Z][a-zA-Z0-9.]*)$',
+        },
+        $designer: {
+          title: '$designer',
+          type: 'object',
+          description: 'Extra information for the Bot Framework Designer.',
+        },
+        condition: {
+          $role: 'expression',
+          title: 'Condition',
+          description: 'Condition (expression).',
+          examples: ['user.vip == true'],
+          type: 'string',
+        },
+        actions: {
+          type: 'array',
+          description: 'Sequence of actions to execute.',
+          items: {
+            $kind: 'Microsoft.IDialog',
+            $ref: '#/definitions/Microsoft.IDialog',
+          },
+        },
+        priority: {
+          type: 'string',
+          title: 'priority',
+          description: 'Priority expression of rule with 0 being the most important',
+          $role: 'expression',
+        },
+        runOnce: {
+          type: 'boolean',
+          title: 'Run Once',
+          description: 'True if rule should run once per unique conditions',
+        },
+      },
+      additionalProperties: false,
+      patternProperties: {
+        '^\\$': {
+          type: 'string',
+        },
+      },
+    },
+    'Microsoft.Ask': {
+      $role: 'union(Microsoft.IDialog)',
+      title: 'Send Activity to Ask a question',
+      description: 'This is an action which sends an activity to the user when a response is expected',
+      type: 'object',
+      properties: {
+        $kind: {
+          title: '$kind',
+          description:
+            'Defines the valid properties for the component you are configuring (from a dialog .schema file)',
+          type: 'string',
+          pattern: '^[a-zA-Z][a-zA-Z0-9.]*$',
+          const: 'Microsoft.Ask',
+        },
+        $copy: {
+          title: '$copy',
+          description: 'Copy the definition by id from a .dialog file.',
+          type: 'string',
+          pattern: '^(([a-zA-Z][a-zA-Z0-9.]*)?(#[a-zA-Z][a-zA-Z0-9.]*)?)$',
+        },
+        $id: {
+          title: '$id',
+          description: 'Inline id for reuse of an inline definition',
+          type: 'string',
+          pattern: '^([a-zA-Z][a-zA-Z0-9.]*)$',
+        },
+        $designer: {
+          title: '$designer',
+          type: 'object',
+          description: 'Extra information for the Bot Framework Designer.',
+        },
+        id: {
+          type: 'string',
+          title: 'Id',
+          description: 'Optional id for the dialog',
+        },
+        disabled: {
+          $role: 'expression',
+          title: 'Disabled',
+          description: 'Optional condition which if true will disable this action.',
+          examples: ['user.age > 3'],
+          type: 'string',
+        },
+        activity: {
+          $kind: 'Microsoft.IActivityTemplate',
+          title: 'Activity',
+          description: 'Activity to send.',
+          $ref: '#/definitions/Microsoft.IActivityTemplate',
+        },
+        expectedProperties: {
+          oneOf: [
+            {
+              type: 'array',
+              items: {
+                type: 'string',
+                title: 'string',
+              },
+              title: 'array',
+              description: 'Properties expected to be filled by entities from the user',
+            },
+            {
+              type: 'string',
+              title: 'string',
+            },
+          ],
+        },
+      },
+      additionalProperties: false,
+      patternProperties: {
+        '^\\$': {
+          type: 'string',
+        },
+      },
+    },
+    'Microsoft.OnAssignEntity': {
+      $role: 'union(Microsoft.ITriggerCondition)',
+      title: 'On entity assignment',
+      description: 'Actions to take when an entity should be assigned to a property.',
+      type: 'object',
+      properties: {
+        $kind: {
+          title: '$kind',
+          description:
+            'Defines the valid properties for the component you are configuring (from a dialog .schema file)',
+          type: 'string',
+          pattern: '^[a-zA-Z][a-zA-Z0-9.]*$',
+          const: 'Microsoft.OnAssignEntity',
+        },
+        $copy: {
+          title: '$copy',
+          description: 'Copy the definition by id from a .dialog file.',
+          type: 'string',
+          pattern: '^(([a-zA-Z][a-zA-Z0-9.]*)?(#[a-zA-Z][a-zA-Z0-9.]*)?)$',
+        },
+        $id: {
+          title: '$id',
+          description: 'Inline id for reuse of an inline definition',
+          type: 'string',
+          pattern: '^([a-zA-Z][a-zA-Z0-9.]*)$',
+        },
+        $designer: {
+          title: '$designer',
+          type: 'object',
+          description: 'Extra information for the Bot Framework Designer.',
+        },
+        condition: {
+          $role: 'expression',
+          title: 'Condition',
+          description: 'Condition (expression).',
+          examples: ['user.vip == true'],
+          type: 'string',
+        },
+        actions: {
+          type: 'array',
+          description: 'Sequence of actions to execute.',
+          items: {
+            $kind: 'Microsoft.IDialog',
+            $ref: '#/definitions/Microsoft.IDialog',
+          },
+        },
+        priority: {
+          type: 'string',
+          title: 'priority',
+          description: 'Priority expression of rule with 0 being the most important',
+          $role: 'expression',
+        },
+        runOnce: {
+          type: 'boolean',
+          title: 'Run Once',
+          description: 'True if rule should run once per unique conditions',
+        },
+        property: {
+          type: 'string',
+          title: 'Property',
+          description: 'Property that will be set after entity is selected.',
+        },
+        entity: {
+          type: 'string',
+          title: 'Entity',
+          description: 'Entity being put into property',
+        },
+        operation: {
+          type: 'string',
+          title: 'Operation to use for assigning entity',
+        },
+      },
+      additionalProperties: false,
+      patternProperties: {
+        '^\\$': {
+          type: 'string',
+        },
+      },
+    },
+    'Microsoft.OnChooseEntity': {
+      $role: 'union(Microsoft.ITriggerCondition)',
+      title: 'On choose entity',
+      description: 'Actions to be performed when an entity value needs to be resolved.',
+      type: 'object',
+      properties: {
+        $kind: {
+          title: '$kind',
+          description:
+            'Defines the valid properties for the component you are configuring (from a dialog .schema file)',
+          type: 'string',
+          pattern: '^[a-zA-Z][a-zA-Z0-9.]*$',
+          const: 'Microsoft.OnChooseEntity',
+        },
+        $copy: {
+          title: '$copy',
+          description: 'Copy the definition by id from a .dialog file.',
+          type: 'string',
+          pattern: '^(([a-zA-Z][a-zA-Z0-9.]*)?(#[a-zA-Z][a-zA-Z0-9.]*)?)$',
+        },
+        $id: {
+          title: '$id',
+          description: 'Inline id for reuse of an inline definition',
+          type: 'string',
+          pattern: '^([a-zA-Z][a-zA-Z0-9.]*)$',
+        },
+        $designer: {
+          title: '$designer',
+          type: 'object',
+          description: 'Extra information for the Bot Framework Designer.',
+        },
+        condition: {
+          $role: 'expression',
+          title: 'Condition',
+          description: 'Condition (expression).',
+          examples: ['user.vip == true'],
+          type: 'string',
+        },
+        actions: {
+          type: 'array',
+          description: 'Sequence of actions to execute.',
+          items: {
+            $kind: 'Microsoft.IDialog',
+            $ref: '#/definitions/Microsoft.IDialog',
+          },
+        },
+        priority: {
+          type: 'string',
+          title: 'priority',
+          description: 'Priority expression of rule with 0 being the most important',
+          $role: 'expression',
+        },
+        runOnce: {
+          type: 'boolean',
+          title: 'Run Once',
+          description: 'True if rule should run once per unique conditions',
+        },
+        property: {
+          type: 'string',
+          title: 'Property to be set',
+          description: 'Property that will be set after entity is selected.',
+        },
+        entity: {
+          type: 'string',
+          title: 'Ambiguous entity',
+          description: 'Ambiguous entity',
+        },
+      },
+      additionalProperties: false,
+      patternProperties: {
+        '^\\$': {
+          type: 'string',
+        },
+      },
+    },
+    'Microsoft.OnChooseIntent': {
+      $role: 'union(Microsoft.ITriggerCondition)',
+      title: 'On ambigious intent',
+      description: 'Actions to perform on when an intent is ambigious.',
+      type: 'object',
+      properties: {
+        $kind: {
+          title: '$kind',
+          description:
+            'Defines the valid properties for the component you are configuring (from a dialog .schema file)',
+          type: 'string',
+          pattern: '^[a-zA-Z][a-zA-Z0-9.]*$',
+          const: 'Microsoft.OnChooseIntent',
+        },
+        $copy: {
+          title: '$copy',
+          description: 'Copy the definition by id from a .dialog file.',
+          type: 'string',
+          pattern: '^(([a-zA-Z][a-zA-Z0-9.]*)?(#[a-zA-Z][a-zA-Z0-9.]*)?)$',
+        },
+        $id: {
+          title: '$id',
+          description: 'Inline id for reuse of an inline definition',
+          type: 'string',
+          pattern: '^([a-zA-Z][a-zA-Z0-9.]*)$',
+        },
+        $designer: {
+          title: '$designer',
+          type: 'object',
+          description: 'Extra information for the Bot Framework Designer.',
+        },
+        condition: {
+          $role: 'expression',
+          title: 'Condition',
+          description: 'Condition (expression).',
+          examples: ['user.vip == true'],
+          type: 'string',
+        },
+        actions: {
+          type: 'array',
+          description: 'Sequence of actions to execute.',
+          items: {
+            $kind: 'Microsoft.IDialog',
+            $ref: '#/definitions/Microsoft.IDialog',
+          },
+        },
+        priority: {
+          type: 'string',
+          title: 'priority',
+          description: 'Priority expression of rule with 0 being the most important',
+          $role: 'expression',
+        },
+        runOnce: {
+          type: 'boolean',
+          title: 'Run Once',
+          description: 'True if rule should run once per unique conditions',
+        },
+        intents: {
+          type: 'array',
+          title: 'Intents',
+          description: 'Intents that must be in the ChooseIntent result for this condition to trigger.',
+          items: {
+            type: 'string',
+          },
+        },
+      },
+      additionalProperties: false,
+      patternProperties: {
+        '^\\$': {
+          type: 'string',
+        },
+      },
+    },
+    'Microsoft.OnChooseProperty': {
+      $role: 'union(Microsoft.ITriggerCondition)',
+      title: 'On choose property',
+      description: 'Actions to take when there are multiple possible mappings of entities to properties.',
+      type: 'object',
+      properties: {
+        $kind: {
+          title: '$kind',
+          description:
+            'Defines the valid properties for the component you are configuring (from a dialog .schema file)',
+          type: 'string',
+          pattern: '^[a-zA-Z][a-zA-Z0-9.]*$',
+          const: 'Microsoft.OnChooseProperty',
+        },
+        $copy: {
+          title: '$copy',
+          description: 'Copy the definition by id from a .dialog file.',
+          type: 'string',
+          pattern: '^(([a-zA-Z][a-zA-Z0-9.]*)?(#[a-zA-Z][a-zA-Z0-9.]*)?)$',
+        },
+        $id: {
+          title: '$id',
+          description: 'Inline id for reuse of an inline definition',
+          type: 'string',
+          pattern: '^([a-zA-Z][a-zA-Z0-9.]*)$',
+        },
+        $designer: {
+          title: '$designer',
+          type: 'object',
+          description: 'Extra information for the Bot Framework Designer.',
+        },
+        condition: {
+          $role: 'expression',
+          title: 'Condition',
+          description: 'Condition (expression).',
+          examples: ['user.vip == true'],
+          type: 'string',
+        },
+        actions: {
+          type: 'array',
+          description: 'Sequence of actions to execute.',
+          items: {
+            $kind: 'Microsoft.IDialog',
+            $ref: '#/definitions/Microsoft.IDialog',
+          },
+        },
+        priority: {
+          type: 'string',
+          title: 'priority',
+          description: 'Priority expression of rule with 0 being the most important',
+          $role: 'expression',
+        },
+        runOnce: {
+          type: 'boolean',
+          title: 'Run Once',
+          description: 'True if rule should run once per unique conditions',
+        },
+        entity: {
+          type: 'string',
+          title: 'Entity being assigned',
+          description: 'Entity being assigned to property choice',
+        },
+        properties: {
+          type: 'array',
+          title: 'Possible properties',
+          description: 'Properties to be chosen between',
+          items: {
+            type: 'string',
+            title: 'Property name',
+          },
+        },
+        entities: {
+          type: 'array',
+          title: 'Possible properties',
+          description: 'Entities being assigned',
+          items: {
+            type: 'string',
+            title: 'Entity name',
+          },
+        },
+      },
+      additionalProperties: false,
+      patternProperties: {
+        '^\\$': {
+          type: 'string',
+        },
+      },
+    },
+    'Microsoft.OnClearProperty': {
+      $role: 'union(Microsoft.ITriggerCondition)',
+      title: 'On clear property',
+      description: 'Actions to take when a property needs to be cleared.',
+      type: 'object',
+      properties: {
+        $kind: {
+          title: '$kind',
+          description:
+            'Defines the valid properties for the component you are configuring (from a dialog .schema file)',
+          type: 'string',
+          pattern: '^[a-zA-Z][a-zA-Z0-9.]*$',
+          const: 'Microsoft.OnClearProperty',
+        },
+        $copy: {
+          title: '$copy',
+          description: 'Copy the definition by id from a .dialog file.',
+          type: 'string',
+          pattern: '^(([a-zA-Z][a-zA-Z0-9.]*)?(#[a-zA-Z][a-zA-Z0-9.]*)?)$',
+        },
+        $id: {
+          title: '$id',
+          description: 'Inline id for reuse of an inline definition',
+          type: 'string',
+          pattern: '^([a-zA-Z][a-zA-Z0-9.]*)$',
+        },
+        $designer: {
+          title: '$designer',
+          type: 'object',
+          description: 'Extra information for the Bot Framework Designer.',
+        },
+        condition: {
+          $role: 'expression',
+          title: 'Condition',
+          description: 'Condition (expression).',
+          examples: ['user.vip == true'],
+          type: 'string',
+        },
+        actions: {
+          type: 'array',
+          description: 'Sequence of actions to execute.',
+          items: {
+            $kind: 'Microsoft.IDialog',
+            $ref: '#/definitions/Microsoft.IDialog',
+          },
+        },
+        priority: {
+          type: 'string',
+          title: 'priority',
+          description: 'Priority expression of rule with 0 being the most important',
+          $role: 'expression',
+        },
+        runOnce: {
+          type: 'boolean',
+          title: 'Run Once',
+          description: 'True if rule should run once per unique conditions',
+        },
+        property: {
+          type: 'string',
+          title: 'Property',
+          description: 'Property that will be cleared',
+        },
+      },
+      additionalProperties: false,
+      patternProperties: {
+        '^\\$': {
+          type: 'string',
+        },
+      },
+    },
     'Microsoft.DebugBreak': {
       $role: 'unionType(Microsoft.IDialog)',
       title: 'Debugger break',
@@ -2650,7 +3174,7 @@ export const appschema: OBISchema = {
       description: 'Recognizer which recognizes patterns of input based on regex.',
       type: 'object',
       properties: {
-        ...$properties(SDKTypes.RegExEntityRecognizer),
+        ...$properties(SDKTypes.RegexEntityRecognizer),
         name: {
           type: 'string',
           title: 'Name',
