@@ -1,0 +1,214 @@
+{
+  "ComposerDialogs/main/Main.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 1579288559398
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-BreadEntity.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-CheeseEntity.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-Confirmation.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-LengthEntity.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-MeatEntity.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-NameEntity.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-PROPERTYName.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-QuantityEntity.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-cancelIntent.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-dimension.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-helpIntent.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-money.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-noneIntent.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-number.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-personName.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-readPropertyIntent.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/en-us/sandwich-sandwich.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/luis/sandwich.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-BeginDialog.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-BreadAsk.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-BreadEntityChoose.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-BreadSetBreadEntity.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-CancelConfirmation.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-CancelConfirmationSet.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-ChangePropertyConfirmationSet.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-CheeseAsk.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-CheeseEntityChoose.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-CheeseSetCheeseEntity.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-ChooseProperty.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-CompleteConfirmation.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-CompleteSetConfirmation.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-CompleteSetPropertyname.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-HelpIntent.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-LengthAsk.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-LengthSetdimension.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-LengthSetnumber.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-MeatAsk.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-MeatEntityChoose.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-MeatSetMeatEntity.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-NameAsk.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-NameSetpersonName.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-NameSetutterance.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-NotUnderstood.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-PriceAsk.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-PriceSetmoney.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-PropertyToChangeSet.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-PropertyToRememberSet.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-QuantityAsk.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-QuantitySetnumber.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-ReadPropertyIntent.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich-sandwichIntent.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  },
+  "ComposerDialogs/sandwich/sandwich.schema.lu": {
+    "lastUpdateTime": 1,
+    "lastPublishTime": 0
+  }
+}

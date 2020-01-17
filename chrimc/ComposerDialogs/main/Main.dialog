@@ -528,6 +528,6 @@
     }
   ],
   "$schema": "https://raw.githubusercontent.com/microsoft/botbuilder-dotnet/master/schemas/sdk.schema",
-  "generator": "sandwich.lg",
+  "generator": "common.lg",
   "schema": "sandwich.schema"
 }
