@@ -90,6 +90,7 @@ export interface State {
     complete: boolean;
   };
   clipboardActions: any[];
+  publishTypes: string[];
 }
 
 export type ReducerFunc<T = any> = (state: State, payload: T) => State;

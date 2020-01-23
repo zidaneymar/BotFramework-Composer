@@ -257,6 +257,12 @@ const updatePublishStatus: ReducerFunc = (state, payload) => {
   return state;
 };
 
+const setPublishTypes: ReducerFunc = (state, { response }) => {
+  console.log('SET PUBLISH TYPES', response);
+  state.publishTypes = response;
+  return state;
+};
+
 const setVisualEditorSelection: ReducerFunc = (state, { selection }) => {
   state.visualEditorSelection = selection;
   return state;
@@ -334,4 +340,5 @@ export const reducer = createReducer({
   [ActionTypes.ONBOARDING_ADD_COACH_MARK_REF]: onboardingAddCoachMarkRef,
   [ActionTypes.ONBOARDING_SET_COMPLETE]: onboardingSetComplete,
   [ActionTypes.EDITOR_CLIPBOARD]: setClipboardActions,
+  [ActionTypes.GET_PUBLISH_TYPES_SUCCESS]: setPublishTypes,
 });

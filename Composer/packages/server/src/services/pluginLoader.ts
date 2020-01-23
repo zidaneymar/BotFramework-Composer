@@ -107,6 +107,7 @@ class PluginLoader {
   }
 
   public async addPublishMethod(name: string, plugin: Partial<PublishPlugin>) {
+    console.log('registering publish plugin', plugin);
     this.extensions.publish[name] = plugin;
   }
 
