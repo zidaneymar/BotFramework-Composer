@@ -47,7 +47,8 @@ router.post('/launcher/publish', BotConnectorController.publish);
 router.post('/launcher/publish/:label', BotConnectorController.publish);
 
 router.get('/publish/types', PublishController.getTypes);
-router.get('/publish/:method/publish', PublishController.publish);
+router.post('/publish/:method/status', PublishController.status);
+router.post('/publish/:method/publish', PublishController.publish);
 
 //assets
 router.get('/assets/projectTemplates', AssetController.getProjTemplates);

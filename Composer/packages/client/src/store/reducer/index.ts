@@ -263,6 +263,11 @@ const setPublishTypes: ReducerFunc = (state, { response }) => {
   return state;
 };
 
+const gotPublishStatus: ReducerFunc = (state, payload) => {
+  console.log('Got publish status from remote', payload);
+  return state;
+};
+
 const setVisualEditorSelection: ReducerFunc = (state, { selection }) => {
   state.visualEditorSelection = selection;
   return state;
@@ -334,6 +339,7 @@ export const reducer = createReducer({
   [ActionTypes.PUBLISH_SUCCESS]: updatePublishStatus,
   [ActionTypes.PUBLISH_ERROR]: updatePublishStatus,
   [ActionTypes.PUBLISH_BEGIN]: updatePublishStatus,
+  [ActionTypes.GET_PUBLISH_STATUS]: gotPublishStatus,
   [ActionTypes.GET_ENDPOINT_SUCCESS]: updateRemoteEndpoint,
   [ActionTypes.REMOVE_RECENT_PROJECT]: removeRecentProject,
   [ActionTypes.EDITOR_SELECTION_VISUAL]: setVisualEditorSelection,

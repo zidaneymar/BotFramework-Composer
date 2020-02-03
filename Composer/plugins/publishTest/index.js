@@ -3,10 +3,12 @@
 
 const plugin = {
   publish: async (config, project) => {
-    console.log('PUBLISH ', config);
-    return { status: 'complete', statusCode: 200 };
+    console.log('PUBLISH ', config, project);
+    return { message: 'This bot has been deployed!', statusCode: 200 };
   },
-  getStatus: async config => {},
+  getStatus: async config => {
+    return { message: 'This bot has been deployed!', statusCode: 200 };
+  },
   history: async config => {},
   rollback: async config => {},
 };

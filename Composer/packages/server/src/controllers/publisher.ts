@@ -13,11 +13,40 @@ export const PublishController = {
       // get the externally defined method
       const pluginMethod = pluginLoader.extensions.publish[method].publish;
 
+      const target = req.body.target;
+
       // call the method
-      const results = await pluginMethod.apply(null, { foo: 'bar' }, {});
-      res.json(results);
+      const results = await pluginMethod.call(null, target, {});
+      res.json({
+        target: target.name,
+        results: results,
+      });
     } else {
-      res.send(`Got invalid request to publish`);
+      res.json({
+        statusCode: '400',
+        message: `${method} is not a valid publishing target type. There may be a missing plugin.`,
+      });
+    }
+  },
+  status: async (req, res) => {
+    const method = req.params.method;
+    if (pluginLoader.extensions.publish[method] && pluginLoader.extensions.publish[method].getStatus) {
+      // get the externally defined method
+      const pluginMethod = pluginLoader.extensions.publish[method].getStatus;
+
+      const target = req.body.target;
+
+      // call the method
+      const results = await pluginMethod.call(null, target, {});
+      res.json({
+        target: target.name,
+        results: results,
+      });
+    } else {
+      res.json({
+        statusCode: '400',
+        message: `${method} is not a valid publishing target type. There may be a missing plugin.`,
+      });
     }
   },
 };

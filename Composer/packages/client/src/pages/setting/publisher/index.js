@@ -43,11 +43,18 @@ export const Publisher = () => {
     type: DialogType.normal,
     children: [],
   });
-  const { botName, botEnvironment, publishVersions, remoteEndpoints, settings, publishStatus, publishTypes } = state;
+  const {
+    botName,
+    botEnvironment,
+    publishVersions,
+    remoteEndpoints,
+    settings,
+    publishStatus,
+    publishTypes,
+    publishTargets,
+  } = state;
   const [slot, setSlot] = useState(botEnvironment === 'editing' ? 'integration' : botEnvironment);
   const absHosted = isAbsHosted();
-
-  const [publishTargets, updatePublishTargets] = useState([]);
 
   useEffect(() => {
     // load up the list of all publish targets
@@ -56,6 +63,34 @@ export const Publisher = () => {
     // display current targets
     updatePublishTargets(settings.publishTargets || []);
   }, []);
+
+  const updatePublishTargets = async rawTargets => {
+    // make sure there is space for the status to be loaded
+    const targets = rawTargets.map(target => {
+      return {
+        status: '',
+        statusCode: 202,
+        ...target,
+      };
+    });
+
+    console.log('SET PUBLISH TARGETS', targets);
+    for (let i = 0; i < targets.length; i++) {
+      publishTargets.push(targets[i]);
+    }
+  };
+
+  useEffect(() => {
+    console.log('publish targets changed');
+    if (
+      publishTargets.filter(target => {
+        return target.statusCode === 202;
+      }).length
+    ) {
+      actions.getPublishStatus();
+      console.log('NEED TO LOAD PUBLISH STATUS');
+    }
+  }, [publishTargets]);
 
   const savePublishTarget = (name, type, configuration) => {
     alert(`save ${name} ${type} ${configuration}`);
@@ -71,6 +106,8 @@ export const Publisher = () => {
     });
 
     actions.setSettings(botName, settings, absHosted ? slot : undefined);
+
+    updatePublishTargets(settings.publishTargets || []);
   };
 
   const addDestination = async () => {
@@ -209,6 +246,16 @@ export const Publisher = () => {
     setDialogHidden(true);
   };
 
+  const publishToTarget = index => {
+    return async () => {
+      if (publishTargets[index]) {
+        const target = publishTargets[index];
+        console.log('PUBLISH TO TARGET', target);
+        await actions.publishToTarget(target);
+      }
+    };
+  };
+
   return (
     <div style={styles.page}>
       <h1 style={styles.header}>Publish your bot to a remote</h1>
@@ -218,8 +265,11 @@ export const Publisher = () => {
       {publishTargets.map((target, i) => {
         return (
           <div key={i}>
-            Name:
-            {target.name}
+            <p>
+              <label>Name:</label>
+              {target.name}
+              <PrimaryButton text="Publish" onClick={publishToTarget(i)} />
+            </p>
           </div>
         );
       })}
