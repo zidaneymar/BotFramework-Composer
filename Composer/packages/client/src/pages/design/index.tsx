@@ -5,6 +5,7 @@
 import { jsx } from '@emotion/core';
 import { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
+import { IContextualMenuItem, IContextualMenuProps } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { Breadcrumb, IBreadcrumbItem } from 'office-ui-fabric-react/lib/Breadcrumb';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import formatMessage from 'format-message';
@@ -134,7 +135,6 @@ function DesignPage(props) {
   const { dialogId, selected } = designPageLocation;
   const [triggerModalVisible, setTriggerModalVisibility] = useState(false);
   const [triggerButtonVisible, setTriggerButtonVisibility] = useState(false);
-
   const addRef = useCallback(visualEditor => onboardingAddCoachMarkRef({ visualEditor }), []);
 
   useEffect(() => {
@@ -196,8 +196,32 @@ function DesignPage(props) {
   };
 
   const nodeOperationAvailable = Array.isArray(visualEditorSelection) && visualEditorSelection.length > 0;
-
+  const menuItems: IContextualMenuItem[] = [
+    {
+      key: 'trigger',
+      text: 'Trigger',
+      onClick: () => {
+        setTriggerModalVisibility(true);
+      },
+    },
+  ];
+  const menuProps: IContextualMenuProps = {
+    items: menuItems,
+  };
   const toolbarItems = [
+    {
+      type: 'default',
+      text: formatMessage('Add'),
+      buttonProps: {
+        iconProps: {
+          iconName: 'Add',
+        },
+        //onClick: () => setAddButtonDialogVisible(true),
+      },
+      align: 'left',
+      disabled: false,
+      menuProps,
+    },
     {
       type: 'action',
       text: formatMessage('Undo'),

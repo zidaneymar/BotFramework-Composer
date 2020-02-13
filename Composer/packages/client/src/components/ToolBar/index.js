@@ -4,13 +4,25 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Fragment } from 'react';
-import { ActionButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+//import { ContextualMenu } from 'office-ui-fabric-react/lib/ContextualMenu';
 
 import { headerSub, leftActions, rightActions, actionButton } from './styles';
-
 function itemList(action, index) {
   if (action.type === 'element') {
     return <Fragment key={index}>{action.element}</Fragment>;
+  } else if (action.type === 'action') {
+    return (
+      <ActionButton
+        key={index}
+        css={actionButton}
+        {...action.buttonProps}
+        data-testid={action.dataTestid}
+        disabled={action.disabled}
+      >
+        {action.text}
+      </ActionButton>
+    );
   } else {
     return (
       <ActionButton
@@ -19,6 +31,7 @@ function itemList(action, index) {
         {...action.buttonProps}
         data-testid={action.dataTestid}
         disabled={action.disabled}
+        menuProps={action.menuProps}
       >
         {action.text}
       </ActionButton>
