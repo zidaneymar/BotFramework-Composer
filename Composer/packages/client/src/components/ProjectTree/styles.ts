@@ -134,7 +134,7 @@ export const dropdownStyles = {
     fontWeight: FontWeights.semibold,
   },
   dropdown: {
-    width: '300px',
+    width: '400px',
   },
   root: {
     paddingBottom: '20px',
@@ -167,3 +167,18 @@ export const intent = {
   },
   subComponentStyles: textFieldlabel,
 };
+
+export const triggerTypeWindow = css`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  height: 165px;
+  width: 400px;
+`;
+
+export const triggerTypeStyle = isClicked => css`
+  height: 28px;
+  padding: 2px;
+  background: ${isClicked ? NeutralColors.gray30 : NeutralColors.white};
+  cursor: pointer;
+`;

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, Fragment } from 'react';
 import formatMessage from 'format-message';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
@@ -29,7 +30,7 @@ import {
 } from '../../utils/dialogUtil';
 import { StoreContext } from '../../store';
 
-import { styles, dropdownStyles, dialogWindow } from './styles';
+import { styles, dropdownStyles, dialogWindow, triggerTypeWindow, triggerTypeStyle } from './styles';
 
 const validateForm = (data: TriggerFormData): TriggerFormDataErrors => {
   const errors: TriggerFormDataErrors = {};
@@ -63,11 +64,14 @@ const initialFormData: TriggerFormData = {
   specifiedType: '',
 };
 
-const triggerTypeOptions: IDropdownOption[] = getTriggerTypes();
+const luKey = 'lu';
+
+const triggerTypeOptions: IDropdownOption[] = [{ key: luKey, text: 'Language Understanding' }, ...getTriggerTypes()];
 
 export const TriggerCreationModal: React.FC<TriggerCreationModalProps> = props => {
   const { isOpen, onDismiss, onSubmit, dialogId } = props;
   const [formData, setFormData] = useState(initialFormData);
+  const [step, setStep] = useState(1);
   const { state } = useContext(StoreContext);
   const { dialogs, luFiles } = state;
   const luFile = luFiles.find(lu => lu.id === dialogId);
@@ -92,33 +96,54 @@ export const TriggerCreationModal: React.FC<TriggerCreationModalProps> = props =
     setFormData({ ...initialFormData, $type: option.key });
   };
 
-  const onSelectIntent = (e, option) => {
-    setFormData({ ...formData, intent: option.key });
+  // const onSelectIntent = (e, option) => {
+  //   setFormData({ ...formData, intent: option.key });
+  // };
+
+  const onSelectSpecifiedTypeType = option => {
+    setFormData({ ...formData, specifiedType: option.key });
   };
 
-  const onSelectSpecifiedTypeType = (e, option) => {
-    setFormData({ ...formData, specifiedType: option.key });
+  const onClickNextButton = () => {
+    setStep(2);
   };
 
   const eventTypes: IDropdownOption[] = getEventTypes();
   const activityTypes: IDropdownOption[] = getActivityTypes();
   const messageTypes: IDropdownOption[] = getMessageTypes();
 
-  const isRegEx = get(dialogFile, 'content.recognizer.$type', '') === regexRecognizerKey;
+  // const isRegEx = get(dialogFile, 'content.recognizer.$type', '') === regexRecognizerKey;
 
-  const regexIntents = get(dialogFile, 'content.recognizer.intents', []);
-  const luisIntents = get(luFile, 'intents', []);
-  const intents = isRegEx ? regexIntents : luisIntents;
+  // const regexIntents = get(dialogFile, 'content.recognizer.intents', []);
+  // const luisIntents = get(luFile, 'intents', []);
+  // const intents = isRegEx ? regexIntents : luisIntents;
 
-  const intentOptions = intents.map(t => {
-    return { key: t.name || t.Name || t.intent, text: t.name || t.Name || t.intent };
-  });
+  // const intentOptions = intents.map(t => {
+  //   return { key: t.name || t.Name || t.intent, text: t.name || t.Name || t.intent };
+  // });
 
-  const showIntentDropDown = formData.$type === intentTypeKey;
-  const showEventDropDown = formData.$type === eventTypeKey;
-  const showActivityDropDown = formData.$type === activityTypeKey;
-  const showMessageDropDown = formData.$type === messageTypeKey;
-
+  // const showIntentDropDown = formData.$type === intentTypeKey;
+  // const showEventDropDown = formData.$type === eventTypeKey;
+  // const showActivityDropDown = formData.$type === activityTypeKey;
+  // const showMessageDropDown = formData.$type === messageTypeKey;
+  let triggerTypes: IDropdownOption[] = [];
+  switch (formData.$type) {
+    case eventTypeKey:
+      triggerTypes = eventTypes;
+      break;
+    case activityTypeKey:
+      triggerTypes = activityTypes;
+      break;
+    case messageTypeKey:
+      triggerTypes = messageTypes;
+      break;
+    case luKey:
+      triggerTypes = [
+        { key: 'UserInput', text: 'User Input' },
+        { key: 'UnrecognizedType', text: 'Unrecognized' },
+      ];
+      break;
+  }
   return (
     <Dialog
       hidden={!isOpen}
@@ -135,17 +160,35 @@ export const TriggerCreationModal: React.FC<TriggerCreationModalProps> = props =
     >
       <div css={dialogWindow}>
         <Stack>
-          <Dropdown
-            label={formatMessage('What is the type of this trigger?')}
-            options={triggerTypeOptions}
-            styles={dropdownStyles}
-            onChange={onSelectTriggerType}
-            errorMessage={formData.errors.$type}
-            data-testid={'triggerTypeDropDown'}
-            defaultSelectedKey={intentTypeKey}
-          />
+          {step === 1 && (
+            <Fragment>
+              <Dropdown
+                label={formatMessage('What initiates the trigger?')}
+                options={triggerTypeOptions}
+                styles={dropdownStyles}
+                onChange={onSelectTriggerType}
+                errorMessage={formData.errors.$type}
+                data-testid={'triggerTypeDropDown'}
+                defaultSelectedKey={intentTypeKey}
+              />
+              <div css={triggerTypeWindow}>
+                {triggerTypes.map(t => {
+                  return (
+                    <div
+                      css={triggerTypeStyle(t.key === formData.specifiedType)}
+                      onClick={() => onSelectSpecifiedTypeType(t)}
+                      key={t.key}
+                    >
+                      {t.text}
+                    </div>
+                  );
+                })}
+              </div>
+            </Fragment>
+          )}
+          {step === 2 && <div>{'will add inline editor'}</div>}
 
-          {showEventDropDown && (
+          {/* {showEventDropDown && (
             <Dropdown
               placeholder={formatMessage('Select a event type')}
               label={formatMessage('Which event?')}
@@ -188,12 +231,22 @@ export const TriggerCreationModal: React.FC<TriggerCreationModalProps> = props =
               placeholder={intentOptions.length === 0 ? formatMessage('No intents configured for this dialog') : ''}
               errorMessage={formData.errors.intent}
             />
-          )}
+          )} */}
         </Stack>
       </div>
       <DialogFooter>
         <DefaultButton onClick={onDismiss} text={formatMessage('Cancel')} />
-        <PrimaryButton onClick={onClickSubmitButton} text={formatMessage('Submit')} data-testid={'triggerFormSubmit'} />
+        {step === 1 && formData.specifiedType === 'UserInput' && (
+          <PrimaryButton onClick={onClickNextButton} text={formatMessage('Next')} data-testid={'triggerFormNext'} />
+        )}
+        {step === 2 ||
+          (formData.specifiedType !== 'UserInput' && (
+            <PrimaryButton
+              onClick={onClickSubmitButton}
+              text={formatMessage('Submit')}
+              data-testid={'triggerFormSubmit'}
+            />
+          ))}
       </DialogFooter>
     </Dialog>
   );
