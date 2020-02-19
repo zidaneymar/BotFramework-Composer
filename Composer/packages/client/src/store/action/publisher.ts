@@ -43,18 +43,18 @@ export const publishToTarget: ActionCreator = async ({ dispatch }, target) => {
 
 export const getPublishStatus: ActionCreator = async store => {
   const state = store.getState();
-  const publishTargets = state.publishTargets;
+  // const publishTargets = state.publishTargets;
   console.log('get publish status', state.publishTargets);
-  for (let i = 0; i < publishTargets.length; i++) {
-    const target = publishTargets[i];
-    if (target.statusCode === 202) {
-      const response = await httpClient.get('/publish/' + target.type + '/status', {
-        target: target,
-        project: null, // should be current project id.
-      });
-      console.log('got response to this...', response);
-    }
-  }
+  // for (let i = 0; i < publishTargets.length; i++) {
+  //   const target = publishTargets[i];
+  //   if (target.statusCode === 202) {
+  //     const response = await httpClient.get('/publish/' + target.type + '/status', {
+  //       target: target,
+  //       project: null, // should be current project id.
+  //     });
+  //     console.log('got response to this...', response);
+  //   }
+  // }
   // dispatch new target list...
   // store.dispatch({});
 };
