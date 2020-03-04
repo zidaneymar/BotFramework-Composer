@@ -51,7 +51,7 @@ export const RuleEditor = ({ id, data, onEvent, addCoachMarkRef }): JSX.Element 
       css={{
         position: 'relative',
         display: 'flex',
-        width: '100%',
+        width: '50%',
         flexDirection: 'column',
         alignItems: 'center',
       }}
