@@ -80,15 +80,33 @@ export class BotProject {
   }
 
   public index = async () => {
+    const dt0 = new Date().getTime();
     this.files = await this._getFiles();
+    const dt1 = new Date().getTime();
     this.settings = await this.getEnvSettings(this.environment.getDefaultSlot(), false);
+    const dt2 = new Date().getTime();
     this.dialogs = this.indexDialogs();
+    const dt3 = new Date().getTime();
     this.lgFiles = lgIndexer.index(this.files, this._lgImportResolver);
+    const dt4 = new Date().getTime();
     this.luFiles = luIndexer.index(this.files);
+    const dt5 = new Date().getTime();
     await this._checkProjectStructure();
+    const dt6 = new Date().getTime();
     if (this.settings) {
       await this.luPublisher.setLuisConfig(this.settings.luis);
     }
+    const dt7 = new Date().getTime();
+
+    console.log('index use time');
+    console.log('all', dt6 - dt0);
+    console.log('f1', dt1 - dt0);
+    console.log('f2', dt2 - dt1);
+    console.log('f3', dt3 - dt2);
+    console.log('f4', dt4 - dt3);
+    console.log('f5', dt5 - dt4);
+    console.log('f6', dt6 - dt5);
+    console.log('f7', dt7 - dt6);
   };
 
   public getIndexes = () => {

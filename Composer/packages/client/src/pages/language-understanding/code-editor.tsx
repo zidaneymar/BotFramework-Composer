@@ -127,7 +127,10 @@ const CodeEditor: React.FC<CodeEditorProps> = props => {
             setHttpErrorMsg(error.error);
           }
         } else {
+          const dt0 = new Date().getTime();
           const { diagnostics } = parse(value, id);
+          const dt1 = new Date().getTime();
+          console.log('lu parse use time', dt1 - dt0);
           setDiagnostics(diagnostics);
         }
       }, 1000),
