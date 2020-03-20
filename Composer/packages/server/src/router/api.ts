@@ -45,6 +45,7 @@ router.get('/launcher/publishHistory', BotConnectorController.getPublishHistory)
 router.post('/launcher/publish', BotConnectorController.publish);
 router.post('/launcher/publish/:label', BotConnectorController.publish);
 
+router.post('/spacyPublish', ProjectController.publishSpacy);
 //assets
 router.get('/assets/projectTemplates', AssetController.getProjTemplates);
 

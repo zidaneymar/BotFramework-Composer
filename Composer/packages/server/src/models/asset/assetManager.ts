@@ -81,11 +81,15 @@ const runtimes: TemplateData = {
     name: 'CSharp Runtime',
     description: 'A Bot Framework runtime using the CSharp/dotnet version of the SDK',
   },
+  spacyRuntime: {
+    name: 'spacy runtime',
+    description: 'test',
+  },
 };
 
 // set a default runtime template.
 // when we have multiple runtimes this will be a parameter.
-const DEFAULT_RUNTIME = 'CSharp';
+const DEFAULT_RUNTIME = 'spacyRuntime'; //'CSharp';
 
 export class AssetManager {
   public templateStorage: LocalDiskStorage;
@@ -97,6 +101,7 @@ export class AssetManager {
   constructor(assetsLibraryPath: string, runtimesPath: string) {
     this.assetsLibraryPath = assetsLibraryPath;
     this.runtimesPath = runtimesPath;
+    console.log(this.runtimesPath);
     this.templateStorage = new LocalDiskStorage();
 
     // initialize the list of project tempaltes
@@ -143,6 +148,7 @@ export class AssetManager {
 
     if (await this.templateStorage.exists(path)) {
       const folders = await this.templateStorage.readDir(path);
+      console.log(folders);
       this.runtimeTemplates = [];
       for (const name of folders) {
         const absPath = Path.join(path, name);
@@ -153,7 +159,8 @@ export class AssetManager {
         }
       }
     }
-
+    console.log('--------------------------------');
+    console.log(output);
     return output;
   }
 

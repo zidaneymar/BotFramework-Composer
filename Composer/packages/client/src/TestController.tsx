@@ -11,6 +11,7 @@ import { Stack } from 'office-ui-fabric-react/lib/Stack';
 import formatMessage from 'format-message';
 import { DiagnosticSeverity, Diagnostic } from '@bfc/indexers';
 
+import httpClient, { spacyClient } from './utils/httpUtil';
 import settingsStorage from './utils/dialogSettingStorage';
 import { StoreContext } from './store';
 import { bot, botButton, calloutLabel, calloutDescription, calloutContainer, errorButton, errorCount } from './styles';
@@ -94,7 +95,12 @@ export const TestController: React.FC = () => {
     }
     const config = settings.luis;
 
-    if (!isAbsHosted() && getReferredFiles(luFiles, dialogs).length > 0) {
+    if (dialogs[0].content.recognizer === 'Microsoft.SpacyRecognizer') {
+      // publish spacy and reload bot
+      await handleSpacyPublish();
+      // loadBot
+      await handleLoadBot();
+    } else if (!isAbsHosted() && getReferredFiles(luFiles, dialogs).length > 0) {
       if (!luisPublishSucceed || !isLuisConfigComplete(config)) {
         setModalOpen(true);
       } else {
@@ -123,6 +129,34 @@ export const TestController: React.FC = () => {
         return true;
       } else {
         throw new Error('Please Set Luis Config');
+      }
+    } catch (err) {
+      setError({ title: Text.LUISDEPLOYFAILURE, message: err.message });
+      setCalloutVisible(true);
+      return false;
+    } finally {
+      setFetchState(STATE.SUCCESS);
+    }
+  }
+
+  async function handleSpacyPublish() {
+    setFetchState(STATE.PUBLISHING);
+    const config = {
+      headers: {
+        'Content-Length': 0,
+        'Content-Type': 'text/plain',
+      },
+      responseType: 'text',
+    };
+    try {
+      const response = await spacyClient.get('/create_app');
+      console.log(`get spacy appid ---------- ${response.data}`);
+
+      if (luFiles.length > 0) {
+        await spacyClient.post(`/update_app/${response.data}`, luFiles[0].content, config);
+
+        // call server
+        await httpClient.post('/spacyPublish', { id: response.data, filename: 'Microsoft.SpacyRecognizer.dialog' });
       }
     } catch (err) {
       setError({ title: Text.LUISDEPLOYFAILURE, message: err.message });

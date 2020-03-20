@@ -354,6 +354,35 @@ async function publishLuis(req: Request, res: Response) {
   }
 }
 
+async function publishSpacy(req: Request, res: Response) {
+  console.log(req.body.id);
+  const currentProject = BotProjectService.getCurrentBotProject();
+  if (currentProject !== undefined) {
+    try {
+      console.log(currentProject.dataDir);
+      const filesto = StorageService.getStorageClient('default');
+      await filesto.mkDir(`${currentProject.dataDir}/generated`);
+      const content = {
+        applicationId: req.body.id,
+        $kind: 'Microsoft.SpacyRecognizer',
+        endpoint: 'http://127.0.0.1:9000',
+      };
+      await filesto.writeFile(
+        `${currentProject.dataDir}/generated/${req.body.filename}`,
+        JSON.stringify(content, null, 2)
+      );
+      res.status(200).json('success');
+    } catch (error) {
+      console.error(error);
+      res.status(400);
+    }
+  } else {
+    res.status(404).json({
+      message: 'publish spacy error',
+    });
+  }
+}
+
 async function getAllProjects(req: Request, res: Response) {
   const storageId = 'default';
   const folderPath = Path.resolve(settings.botsFolder);
@@ -387,4 +416,5 @@ export const ProjectController = {
   createProject,
   getAllProjects,
   getRecentProjects,
+  publishSpacy,
 };

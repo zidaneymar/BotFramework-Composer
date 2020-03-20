@@ -10,3 +10,7 @@ const httpClient = axios.create({
 });
 
 export default httpClient;
+
+export const spacyClient = axios.create({
+  baseURL: 'http://localhost:9000',
+});
