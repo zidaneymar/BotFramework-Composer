@@ -46,6 +46,7 @@ router.post('/launcher/publish', BotConnectorController.publish);
 router.post('/launcher/publish/:label', BotConnectorController.publish);
 
 router.post('/spacyPublish', ProjectController.publishSpacy);
+router.post('/uploadSpacy', ProjectController.uploadSpacy);
 //assets
 router.get('/assets/projectTemplates', AssetController.getProjTemplates);
 

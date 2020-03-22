@@ -191,7 +191,7 @@ function validate(id: string, content, schema: any): Diagnostic[] {
 }
 
 function parse(id: string, content: any, schema: any) {
-  const luFile = typeof content.recognizer === 'string' ? content.recognizer : '';
+  const luFile: string = typeof content.recognizer === 'string' ? content.recognizer : '';
   const lgFile = typeof content.generator === 'string' ? content.generator : '';
 
   return {
@@ -201,7 +201,7 @@ function parse(id: string, content: any, schema: any) {
     lgTemplates: ExtractLgTemplates(id, content),
     userDefinedVariables: ExtractMemoryPaths(content),
     referredLuIntents: ExtractLuIntents(content, id),
-    luFile: getBaseName(luFile, '.lu'),
+    luFile: luFile.endsWith('.spacy') ? '' : getBaseName(luFile, '.lu'), // not to mix luis and spacy publish
     lgFile: getBaseName(lgFile, '.lg'),
     triggers: ExtractTriggers(content),
     intentTriggers: ExtractIntentTriggers(content),

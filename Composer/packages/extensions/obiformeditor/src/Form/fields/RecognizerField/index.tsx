@@ -23,7 +23,7 @@ export const RecognizerField: React.FC<FieldProps<MicrosoftIRecognizer>> = props
   } = props;
 
   const isRegex = typeof formData === 'object' && formData.$type === 'Microsoft.RegexRecognizer';
-  const isSpacy = typeof formData === 'string' && formData === 'Microsoft.SpacyRecognizer';
+  const isSpacy = typeof formData === 'string' && formData.endsWith('.spacy');
   const currentDialogId = currentDialog.id;
   const selectedFile: LuFile | void = luFiles.find(f => f.id === currentDialogId);
 
@@ -65,7 +65,29 @@ export const RecognizerField: React.FC<FieldProps<MicrosoftIRecognizer>> = props
           return;
         }
         case 'spacy': {
-          onChange('Microsoft.SpacyRecognizer');
+          if (selectedFile) {
+            onChange(`${currentDialogId}.lu.spacy`);
+          } else {
+            const { createLuFile } = shellApi;
+
+            /**
+             * The setTimeouts are used to get around the
+             * 1. allows the store to update with the luFile creation
+             * 2. allows the debounced onChange to be invoked
+             *
+             * This is a hack, but dialogs will be created along with
+             * lu and lg files so this code path shouldn't be executed.
+             */
+            setLoading(true);
+            createLuFile(currentDialogId).then(() => {
+              setTimeout(() => {
+                onChange(`${currentDialogId}.lu.spacy`);
+                setTimeout(() => {
+                  setLoading(false);
+                }, 750);
+              }, 500);
+            });
+          }
           return;
         }
         default:

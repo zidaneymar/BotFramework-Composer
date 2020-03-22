@@ -11,7 +11,7 @@ import { Stack } from 'office-ui-fabric-react/lib/Stack';
 import formatMessage from 'format-message';
 import { DiagnosticSeverity, Diagnostic } from '@bfc/indexers';
 
-import httpClient, { spacyClient } from './utils/httpUtil';
+import httpClient from './utils/httpUtil';
 import settingsStorage from './utils/dialogSettingStorage';
 import { StoreContext } from './store';
 import { bot, botButton, calloutLabel, calloutDescription, calloutContainer, errorButton, errorCount } from './styles';
@@ -19,7 +19,7 @@ import { BotStatus, LuisConfig, Text } from './constants';
 import { PublishLuisDialog } from './publishDialog';
 import { OpenAlertModal, DialogStyle } from './components/Modal';
 import { isAbsHosted } from './utils/envUtil';
-import { getReferredFiles } from './utils/luUtil';
+import { getReferredFiles, getSpacyReferredFile } from './utils/luUtil';
 import useNotifications from './pages/notifications/useNotifications';
 import { navigateTo } from './utils';
 
@@ -50,13 +50,13 @@ export const TestController: React.FC = () => {
   const [luisPublishSucceed, setLuisPublishSucceed] = useState(true);
   const botActionRef = useRef(null);
   const notifications = useNotifications();
-  const { botEndpoint, botName, botStatus, dialogs, toStartBot, luFiles, settings } = state;
+  const { botEndpoint, botName, botStatus, dialogs, toStartBot, luFiles, settings, location } = state;
   const { connectBot, reloadBot, onboardingAddCoachMarkRef, publishLuis, startBot } = actions;
   const connected = botStatus === BotStatus.connected;
   const addRef = useCallback(startBot => onboardingAddCoachMarkRef({ startBot }), []);
   const errorLength = notifications.filter(n => n.severity === 'Error').length;
   const showError = errorLength > 0;
-
+  const publishSpacyFiles = getSpacyReferredFile(luFiles, dialogs);
   useEffect(() => {
     toStartBot && handleClick();
     startBot(false);
@@ -95,18 +95,20 @@ export const TestController: React.FC = () => {
     }
     const config = settings.luis;
 
-    if (dialogs[0].content.recognizer === 'Microsoft.SpacyRecognizer') {
-      // publish spacy and reload bot
-      await handleSpacyPublish();
-      // loadBot
-      await handleLoadBot();
-    } else if (!isAbsHosted() && getReferredFiles(luFiles, dialogs).length > 0) {
+    if (!isAbsHosted() && getReferredFiles(luFiles, dialogs).length > 0) {
       if (!luisPublishSucceed || !isLuisConfigComplete(config)) {
         setModalOpen(true);
       } else {
         await publishAndReload();
       }
     } else {
+      // publish spacy
+      if (publishSpacyFiles.length > 0) {
+        setFetchState(STATE.PUBLISHING);
+        await handleSpacyPublish();
+        setFetchState(STATE.SUCCESS);
+      }
+
       await handleLoadBot();
     }
   }
@@ -122,6 +124,9 @@ export const TestController: React.FC = () => {
 
   async function handlePublish() {
     setFetchState(STATE.PUBLISHING);
+    // publish spacy
+    await handleSpacyPublish();
+    // publish luis
     try {
       const luisConfig = settingsStorage.get(botName) ? settingsStorage.get(botName).luis : null;
       if (luisConfig) {
@@ -140,30 +145,21 @@ export const TestController: React.FC = () => {
   }
 
   async function handleSpacyPublish() {
-    setFetchState(STATE.PUBLISHING);
-    const config = {
-      headers: {
-        'Content-Length': 0,
-        'Content-Type': 'text/plain',
-      },
-      responseType: 'text',
-    };
+    // get file path
     try {
-      const response = await spacyClient.get('/create_app');
-      console.log(`get spacy appid ---------- ${response.data}`);
+      for (const lufile of publishSpacyFiles) {
+        const filepath = `${location}/${lufile.relativePath}`;
 
-      if (luFiles.length > 0) {
-        await spacyClient.post(`/update_app/${response.data}`, luFiles[0].content, config);
-
+        // upload spacy file
+        const res = await httpClient.post('/uploadSpacy', { path: filepath, content: lufile.content });
         // call server
-        await httpClient.post('/spacyPublish', { id: response.data, filename: 'Microsoft.SpacyRecognizer.dialog' });
+        await httpClient.post('/spacyPublish', { id: res.data, filename: `${lufile.id}.lu.spacy.dialog` });
+        return true;
       }
     } catch (err) {
       setError({ title: Text.LUISDEPLOYFAILURE, message: err.message });
       setCalloutVisible(true);
       return false;
-    } finally {
-      setFetchState(STATE.SUCCESS);
     }
   }
 

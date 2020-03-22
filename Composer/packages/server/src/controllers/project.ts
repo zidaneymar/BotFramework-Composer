@@ -4,6 +4,7 @@
 import * as fs from 'fs';
 
 import { Request, Response } from 'express';
+import axios from 'axios';
 
 import log from '../logger';
 import { BotProjectService } from '../services/project';
@@ -13,6 +14,9 @@ import StorageService from '../services/storage';
 import settings from '../settings';
 
 import { Path } from './../utility/path';
+const spacyClient = axios.create({
+  baseURL: 'http://localhost:9000',
+});
 
 async function createProject(req: Request, res: Response) {
   let { templateId } = req.body;
@@ -353,15 +357,43 @@ async function publishLuis(req: Request, res: Response) {
     });
   }
 }
-
+const luFilesForSpacy = {};
+async function uploadSpacy(req: Request, res: Response) {
+  // get file path
+  const filepath = req.body.path;
+  const content = req.body.content;
+  const config = {
+    headers: {
+      'Content-Length': 0,
+      'Content-Type': 'text/plain',
+    },
+    responseType: 'text',
+  };
+  let appId = '';
+  try {
+    if (!luFilesForSpacy[filepath]) {
+      const response = await spacyClient.get('/create_app');
+      console.log(`get spacy appid ---------- ${response.data}`);
+      appId = response.data;
+      // eslint-disable-next-line require-atomic-updates
+      luFilesForSpacy[filepath] = response.data;
+    } else {
+      appId = luFilesForSpacy[filepath];
+    }
+    await spacyClient.post(`/update_app/${appId}`, content, config);
+    res.status(200).json(appId);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+}
 async function publishSpacy(req: Request, res: Response) {
-  console.log(req.body.id);
   const currentProject = BotProjectService.getCurrentBotProject();
   if (currentProject !== undefined) {
     try {
-      console.log(currentProject.dataDir);
       const filesto = StorageService.getStorageClient('default');
-      await filesto.mkDir(`${currentProject.dataDir}/generated`);
+      if (!(await filesto.exists(`${currentProject.dataDir}/generated`))) {
+        await filesto.mkDir(`${currentProject.dataDir}/generated`);
+      }
       const content = {
         applicationId: req.body.id,
         $kind: 'Microsoft.SpacyRecognizer',
@@ -373,7 +405,6 @@ async function publishSpacy(req: Request, res: Response) {
       );
       res.status(200).json('success');
     } catch (error) {
-      console.error(error);
       res.status(400);
     }
   } else {
@@ -417,4 +448,5 @@ export const ProjectController = {
   getAllProjects,
   getRecentProjects,
   publishSpacy,
+  uploadSpacy,
 };

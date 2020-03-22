@@ -29,7 +29,7 @@ import {
   getActivityTypes,
   getMessageTypes,
   regexRecognizerKey,
-  spacyRecognizerKey,
+  // spacyRecognizerKey,
 } from '../../utils/dialogUtil';
 import { addIntent } from '../../utils/luUtil';
 import { StoreContext } from '../../store';
@@ -103,7 +103,7 @@ export const TriggerCreationModal: React.FC<TriggerCreationModalProps> = props =
   const luFile = luFiles.find(lu => lu.id === dialogId);
   const dialogFile = dialogs.find(dialog => dialog.id === dialogId);
   const isRegEx = get(dialogFile, 'content.recognizer.$type', '') === regexRecognizerKey;
-  const isSpacy = get(dialogFile, 'content.recognizer', '') === spacyRecognizerKey;
+  const isSpacy = (get(dialogFile, 'content.recognizer', '') as string).endsWith('.spacy');
   const regexIntents = get(dialogFile, 'content.recognizer.intents', []);
   const isNone = !get(dialogFile, 'content.recognizer');
   const initialFormData: TriggerFormData = {

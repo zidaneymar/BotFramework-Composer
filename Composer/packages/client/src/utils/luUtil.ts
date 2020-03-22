@@ -18,3 +18,17 @@ export function getReferredFiles(luFiles: LuFile[], dialogs: DialogInfo[]) {
     return false;
   });
 }
+export function getSpacyReferredFile(luFiles: LuFile[], dialogs: DialogInfo[]): LuFile[] {
+  return luFiles.filter(file => {
+    if (
+      dialogs.findIndex(
+        dialog =>
+          typeof dialog.content.recognizer === 'string' &&
+          dialog.content.recognizer.substr(0, dialog.content.recognizer.lastIndexOf('.lu.spacy')) === file.id
+      ) !== -1
+    ) {
+      return true;
+    }
+    return false;
+  });
+}
