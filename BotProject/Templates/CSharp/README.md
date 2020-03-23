@@ -20,3 +20,22 @@ The Bot Project is a regular Bot Framework SDK V4 project. Before you can launch
 ### Test bot
 * You can set you emulator to connect to http://localhost:3979/api/messages.
 
+## CutomElements
+
+### HttpRecognizer
+
+{
+    "$kind": "Microsoft.HttpRecognizer",
+    "method": "Get",
+    "url": "http://127.0.0.1:5000/query_app/id/${uriComponent(turn.activity.text)}",
+    "intents": "\\{${join(foreach(cats,cat,concat(cat.key,':{\"score\":\"',string(cat.value),'\"}')),',')}\\}",
+    "entities": "{\"itemTitle\": [ ${join(foreach(where(ents,x,x[0]=='itemTitle'),x,concat('\"',x[1],'\"')),',')} ], \"listType\": [ ${join(foreach(where(ents,x,x[0]=='listType'),x,concat('\"',x[1],'\"')),',')} ]}"
+}
+
+### SpacyRecognizer
+
+{
+    "$kind": "Microsoft.SpacyRecognizer",
+    "endpoint": "http://127.0.0.1:5000",
+    "applicationId": "id"
+}

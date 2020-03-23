@@ -1,7 +1,8 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
 using System;
+using BotProject.CustomElements;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,7 +64,7 @@ namespace Microsoft.Bot.Builder.ComposerBot.Json
             IStorage storage = null;
 
             // Configure storage for deployment
-            if (!string.IsNullOrEmpty(settings.CosmosDb.AuthKey))
+            if (!string.IsNullOrEmpty(settings?.CosmosDb?.AuthKey))
             {
                 storage = new CosmosDbStorage(settings.CosmosDb);
             }
@@ -81,6 +82,8 @@ namespace Microsoft.Bot.Builder.ComposerBot.Json
 
             // manage all bot resources
             var resourceExplorer = new ResourceExplorer().AddFolder(botFile);
+            resourceExplorer.RegisterType<HttpRecognizer>(HttpRecognizer.DeclarativeType);
+            resourceExplorer.RegisterType<SpacyRecognizer>(SpacyRecognizer.DeclarativeType);
 
             services.AddSingleton(userState);
             services.AddSingleton(conversationState);
@@ -95,7 +98,7 @@ namespace Microsoft.Bot.Builder.ComposerBot.Json
                   .UseStorage(storage)
                   .UseState(userState, conversationState);               
 
-                if (!string.IsNullOrEmpty(settings.BlobStorage.ConnectionString) && !string.IsNullOrEmpty(settings.BlobStorage.Container))
+                if (!string.IsNullOrEmpty(settings?.BlobStorage?.ConnectionString) && !string.IsNullOrEmpty(settings?.BlobStorage?.Container))
                 {
                     adapter.Use(new TranscriptLoggerMiddleware(new AzureBlobTranscriptStore(settings.BlobStorage.ConnectionString, settings.BlobStorage.Container)));
                 }

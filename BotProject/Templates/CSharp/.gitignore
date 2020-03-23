@@ -7,3 +7,10 @@
 
 !Properties/launchSettings.json
 !packages/packages.json
+
+bin/
+obj/
+/.vs
+__pycache__
+/Tools/output-apps/
+*_log.txt
