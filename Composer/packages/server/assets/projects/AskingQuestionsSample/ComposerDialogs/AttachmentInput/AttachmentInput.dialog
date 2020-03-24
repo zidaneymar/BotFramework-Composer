@@ -29,9 +29,10 @@
           "$designer": {
             "id": "365176"
           },
-          "activity": "@{bfdactivity-365176()}"
+          "activity": "${bfdactivity-365176()}"
         }
       ]
     }
-  ]
+  ],
+  "generator": "AttachmentInput.lg"
 }

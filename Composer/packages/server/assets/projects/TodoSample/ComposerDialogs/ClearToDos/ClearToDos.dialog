@@ -4,7 +4,7 @@
     "id": "316336"
   },
   "autoEndDialog": true,
-  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema",
+  "defaultResultProperty": "dialog.result",
   "triggers": [
     {
       "$type": "Microsoft.OnBeginDialog",
@@ -15,7 +15,7 @@
         {
           "$type": "Microsoft.EditArray",
           "$designer": {
-            "id": "832307"
+            "id": "832300"
           },
           "changeType": "Clear",
           "itemsProperty": "user.todos",
@@ -24,7 +24,7 @@
         {
           "$type": "Microsoft.IfCondition",
           "$designer": {
-            "id": "983761"
+            "id": "983700"
           },
           "condition": "dialog.cleared",
           "actions": [
@@ -33,7 +33,7 @@
               "$designer": {
                 "id": "832307"
               },
-              "activity": "@{bfdactivity-832307()}"
+              "activity": "${bfdactivity-832307()}"
             }
           ],
           "elseActions": [
@@ -42,11 +42,13 @@
               "$designer": {
                 "id": "983761"
               },
-              "activity": "@{bfdactivity-983761()}"
+              "activity": "${bfdactivity-983761()}"
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "generator": "ClearToDos.lg",
+  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema"
 }

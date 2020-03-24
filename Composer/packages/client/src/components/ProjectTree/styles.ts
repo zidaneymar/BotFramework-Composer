@@ -5,6 +5,7 @@ import { css } from '@emotion/core';
 import { FontWeights } from '@uifabric/styling';
 import { NeutralColors, FontSizes } from '@uifabric/fluent-theme';
 import { IButtonStyles } from 'office-ui-fabric-react/lib/Button';
+import { IContextualMenuStyles } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { ICalloutContentStyles } from 'office-ui-fabric-react/lib/Callout';
 import { IGroupedListStyles } from 'office-ui-fabric-react/lib/GroupedList';
 
@@ -23,24 +24,32 @@ export const searchBox = {
     height: '45px',
   },
 };
-
 export const root = css`
   width: 180px;
   border-right: 1px solid #c4c4c4;
   box-sizing: border-box;
   overflow-y: auto;
+  overflow-x: hidden;
+  .ms-List-cell {
+    min-height: 36px;
+  }
 `;
 
 export const navItem = (isActive: boolean, isSubItemActive: boolean) => css`
   width: 100%;
   position: relative;
+  height: 36px;
   font-size: 12px;
-  color: #605e5c;
+  color: #545454;
   background: ${isActive && !isSubItemActive ? '#f2f2f2' : 'transparent'};
   font-weight: ${isActive ? FontWeights.semibold : FontWeights.regular};
   &: hover {
-    color: #605e5c;
+    color: #545454;
     background: #f2f2f2;
+
+    .dialog-more-btn {
+      visibility: visible;
+    }
   }
   &:focus {
     outline: none;
@@ -90,18 +99,20 @@ export const moreMenu: Partial<ICalloutContentStyles> = {
   },
 };
 
+export const menuStyle: Partial<IContextualMenuStyles> = {
+  subComponentStyles: {
+    menuItem: {},
+    callout: moreMenu,
+  },
+};
+
 export const overflowSet = css`
   width: 100%;
   height: 100%;
   padding-left: 12px;
   box-sizing: border-box;
-  line-height: 40px;
+  line-height: 36px;
   justify-content: space-between;
-  & : hover {
-    .dialog-more-btn {
-      visibility: visible;
-    }
-  }
 `;
 
 export const addButton = (depth: number) => css`
@@ -134,7 +145,7 @@ export const dropdownStyles = {
     fontWeight: FontWeights.semibold,
   },
   dropdown: {
-    width: '300px',
+    width: '400px',
   },
   root: {
     paddingBottom: '20px',
@@ -145,7 +156,7 @@ export const dialogWindow = css`
   display: flex;
   flex-direction: column;
   width: 400px;
-  height: 250px;
+  min-height: 300px;
 `;
 
 export const textFieldlabel = {
@@ -159,11 +170,17 @@ export const textFieldlabel = {
 };
 
 export const intent = {
-  fieldGroup: {
-    width: 200,
-  },
   root: {
-    height: '90px',
+    width: '400px',
+    paddingBottom: '20px',
   },
-  subComponentStyles: textFieldlabel,
+};
+
+export const triggerPhrases = {
+  root: {
+    width: '400px',
+  },
+  fieldGroup: {
+    height: 80,
+  },
 };

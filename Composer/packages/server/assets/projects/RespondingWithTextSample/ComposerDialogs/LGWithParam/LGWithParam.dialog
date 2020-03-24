@@ -28,11 +28,11 @@
           "$designer": {
             "id": "176070"
           },
-          "activity": "@{bfdactivity-176070()}"
+          "activity": "${bfdactivity-176070()}"
         }
       ]
     }
   ],
-  "generator": "common.lg",
+  "generator": "LGWithParam.lg",
   "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema"
 }

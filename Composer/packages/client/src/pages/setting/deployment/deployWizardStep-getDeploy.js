@@ -9,7 +9,7 @@ import { DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
 import { styles } from './styles';
-import processGif from './deploy-deploy-output.gif';
+import processGif from './deploy-deploy-output.png';
 
 export const DeployWizardStep3 = props => {
   const { closeModal, botValues } = props;
@@ -28,7 +28,8 @@ export const DeployWizardStep3 = props => {
       <Stack horizontal gap="2rem" styles={styles.stackinput}>
         <StackItem grow={1} styles={styles.halfstack}>
           <TextField
-            label={formatMessage('Deploy Bot Script')}
+            autoFocus={true}
+            label={formatMessage('Publish Bot Script')}
             styles={styles.textarea}
             value={scriptValue}
             readOnly={true}
@@ -44,13 +45,13 @@ export const DeployWizardStep3 = props => {
         <StackItem grow={1}>
           <p>
             {formatMessage(
-              'Copy the commands above, and paste them into your terminal.  The output will look like the screenshot below. Note that it may take several minutes for the deploy to complete.'
+              'Copy the commands above, and paste them into your terminal.  The output will look like the screenshot below. Note that it may take several minutes for the publish to complete.'
             )}
           </p>
           <img
             style={styles.gif}
             src={processGif}
-            alt={formatMessage('Animation showing the command line tool output')}
+            alt={formatMessage('This image shows the command line tool output')}
           />
         </StackItem>
       </Stack>

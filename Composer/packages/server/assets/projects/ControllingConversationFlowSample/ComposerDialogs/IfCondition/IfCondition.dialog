@@ -36,7 +36,7 @@
               "$designer": {
                 "id": "164444"
               },
-              "activity": "@{bfdactivity-164444()}"
+              "activity": "${bfdactivity-164444()}"
             }
           ],
           "elseActions": [
@@ -45,12 +45,13 @@
               "$designer": {
                 "id": "619321"
               },
-              "activity": "@{bfdactivity-619321()}"
+              "activity": "${bfdactivity-619321()}"
             }
           ]
         }
       ]
     }
   ],
-  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema"
+  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema",
+  "generator": "IfCondition.lg"
 }

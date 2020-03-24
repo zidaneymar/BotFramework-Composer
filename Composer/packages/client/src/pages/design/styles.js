@@ -62,6 +62,7 @@ export const editorWrapper = css`
   display: flex;
   flex-direction: row;
   flex-grow: 1;
+  overflow: hidden;
 `;
 
 export const visualPanel = css`
@@ -75,7 +76,7 @@ export const visualPanel = css`
 export const visualEditor = css`
   border: 0px;
   flex: 1;
-  background-color: #e5e5e5;
+  background-color: #f6f6f6;
 `;
 
 export const formEditor = css`
@@ -91,8 +92,12 @@ export const breadcrumbClass = mergeStyleSets({
     padding: '10px',
   },
   itemLink: {
-    fontSize: FontSizes.medium,
-    fontWeight: FontWeights.semilight,
+    selectors: {
+      '.ms-TooltipHost': {
+        fontSize: FontSizes.large,
+        fontWeight: FontWeights.regular,
+      },
+    },
     color: '#333',
     padding: '4px 8px',
   },
@@ -109,9 +114,9 @@ export const middleTriggerContainer = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #e5e5e5;
+  background: #f6f6f6;
   width: 100%;
-  margin-top: 48px;
+  margin-top: 55px;
   height: calc(100% - 48px);
   position: absolute;
 `;

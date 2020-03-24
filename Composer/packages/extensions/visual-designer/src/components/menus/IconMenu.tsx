@@ -62,7 +62,7 @@ export const IconMenu: React.FC<IconMenuProps> = ({
     const buttonStyles: IButtonStyles = {
       root: {
         minWidth: 0,
-        padding: '0 8px',
+        padding: 0,
         margin: 0,
         alignSelf: 'stretch',
         height: 'auto',
@@ -84,7 +84,7 @@ export const IconMenu: React.FC<IconMenuProps> = ({
         componentRef={buttonRef}
         data-testid="iconMenu"
         styles={buttonStyles}
-        menuIconProps={{ iconName, style: { fontSize: iconSize, color } }}
+        menuIconProps={{ iconName, style: { fontSize: iconSize, fontWeight: 'bold', color } }}
         menuProps={{ items: overflowItems, calloutProps: { calloutMaxWidth: menuWidth } }}
         ariaLabel={label}
         {...rest}

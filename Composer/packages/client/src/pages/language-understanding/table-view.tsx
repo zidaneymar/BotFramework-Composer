@@ -16,16 +16,15 @@ import { ScrollablePane, ScrollbarVisibility } from 'office-ui-fabric-react/lib/
 import { Sticky, StickyPositionType } from 'office-ui-fabric-react/lib/Sticky';
 import formatMessage from 'format-message';
 import { NeutralColors, FontSizes } from '@uifabric/fluent-theme';
-import { isValid, combineMessage, DialogInfo, LuFile } from '@bfc/indexers';
+import { LuFile } from '@bfc/indexers';
+import { RouteComponentProps } from '@reach/router';
 
-import { OpenConfirmModal, DialogStyle } from '../../components/Modal';
 import { StoreContext } from '../../store';
 import { navigateTo } from '../../utils';
 
 import { formCell, luPhraseCell } from './styles';
-interface TableViewProps {
-  activeDialog: DialogInfo | undefined;
-  onClickEdit: ({ fileId: string }) => void;
+interface TableViewProps extends RouteComponentProps<{}> {
+  fileId: string;
 }
 
 interface Intent {
@@ -38,19 +37,27 @@ interface Intent {
 
 const TableView: React.FC<TableViewProps> = props => {
   const { state } = useContext(StoreContext);
-  const { dialogs, luFiles } = state;
-  const { activeDialog, onClickEdit } = props;
+  const { dialogs, luFiles, projectId } = state;
+  const { fileId } = props;
+  const activeDialog = dialogs.find(({ id }) => id === fileId);
+
   const [intents, setIntents] = useState<Intent[]>([]);
   const listRef = useRef(null);
 
+  function getIntentState(file: LuFile): string {
+    if (!file.diagnostics) {
+      return formatMessage('Error');
+    } else if (!file.published) {
+      return formatMessage('Not yet published');
+    } else if (file.published) {
+      return formatMessage('Published');
+    } else {
+      return formatMessage('Unknown State'); // It's a bug in most cases.
+    }
+  }
+
   useEffect(() => {
     if (isEmpty(luFiles)) return;
-
-    const errorFiles = checkErrors(luFiles);
-    if (errorFiles.length !== 0) {
-      showErrors(errorFiles);
-      return;
-    }
 
     const allIntents = luFiles.reduce((result: Intent[], luFile: LuFile) => {
       const items: Intent[] = [];
@@ -62,7 +69,7 @@ const TableView: React.FC<TableViewProps> = props => {
           name,
           phrases,
           fileId: luFile.id,
-          used: luDialog ? luDialog.luIntents.includes(name) : false, // used by it's dialog or not
+          used: !!luDialog && luDialog.referredLuIntents.some(lu => lu.name === name), // used by it's dialog or not
           state,
         });
       });
@@ -75,38 +82,7 @@ const TableView: React.FC<TableViewProps> = props => {
       const dialogIntents = allIntents.filter(t => t.fileId === activeDialog.id);
       setIntents(dialogIntents);
     }
-  }, [luFiles, activeDialog]);
-
-  function checkErrors(files: LuFile[]): LuFile[] {
-    return files.filter(file => !isValid(file.diagnostics));
-  }
-
-  function getIntentState(file: LuFile): string {
-    if (!file.diagnostics) {
-      return formatMessage('Error');
-    } else if (file.status && file.status.lastUpdateTime >= file.status.lastPublishTime) {
-      return formatMessage('Not yet published');
-    } else if (file.status && file.status.lastPublishTime > file.status.lastUpdateTime) {
-      return formatMessage('Published');
-    } else {
-      return formatMessage('Unknown State'); // It's a bug in most cases.
-    }
-  }
-
-  async function showErrors(files: LuFile[]) {
-    for (const file of files) {
-      const errorMsg = combineMessage(file.diagnostics);
-      const errorTitle = formatMessage('There was a problem parsing {fileId}.lu file.', { fileId: file.id });
-      const confirmed = await OpenConfirmModal(errorTitle, errorMsg, {
-        style: DialogStyle.Console,
-        confirmBtnText: formatMessage('Edit'),
-      });
-      if (confirmed === true) {
-        onClickEdit({ fileId: file.id });
-        break;
-      }
-    }
-  }
+  }, [luFiles, activeDialog, projectId]);
 
   const getTemplatesMoreButtons = (item, index): IContextualMenuItem[] => {
     const buttons = [
@@ -114,7 +90,8 @@ const TableView: React.FC<TableViewProps> = props => {
         key: 'edit',
         name: 'Edit',
         onClick: () => {
-          onClickEdit(intents[index]);
+          const { name, fileId } = intents[index];
+          navigateTo(`/bot/${projectId}/language-understanding/${fileId}/edit?t=${encodeURIComponent(name)}`);
         },
       },
     ];
@@ -130,8 +107,13 @@ const TableView: React.FC<TableViewProps> = props => {
         minWidth: 100,
         maxWidth: 150,
         data: 'string',
-        onRender: item => {
-          return <div css={formCell}>#{item.name}</div>;
+        onRender: (item: Intent) => {
+          let displayName = `#${item.name}`;
+          if (item.name.includes('/')) {
+            const [, childName] = item.name.split('/');
+            displayName = `##${childName}`;
+          }
+          return <div css={formCell}>{displayName}</div>;
         },
       },
       {

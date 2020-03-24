@@ -20,9 +20,10 @@
             "id": "862531",
             "name": "Send a response"
           },
-          "activity": "@{bfdactivity-862531()}"
+          "activity": "${bfdactivity-862531()}"
         }
       ]
     }
-  ]
+  ],
+  "generator": "StructuredLG.lg"
 }

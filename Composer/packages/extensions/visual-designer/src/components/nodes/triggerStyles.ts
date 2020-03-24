@@ -2,6 +2,7 @@
 // Licensed under the MIT License
 
 import { TriggerSize } from '../../constants/ElementSizes';
+import { ObiColors } from '../../constants/ElementColors';
 
 export const triggerContainerStyle: any = {
   ...TriggerSize,
@@ -22,16 +23,22 @@ export const triggerContentStyle: any = {
 
 export const titleStyle: any = {
   whiteSpace: 'nowrap',
-  color: '#333333',
+  color: 'black',
   fontFamily: 'Segoe UI',
   fontSize: '18px',
   lineHeight: '24px',
   fontWeight: 600,
+  display: 'flex',
 };
 
+export const titleContentStyle = {
+  fontSize: '18px',
+  fontWeight: 600,
+  margin: '0px',
+};
 export const subtitleStyle: any = {
   whiteSpace: 'nowrap',
-  color: '#4f4f4f',
+  color: ObiColors.LightGray,
   fontFamily: 'Segoe UI',
   fontSize: '12px',
   lineHeight: '14px',

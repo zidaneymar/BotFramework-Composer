@@ -173,11 +173,12 @@ export const appschema: OBISchema = {
           $ref: '#/definitions/Microsoft.IActivityTemplate',
         },
         maxTurnCount: {
-          type: 'integer',
+          $role: 'expression',
+          type: 'string',
           title: 'Max turn count',
           description: 'Maximum number of re-prompt attempts to collect information.',
-          default: 3,
-          examples: [3],
+          default: '3',
+          examples: ['3'],
         },
         validations: {
           type: 'array',
@@ -213,11 +214,11 @@ export const appschema: OBISchema = {
           examples: ['@userName'],
         },
         alwaysPrompt: {
-          type: 'boolean',
+          $role: 'expression',
+          type: 'string',
           title: 'Always prompt',
           description: "Collect information even if the specified 'property' is not empty.",
-          default: false,
-          examples: [false],
+          examples: ['false'],
         },
         allowInterruptions: {
           $role: 'expression',
@@ -258,12 +259,12 @@ export const appschema: OBISchema = {
           description: 'One or more options that are passed to the dialog that is called.',
           additionalProperties: true,
         },
-        includeActivity: {
+        activityProcessed: {
           type: 'boolean',
-          title: 'Include Activity',
-          description: 'When set to true, dialog that is called can process the current activity.',
-          default: false,
-          examples: [false],
+          title: 'Activity Processed',
+          description: 'When set to false, the dialog that is called can process the current activity.',
+          default: true,
+          examples: [true],
         },
         resultProperty: {
           $role: 'expression',
@@ -339,11 +340,12 @@ export const appschema: OBISchema = {
           $ref: '#/definitions/Microsoft.IActivityTemplate',
         },
         maxTurnCount: {
-          type: 'integer',
+          $role: 'expression',
+          type: 'string',
           title: 'Max turn count',
           description: 'Maximum number of re-prompt attempts to collect information.',
-          default: 3,
-          examples: [3],
+          default: '3',
+          examples: ['3'],
         },
         validations: {
           type: 'array',
@@ -379,11 +381,11 @@ export const appschema: OBISchema = {
           examples: ['@userName'],
         },
         alwaysPrompt: {
-          type: 'boolean',
+          $role: 'expression',
+          type: 'string',
           title: 'Always prompt',
           description: "Collect information even if the specified 'property' is not empty.",
-          default: false,
-          examples: [false],
+          examples: ['false'],
         },
         allowInterruptions: {
           $role: 'expression',
@@ -572,11 +574,12 @@ export const appschema: OBISchema = {
           $ref: '#/definitions/Microsoft.IActivityTemplate',
         },
         maxTurnCount: {
-          type: 'integer',
+          $role: 'expression',
+          type: 'string',
           title: 'Max turn count',
           description: 'Maximum number of re-prompt attempts to collect information.',
-          default: 3,
-          examples: [3],
+          default: '3',
+          examples: ['3'],
         },
         validations: {
           type: 'array',
@@ -612,11 +615,11 @@ export const appschema: OBISchema = {
           examples: ['@userName'],
         },
         alwaysPrompt: {
-          type: 'boolean',
+          $role: 'expression',
+          type: 'string',
           title: 'Always prompt',
           description: "Collect information even if the specified 'property' is not empty.",
-          default: false,
-          examples: [false],
+          examples: ['false'],
         },
         allowInterruptions: {
           $role: 'expression',
@@ -774,11 +777,12 @@ export const appschema: OBISchema = {
           $ref: '#/definitions/Microsoft.IActivityTemplate',
         },
         maxTurnCount: {
-          type: 'integer',
+          $role: 'expression',
+          type: 'string',
           title: 'Max turn count',
           description: 'Maximum number of re-prompt attempts to collect information.',
-          default: 3,
-          examples: [3],
+          default: '3',
+          examples: ['3'],
         },
         validations: {
           type: 'array',
@@ -814,11 +818,11 @@ export const appschema: OBISchema = {
           examples: ['@userName'],
         },
         alwaysPrompt: {
-          type: 'boolean',
+          $role: 'expression',
+          type: 'string',
           title: 'Always prompt',
           description: "Collect information even if the specified 'property' is not empty.",
-          default: false,
-          examples: [false],
+          examples: ['false'],
         },
         allowInterruptions: {
           $role: 'expression',
@@ -1920,11 +1924,6 @@ export const appschema: OBISchema = {
           $ref: '#/definitions/Microsoft.IfCondition',
         },
         {
-          title: 'Microsoft.InitProperty',
-          description: 'Define and initialize a property to be an array or object.',
-          $ref: '#/definitions/Microsoft.InitProperty',
-        },
-        {
           title: 'Microsoft.LogAction',
           description:
             'Log a message to the host application. Send a TraceActivity to Bot Framework Emulator (optional).',
@@ -2219,28 +2218,6 @@ export const appschema: OBISchema = {
         },
       },
     },
-    'Microsoft.InitProperty': {
-      $role: 'unionType(Microsoft.IDialog)',
-      title: 'Initialize property',
-      description: 'Define and initialize a property to be an array or object.',
-      type: 'object',
-      properties: {
-        ...$properties(SDKTypes.InitProperty),
-        property: {
-          $role: 'expression',
-          title: 'Property',
-          description: 'Property (named location to store information).',
-          examples: ['user.age'],
-          type: 'string',
-        },
-        type: {
-          type: 'string',
-          title: 'Type',
-          description: 'Type of value.',
-          enum: ['object', 'array'],
-        },
-      },
-    },
     'Microsoft.IpEntityRecognizer': {
       $role: 'unionType(Microsoft.EntityRecognizers)',
       title: 'Ip Entity Recognizer',
@@ -2397,11 +2374,12 @@ export const appschema: OBISchema = {
           $ref: '#/definitions/Microsoft.IActivityTemplate',
         },
         maxTurnCount: {
-          type: 'integer',
+          $role: 'expression',
+          type: 'string',
           title: 'Max turn count',
           description: 'Maximum number of re-prompt attempts to collect information.',
-          default: 3,
-          examples: [3],
+          default: '3',
+          examples: ['3'],
         },
         validations: {
           type: 'array',
@@ -2437,11 +2415,11 @@ export const appschema: OBISchema = {
           examples: ['@userName'],
         },
         alwaysPrompt: {
-          type: 'boolean',
+          $role: 'expression',
+          type: 'string',
           title: 'Always prompt',
           description: "Collect information even if the specified 'property' is not empty.",
-          default: false,
-          examples: [false],
+          examples: ['false'],
         },
         allowInterruptions: {
           $role: 'expression',
@@ -2506,12 +2484,19 @@ export const appschema: OBISchema = {
           description: 'Time out setting for the OAuth signin card.',
           default: '900000',
         },
-        tokenProperty: {
+        property: {
           $role: 'expression',
           title: 'Token property',
           description: 'Property to store the OAuth token result.',
           examples: ['dialog.token'],
           type: 'string',
+        },
+        alwaysPrompt: {
+          type: 'boolean',
+          title: 'Always prompt',
+          description: "Collect information even if the specified 'property' is not empty.",
+          default: true,
+          examples: [false],
         },
       },
     },
@@ -2872,8 +2857,9 @@ export const appschema: OBISchema = {
     },
     'Microsoft.OnMessageActivity': {
       $role: 'unionType(Microsoft.ITriggerCondition)',
-      title: 'On Message activity',
-      description: "Actions to perform on receipt of an activity with type 'Message'. Overrides Intent trigger.",
+      title: 'On MessageRecieved activity',
+      description:
+        "Actions to perform on receipt of an activity with type 'MessageRecieved'. Overrides Intent trigger.",
       type: 'object',
       properties: {
         ...$properties(SDKTypes.OnMessageActivity),
@@ -3104,28 +3090,27 @@ export const appschema: OBISchema = {
           $ref: '#/definitions/Microsoft.IActivityTemplate',
         },
         threshold: {
-          type: 'number',
+          $role: 'expression',
+          type: 'string',
           title: 'Threshold',
           description: 'Threshold score to filter results.',
-          default: 0.3,
+          default: '0.3',
         },
         activeLearningCardTitle: {
+          $role: 'expression',
           type: 'string',
           title: 'Active learning card title',
           description: 'Title for active learning suggestions card.',
-          default: 'Did you mean:',
         },
         cardNoMatchText: {
+          $role: 'expression',
           type: 'string',
           title: 'Card no match text',
-          description: 'Text for no match option.',
-          default: 'None of the above.',
         },
         cardNoMatchResponse: {
           $type: 'Microsoft.IActivityTemplate',
           title: 'Card no match response',
           description: 'Custom response when no match option was selected.',
-          default: 'Thanks for the feedback.',
           $ref: '#/definitions/Microsoft.IActivityTemplate',
         },
         strictFilters: {
@@ -3149,10 +3134,11 @@ export const appschema: OBISchema = {
           },
         },
         top: {
-          type: 'number',
+          role: 'expression',
+          type: 'string',
           title: 'Top',
           description: 'The number of answers you want to retrieve.',
-          default: 3,
+          default: '3',
         },
       },
     },
@@ -3256,7 +3242,7 @@ export const appschema: OBISchema = {
         ...$properties(SDKTypes.ReplaceDialog),
         dialog: {
           $type: 'Microsoft.IDialog',
-          title: 'Dialog',
+          title: 'Dialog name',
           description: 'Current dialog will be replaced by this dialog.',
           type: 'string',
         },
@@ -3287,6 +3273,67 @@ export const appschema: OBISchema = {
           title: 'Activity',
           description: 'Activity to send.',
           $ref: '#/definitions/Microsoft.IActivityTemplate',
+        },
+      },
+    },
+    'Microsoft.SkillDialog': {
+      $role: 'implements(Microsoft.IDialog)',
+      title: 'Begin a skill dialog',
+      description: 'Begin a remote skill dialog.',
+      type: 'object',
+      properties: {
+        ...$properties(SDKTypes.SkillDialog),
+        id: {
+          type: 'string',
+          title: 'Id',
+          description: 'Optional id for the skill dialog',
+        },
+        resultProperty: {
+          $role: 'expression',
+          type: 'string',
+          title: 'Property',
+          description: 'Property to store any value returned by the dialog that is called.',
+          examples: ['dialog.userName'],
+        },
+        botId: {
+          $role: 'expression',
+          type: 'string',
+          title: 'Skill host bot ID',
+          description: 'The Microsoft App ID that will be calling the skill.',
+          default: '=settings.MicrosoftAppId',
+        },
+        skillHostEndpoint: {
+          $role: 'expression',
+          type: 'string',
+          title: 'Skill host',
+          description: 'The callback Url for the skill host.',
+          default: '=settings.skillHostEndpoint',
+          examples: ['https://mybot.contoso.com/api/skills/'],
+        },
+        skillAppId: {
+          $role: 'expression',
+          type: 'string',
+          title: 'Skill App ID',
+          description: 'The Microsoft App ID for the skill.',
+        },
+        skillEndpoint: {
+          $role: 'expression',
+          type: 'string',
+          title: 'Skill endpoint ',
+          description: 'The /api/messages endpoint for the skill.',
+          examples: ['https://myskill.contoso.com/api/messages/'],
+        },
+        activity: {
+          $kind: 'Microsoft.IActivityTemplate',
+          title: 'Activity',
+          description: 'The activity to send to the skill.',
+          $ref: '#/definitions/Microsoft.IActivityTemplate',
+        },
+      },
+      additionalProperties: false,
+      patternProperties: {
+        '^\\$': {
+          type: 'string',
         },
       },
     },
@@ -3466,11 +3513,12 @@ export const appschema: OBISchema = {
           $ref: '#/definitions/Microsoft.IActivityTemplate',
         },
         maxTurnCount: {
-          type: 'integer',
+          $role: 'expression',
+          type: 'string',
           title: 'Max turn count',
           description: 'Maximum number of re-prompt attempts to collect information.',
-          default: 3,
-          examples: [3],
+          default: '3',
+          examples: ['3'],
         },
         validations: {
           type: 'array',
@@ -3506,11 +3554,11 @@ export const appschema: OBISchema = {
           examples: ['@userName'],
         },
         alwaysPrompt: {
-          type: 'boolean',
+          $role: 'expression',
+          type: 'string',
           title: 'Always prompt',
           description: "Collect information even if the specified 'property' is not empty.",
-          default: false,
-          examples: [false],
+          examples: ['false'],
         },
         allowInterruptions: {
           $role: 'expression',

@@ -54,9 +54,10 @@
           "$designer": {
             "id": "004212"
           },
-          "activity": "@{bfdactivity-004212()}"
+          "activity": "${bfdactivity-004212()}"
         }
       ]
     }
-  ]
+  ],
+  "generator": "ChoiceInput.lg"
 }

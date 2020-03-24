@@ -5,8 +5,7 @@
     "description": "This bot accepts input from the user and echoes it back."
   },
   "autoEndDialog": true,
-  "generator": "common.lg",
-  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema",
+  "defaultResultProperty": "dialog.result",
   "triggers": [
     {
       "$type": "Microsoft.OnUnknownIntent",
@@ -19,7 +18,7 @@
           "$designer": {
             "id": "003038"
           },
-          "activity": "@{bfdactivity-003038()}"
+          "activity": "${bfdactivity-003038()}"
         }
       ]
     },
@@ -49,5 +48,7 @@
         }
       ]
     }
-  ]
+  ],
+  "generator": "Main.lg",
+  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema"
 }

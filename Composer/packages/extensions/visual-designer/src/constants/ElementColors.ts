@@ -8,7 +8,7 @@ const Colors = {
   Black: '#000000',
   AzureGray: '#3C3C41',
   AzureGray2: '#656565',
-  AzureGray3: '#EBEBEB',
+  AzureGray3: '#D7D7D7',
   Gray80: '#B3B0AD',
   Gray60: '#C8C6C4',
 
@@ -24,6 +24,7 @@ const Colors = {
   Green20: '#0B6A0B',
   Cyan40: '#005E50',
   Gray20: '#69797E',
+  LightGray: '#545454',
   BlueMagenta30: '#5C2E91',
   BlueMagenta20: '#EEEAF4',
   Magenta10: '#C239B3',

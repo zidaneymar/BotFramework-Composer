@@ -98,8 +98,24 @@ const shellApi: ShellApi = {
     });
   },
 
-  createDialog: () => {
-    return apiClient.apiCall('createDialog');
+  addLuIntent: (id, intent) => {
+    return apiClient.apiCall('addLuIntent', { id, intent });
+  },
+
+  updateLuIntent: (id, intentName, intent) => {
+    return apiClient.apiCall('updateLuIntent', { id, intentName, intent });
+  },
+
+  removeLuIntent: (id, intentName) => {
+    return apiClient.apiCall('removeLuIntent', { id, intentName });
+  },
+
+  createDialog: actions => {
+    return apiClient.apiCall('createDialog', { actions });
+  },
+
+  updateRegExIntent: (id, intentName, pattern) => {
+    return apiClient.apiCall('updateRegExIntent', { id, intentName, pattern });
   },
 
   validateExpression: expression => {

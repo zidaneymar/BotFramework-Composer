@@ -10,8 +10,12 @@ import formatMessage from 'format-message';
 import { ShellData, ShellApi } from '@bfc/shared';
 
 import { ObiEditor } from './editors/ObiEditor';
-import { NodeRendererContext } from './store/NodeRendererContext';
+import { NodeRendererContext, NodeRendererContextValue } from './store/NodeRendererContext';
 import { SelfHostContext } from './store/SelfHostContext';
+import { UISchemaContext } from './store/UISchemaContext';
+import { UISchemaProvider } from './schema/uischemaProvider';
+import { uiSchema } from './schema/uischema';
+import { queryLgTemplateFromFiles } from './hooks/useLgTemplate';
 
 formatMessage.setup({
   missingTranslation: 'ignore',
@@ -22,6 +26,8 @@ const emotionCache = createCache({
   nonce: window.__nonce__,
 });
 
+const visualEditorSchemaProvider = new UISchemaProvider(uiSchema);
+
 const VisualDesigner: React.FC<VisualDesignerProps> = ({
   dialogId,
   focusedEvent,
@@ -31,6 +37,7 @@ const VisualDesigner: React.FC<VisualDesignerProps> = ({
   data: inputData,
   shellApi,
   hosted,
+  lgFiles,
 }): JSX.Element => {
   const dataCache = useRef({});
 
@@ -52,51 +59,58 @@ const VisualDesigner: React.FC<VisualDesignerProps> = ({
     onSelect,
     onCopy,
     saveData,
+    createDialog,
     updateLgTemplate,
     getLgTemplates,
     copyLgTemplate,
     removeLgTemplate,
     removeLgTemplates,
+    removeLuIntent,
     undo,
     redo,
   } = shellApi;
 
   const focusedId = Array.isArray(focusedActions) && focusedActions[0] ? focusedActions[0] : '';
 
-  const nodeContext = {
+  const nodeContext: NodeRendererContextValue = {
     focusedId,
     focusedEvent,
     focusedTab,
     clipboardActions: clipboardActions || [],
     updateLgTemplate,
+    getLgTemplateSync: (name: string) => queryLgTemplateFromFiles(name, lgFiles),
     getLgTemplates,
-    copyLgTemplate,
+    copyLgTemplate: (id: string, from: string, to?: string) => copyLgTemplate(id, from, to).catch(() => ''),
     removeLgTemplate,
     removeLgTemplates,
+    removeLuIntent,
   };
 
   return (
     <CacheProvider value={emotionCache}>
       <NodeRendererContext.Provider value={nodeContext}>
         <SelfHostContext.Provider value={hosted}>
-          <div data-testid="visualdesigner-container" css={{ width: '100%', height: '100%', overflow: 'scroll' }}>
-            <ObiEditor
-              key={dialogId}
-              path={dialogId}
-              data={data}
-              focusedSteps={focusedActions}
-              onFocusSteps={onFocusSteps}
-              focusedEvent={focusedEvent}
-              onFocusEvent={onFocusEvent}
-              onClipboardChange={onCopy}
-              onOpen={x => navTo(x)}
-              onChange={x => saveData(x)}
-              onSelect={onSelect}
-              undo={undo}
-              redo={redo}
-              addCoachMarkRef={addCoachMarkRef}
-            />
-          </div>
+          <UISchemaContext.Provider value={visualEditorSchemaProvider}>
+            <div data-testid="visualdesigner-container" css={{ width: '100%', height: '100%', overflow: 'scroll' }}>
+              <ObiEditor
+                key={dialogId}
+                path={dialogId}
+                data={data}
+                focusedSteps={focusedActions}
+                onFocusSteps={onFocusSteps}
+                focusedEvent={focusedEvent}
+                onFocusEvent={onFocusEvent}
+                onClipboardChange={onCopy}
+                onCreateDialog={createDialog}
+                onOpen={x => navTo(x)}
+                onChange={x => saveData(x)}
+                onSelect={onSelect}
+                undo={undo}
+                redo={redo}
+                addCoachMarkRef={addCoachMarkRef}
+              />
+            </div>
+          </UISchemaContext.Provider>
         </SelfHostContext.Provider>
       </NodeRendererContext.Provider>
     </CacheProvider>

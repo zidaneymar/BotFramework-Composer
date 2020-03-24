@@ -11,6 +11,7 @@ export interface FormContext
   rootId: string;
   dialogOptions: { value: string; label: string }[];
   dialogId?: string;
+  projectId: string;
   isRoot: boolean;
   formErrors: any;
 }
@@ -40,6 +41,7 @@ export interface BFDWidgetProps extends Partial<WidgetProps> {
     hideLabel?: boolean;
     transparentBorder?: boolean;
   };
+  hideLabel?: boolean;
 }
 
 export interface SelectWidgetProps extends BFDWidgetProps {

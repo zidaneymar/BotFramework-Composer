@@ -28,10 +28,11 @@
           "$designer": {
             "id": "823322"
           },
-          "activity": "@{bfdactivity-823322()}"
+          "activity": "${bfdactivity-823322()}"
         }
       ]
     }
   ],
-  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema"
+  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema",
+  "generator": "LGComposition.lg"
 }

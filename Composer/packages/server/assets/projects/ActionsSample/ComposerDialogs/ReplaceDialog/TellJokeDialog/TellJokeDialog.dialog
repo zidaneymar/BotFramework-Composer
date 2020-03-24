@@ -17,7 +17,7 @@
           "$designer": {
             "id": "577618"
           },
-          "activity": "@{bfdactivity-577618()}"
+          "activity": "${bfdactivity-577618()}"
         },
         {
           "$type": "Microsoft.EndTurn",
@@ -30,9 +30,10 @@
           "$designer": {
             "id": "286023"
           },
-          "activity": "@{bfdactivity-286023()}"
+          "activity": "${bfdactivity-286023()}"
         }
       ]
     }
-  ]
+  ],
+  "generator": "TellJokeDialog.lg"
 }

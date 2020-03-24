@@ -3,17 +3,19 @@
 
 import has from 'lodash/has';
 import uniq from 'lodash/uniq';
-import { extractLgTemplateRefs } from '@bfc/shared';
+import { extractLgTemplateRefs, SDKTypes } from '@bfc/shared';
 
+import { createPath } from './dialogUtils/dialogChecker';
 import { checkerFuncs } from './dialogUtils/dialogChecker';
-import { ITrigger, DialogInfo, FileInfo } from './type';
+import { ITrigger, DialogInfo, FileInfo, LgTemplateJsonPath, ReferredLuIntents } from './type';
 import { JsonWalk, VisitorFunc } from './utils/jsonWalk';
 import { getBaseName } from './utils/help';
 import { Diagnostic } from './diagnostic';
-
+import ExtractMemoryPaths from './dialogUtils/extractMemoryPaths';
+import ExtractIntentTriggers from './dialogUtils/extractIntentTriggers';
 // find out all lg templates given dialog
-function ExtractLgTemplates(dialog): string[] {
-  const templates: string[] = [];
+function ExtractLgTemplates(id, dialog): LgTemplateJsonPath[] {
+  const templates: LgTemplateJsonPath[] = [];
   /**
    *
    * @param path , jsonPath string
@@ -22,36 +24,55 @@ function ExtractLgTemplates(dialog): string[] {
   const visitor: VisitorFunc = (path: string, value: any): boolean => {
     // it's a valid schema dialog node.
     if (has(value, '$type')) {
-      const targets: string[] = [];
+      const targets: any[] = [];
       // look for prompt field
       if (has(value, 'prompt')) {
-        targets.push(value.prompt);
+        targets.push({ value: value.prompt, path: `${path}#${value.$type}#prompt` });
       }
       // look for unrecognizedPrompt field
       if (has(value, 'unrecognizedPrompt')) {
-        targets.push(value.unrecognizedPrompt);
+        targets.push({ value: value.unrecognizedPrompt, path: `${path}#${value.$type}#unrecognizedPrompt` });
+      }
+
+      if (has(value, 'invalidPrompt')) {
+        targets.push({ value: value.invalidPrompt, path: `${path}#${value.$type}#invalidPrompt` });
+      }
+
+      if (has(value, 'defaultValueResponse')) {
+        targets.push({ value: value.defaultValueResponse, path: `${path}#${value.$type}#defaultValueResponse` });
       }
       // look for other $type
       switch (value.$type) {
-        case 'Microsoft.SendActivity':
-          targets.push(value.activity);
+        case SDKTypes.SendActivity:
+          targets.push({ value: value.activity, path: path });
           break; // if we want stop at some $type, do here
         case 'location':
           return true;
       }
       targets.forEach(target => {
-        templates.push(...extractLgTemplateRefs(target).map(x => x.name));
+        templates.push(
+          ...extractLgTemplateRefs(target.value).map(x => {
+            return { name: x.name, path: target.path };
+          })
+        );
       });
     }
     return false;
   };
-  JsonWalk('$', dialog, visitor);
-  return uniq(templates);
+  JsonWalk(id, dialog, visitor);
+  //uniquify lgTemplates based on name
+  const res: LgTemplateJsonPath[] = [];
+  templates.forEach(t => {
+    if (!res.find(r => r.name === t.name)) {
+      res.push(t);
+    }
+  });
+  return res;
 }
 
 // find out all lu intents given dialog
-function ExtractLuIntents(dialog): string[] {
-  const intents: string[] = [];
+function ExtractLuIntents(dialog, id: string): ReferredLuIntents[] {
+  const intents: ReferredLuIntents[] = [];
   /**    *
    * @param path , jsonPath string
    * @param value , current node value    *
@@ -59,19 +80,22 @@ function ExtractLuIntents(dialog): string[] {
    * */
   const visitor: VisitorFunc = (path: string, value: any): boolean => {
     // it's a valid schema dialog node.
-    if (has(value, '$type') && value.$type === 'Microsoft.OnIntent') {
+    if (has(value, '$type') && value.$type === SDKTypes.OnIntent) {
       const intentName = value.intent;
-      intents.push(intentName);
+      intents.push({
+        name: intentName,
+        path: createPath(path, value.$type),
+      });
     }
     return false;
   };
-  JsonWalk('$', dialog, visitor);
+  JsonWalk(id, dialog, visitor);
   return uniq(intents);
 }
 
 // find out all triggers given dialog
 function ExtractTriggers(dialog): ITrigger[] {
-  const trigers: ITrigger[] = [];
+  const triggers: ITrigger[] = [];
   /**    *
    * @param path , jsonPath string
    * @param value , current node value    *
@@ -87,14 +111,14 @@ function ExtractTriggers(dialog): ITrigger[] {
             id: `triggers[${index}]`,
             displayName: '',
             type: rule.$type,
-            isIntent: rule.$type === 'Microsoft.OnIntent',
+            isIntent: rule.$type === SDKTypes.OnIntent,
           };
           if (has(rule, '$designer.name')) {
             trigger.displayName = rule.$designer.name;
           } else if (trigger.isIntent && has(rule, 'intent')) {
             trigger.displayName = rule.intent;
           }
-          trigers.push(trigger);
+          triggers.push(trigger);
         }
       });
       return true;
@@ -102,7 +126,7 @@ function ExtractTriggers(dialog): ITrigger[] {
     return false;
   };
   JsonWalk('$', dialog, visitor);
-  return trigers;
+  return triggers;
 }
 
 // find out all referred dialog
@@ -115,7 +139,7 @@ function ExtractReferredDialogs(dialog): string[] {
    * */
   const visitor: VisitorFunc = (path: string, value: any): boolean => {
     // it's a valid schema dialog node.
-    if (has(value, '$type') && value.$type === 'Microsoft.BeginDialog') {
+    if (has(value, '$type') && value.$type === SDKTypes.BeginDialog) {
       const dialogName = value.dialog;
       dialogs.push(dialogName);
     }
@@ -174,11 +198,13 @@ function parse(id: string, content: any, schema: any) {
     content,
     diagnostics: validate(id, content, schema),
     referredDialogs: ExtractReferredDialogs(content),
-    lgTemplates: ExtractLgTemplates(content),
-    luIntents: ExtractLuIntents(content),
+    lgTemplates: ExtractLgTemplates(id, content),
+    userDefinedVariables: ExtractMemoryPaths(content),
+    referredLuIntents: ExtractLuIntents(content, id),
     luFile: getBaseName(luFile, '.lu'),
     lgFile: getBaseName(lgFile, '.lg'),
     triggers: ExtractTriggers(content),
+    intentTriggers: ExtractIntentTriggers(content),
   };
 }
 
@@ -197,6 +223,7 @@ function index(files: FileInfo[], botName: string, schema: any): DialogInfo[] {
             displayName: isRoot ? `${botName}.Main` : id,
             content: dialogJson,
             relativePath: file.relativePath,
+            lastModified: file.lastModified,
             ...parse(id, dialogJson, schema),
           };
           dialogs.push(dialog);

@@ -1,13 +1,17 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+import { LuIntentSection } from '@bfc/shared';
+
 import { Diagnostic } from './diagnostic';
+import { IIntentTrigger } from './dialogUtils/types';
 
 export interface FileInfo {
   name: string;
   content: string;
   path: string;
   relativePath: string;
+  lastModified: string;
 }
 
 export interface ITrigger {
@@ -17,19 +21,32 @@ export interface ITrigger {
   isIntent: boolean;
 }
 
+export interface ReferredLuIntents {
+  name: string;
+  path: string;
+}
+
 export interface DialogInfo {
   content: any;
   diagnostics: Diagnostic[];
   displayName: string;
   id: string;
+  lastModified: string;
   isRoot: boolean;
   lgFile: string;
-  lgTemplates: string[];
+  lgTemplates: LgTemplateJsonPath[];
   luFile: string;
-  luIntents: string[];
+  referredLuIntents: ReferredLuIntents[];
   referredDialogs: string[];
   relativePath: string;
+  userDefinedVariables: string[];
   triggers: ITrigger[];
+  intentTriggers: IIntentTrigger[];
+}
+
+export interface LgTemplateJsonPath {
+  name: string;
+  path: string;
 }
 
 export interface Intent {
@@ -49,23 +66,18 @@ export interface LuParsed {
 export enum LuSectionTypes {
   SIMPLEINTENTSECTION = 'simpleIntentSection',
   NESTEDINTENTSECTION = 'nestedIntentSection',
+  MODELINFOSECTION = 'modelInfoSection',
 }
 
 export interface LuEntity {
   Name: string;
 }
 
-export interface LuIntentSection {
-  Name: string;
-  Body: string;
-  Entities?: LuEntity[];
-  Children?: LuIntentSection[];
-}
-
 export interface LuFile {
   id: string;
   relativePath: string;
   content: string;
+  lastModified: string;
   diagnostics: Diagnostic[];
   intents: LuIntentSection[];
   [key: string]: any;
@@ -82,14 +94,24 @@ export interface LgTemplate {
   range?: CodeRange;
 }
 
-export interface LgFile {
-  id: string;
-  relativePath: string;
-  content: string;
+export interface LgParsed {
   diagnostics: Diagnostic[];
   templates: LgTemplate[];
 }
 
+export interface LgFile {
+  id: string;
+  relativePath: string;
+  content: string;
+  lastModified: string;
+  diagnostics: Diagnostic[];
+  templates: LgTemplate[];
+}
+
+export interface TextFile {
+  id: string;
+  content: string;
+}
 export type FileResolver = (id: string) => FileInfo | undefined;
 
 export type MemoryResolver = (id: string) => string[] | undefined;

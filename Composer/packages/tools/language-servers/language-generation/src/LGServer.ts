@@ -18,7 +18,8 @@ import {
 } from 'vscode-languageserver-types';
 import { TextDocumentPositionParams } from 'vscode-languageserver-protocol';
 import get from 'lodash/get';
-import { lgIndexer, filterTemplateDiagnostics, isValid, FileResolver, FileInfo, MemoryResolver } from '@bfc/indexers';
+import { lgIndexer, filterTemplateDiagnostics, isValid, MemoryResolver, LgTemplate } from '@bfc/indexers';
+import { ImportResolverDelegate, LGParser } from 'botbuilder-lg';
 
 import { buildInfunctionsMap } from './builtinFunctionsMap';
 import {
@@ -29,9 +30,10 @@ import {
   generageDiagnostic,
   LGOption,
   LGCursorState,
+  updateTemplate,
 } from './utils';
 
-const { check, indexOne } = lgIndexer;
+const { check, parse } = lgIndexer;
 
 // define init methods call from client
 const InitializeDocumentsMethodName = 'initializeDocuments';
@@ -47,7 +49,14 @@ export class LGServer {
 
   constructor(
     protected readonly connection: IConnection,
-    protected readonly resolver?: FileResolver,
+    protected readonly importResolver?: (
+      source: string,
+      resourceId: string,
+      projectId: string
+    ) => {
+      content: string;
+      id: string;
+    },
     protected readonly memoryResolver?: MemoryResolver
   ) {
     this.documents.listen(this.connection);
@@ -119,7 +128,11 @@ export class LGServer {
       return;
     }
 
-    const memoryFileInfo: string[] | undefined = this.memoryResolver(uri);
+    const document = this.documents.get(uri);
+    if (!document) return;
+    const projectId = this.getLGDocument(document)?.projectId;
+    if (!projectId) return;
+    const memoryFileInfo: string[] | undefined = this.memoryResolver(projectId);
     if (!memoryFileInfo || memoryFileInfo.length === 0) {
       return;
     }
@@ -137,14 +150,14 @@ export class LGServer {
 
     const diagnostics: string[] = [];
 
-    if (!this.resolver) {
-      diagnostics.push('[Error lgOption] resolver is required but not exist.');
+    if (!this.importResolver) {
+      diagnostics.push('[Error lgOption] importResolver is required but not exist.');
     } else {
       const { fileId, templateId } = lgOption;
       const lgFile = this.getLGDocument(document)?.index();
       if (!lgFile) {
         diagnostics.push(`[Error lgOption] File ${fileId}.lg do not exist`);
-      } else {
+      } else if (templateId) {
         const { templates } = lgFile;
         const template = templates.find(({ name }) => name === templateId);
         if (!template) diagnostics.push(`Template ${fileId}.lg#${templateId} do not exist`);
@@ -157,31 +170,76 @@ export class LGServer {
     );
   }
 
-  protected addLGDocument(document: TextDocument, lgOption?: LGOption) {
-    const { uri } = document;
-    const { fileId, templateId } = lgOption || {};
-    const index = () => {
-      let lgFile: FileInfo | undefined;
-      if (this.resolver && fileId) {
-        lgFile = this.resolver(`${fileId}.lg`);
+  protected getImportResolver(document: TextDocument) {
+    const editorContent = document.getText();
+    const internalImportResolver = () => {
+      return {
+        id: document.uri,
+        content: editorContent,
+      };
+    };
+    const { fileId, templateId, projectId } = this.getLGDocument(document) || {};
+
+    if (this.importResolver && fileId && projectId) {
+      const resolver = this.importResolver;
+      return (source: string, id: string) => {
+        const lgFile = resolver(source, id, projectId);
         if (!lgFile) {
           this.sendDiagnostics(document, [
             generageDiagnostic(`lg file: ${fileId}.lg not exist on server`, DiagnosticSeverity.Error, document),
           ]);
-          return;
         }
-      } else {
-        lgFile = {
-          name: `${uri}.lg`,
-          path: '/',
-          relativePath: './',
-          content: document.getText(),
-        };
+        let { content } = lgFile;
+        /**
+         * source is . means use as file resolver, not import resolver
+         * if inline editor, server file write may have delay than webSocket updated LSP server
+         * so here build the full content from server file content and editor content
+         */
+        if (source === '.' && templateId) {
+          content = updateTemplate(lgFile.content, templateId, editorContent);
+        }
+        return { id, content };
+      };
+    }
+
+    return internalImportResolver;
+  }
+
+  protected addLGDocument(document: TextDocument, lgOption?: LGOption) {
+    const { uri } = document;
+    const { fileId, templateId, projectId } = lgOption || {};
+    const index = () => {
+      const importResolver: ImportResolverDelegate = this.getImportResolver(document);
+      let content: string = document.getText();
+      // if inline mode, composite local with server resolved file.
+      if (this.importResolver && fileId && templateId) {
+        try {
+          content = importResolver('.', `${fileId}.lg`).content;
+        } catch (error) {
+          // ignore if file not exist
+        }
       }
-      return indexOne(lgFile);
+
+      const id = fileId || uri;
+      const diagnostics = check(content, id, importResolver);
+      let templates: LgTemplate[] = [];
+      try {
+        templates = parse(content, id);
+        const { imports } = LGParser.parse(content, id);
+        imports.forEach(({ id }) => {
+          const importedContent = importResolver('.', id).content;
+          const importedTemplates = parse(importedContent, '');
+          templates.push(...importedTemplates);
+        });
+      } catch (_error) {
+        // ignore
+      }
+
+      return { templates, diagnostics };
     };
     const lgDocument: LGDocument = {
       uri,
+      projectId,
       fileId,
       templateId,
       index,
@@ -204,7 +262,6 @@ export class LGServer {
     }
     const { templates, diagnostics } = lgFile;
     if (diagnostics.length) {
-      this.sendDiagnostics(document, convertDiagnostics(diagnostics, document));
       return Promise.resolve(null);
     }
     const wordRange = getRangeAtPosition(document, params.position);
@@ -309,7 +366,7 @@ export class LGServer {
       }
 
       if (char === '{' && i >= 1 && state[state.length - 1] !== SINGLE && state[state.length - 1] !== DOUBLE) {
-        if (lineContent.charAt(i - 1) === '@') {
+        if (lineContent.charAt(i - 1) === '$') {
           state.push(EXPRESSION);
         }
       }
@@ -409,7 +466,9 @@ export class LGServer {
         label: template.name,
         kind: CompletionItemKind.Reference,
         insertText:
-          template.parameters.length > 0 ? template.name + '(' + template.parameters.join(', ') + ')' : template.name,
+          template.parameters.length > 0
+            ? template.name + '(' + template.parameters.join(', ') + ')'
+            : template.name + '()',
         documentation: template.body,
       };
     });
@@ -469,7 +528,7 @@ export class LGServer {
     if (!lgDoc) {
       return;
     }
-    const { fileId, templateId } = lgDoc;
+    const { fileId, templateId, uri } = lgDoc;
     const lgFile = lgDoc.index();
     if (!lgFile) {
       return;
@@ -504,7 +563,7 @@ export class LGServer {
       this.sendDiagnostics(document, lspDiagnostics);
       return;
     }
-    const lgDiagnostics = check(text, '');
+    const lgDiagnostics = check(text, fileId || uri, this.getImportResolver(document));
     const lspDiagnostics = convertDiagnostics(lgDiagnostics, document);
     this.sendDiagnostics(document, lspDiagnostics);
   }

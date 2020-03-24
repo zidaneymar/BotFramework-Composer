@@ -37,11 +37,13 @@ describe('<StringArray />', () => {
     expect(title).toBeTruthy();
   });
 
-  it('renders a DescriptionField', async () => {
-    const { findByText } = renderDefault();
+  it('renders a DescriptionField in tooltip', async () => {
+    const { baseElement } = renderDefault();
+    const icon = baseElement.querySelector('[data-icon-name="Unknown"]');
 
-    const description = await findByText('My array description.');
-    expect(description).toBeTruthy();
+    if (icon !== null) fireEvent.mouseOver(icon);
+
+    expect(baseElement).toHaveTextContent('My array description.');
   });
 
   it('renders a StringItem for each item', async () => {

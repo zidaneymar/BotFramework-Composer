@@ -4,7 +4,7 @@
     "id": "114909"
   },
   "autoEndDialog": true,
-  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema",
+  "defaultResultProperty": "dialog.result",
   "triggers": [
     {
       "$type": "Microsoft.OnBeginDialog",
@@ -13,14 +13,6 @@
       },
       "actions": [
         {
-          "$type": "Microsoft.SetProperty",
-          "$designer": {
-            "id": "725469"
-          },
-          "property": "dialog.todo",
-          "value": "@title"
-        },
-        {
           "$type": "Microsoft.TextInput",
           "$designer": {
             "id": "870620"
@@ -28,6 +20,7 @@
           "property": "dialog.todo",
           "prompt": "OK, please enter the title of the todo you want to remove.",
           "maxTurnCount": 3,
+          "value": "=@title",
           "alwaysPrompt": false,
           "allowInterruptions": "false"
         },
@@ -39,7 +32,7 @@
           "changeType": "Remove",
           "itemsProperty": "user.todos",
           "resultProperty": "dialog.removed",
-          "value": "dialog.todo"
+          "value": "=dialog.todo"
         },
         {
           "$type": "Microsoft.IfCondition",
@@ -53,20 +46,22 @@
               "$designer": {
                 "id": "725469"
               },
-              "activity": "@{bfdactivity-725469()}"
+              "activity": "${bfdactivity-725469()}"
             }
           ],
           "elseActions": [
             {
               "$type": "Microsoft.SendActivity",
               "$designer": {
-                "id": "549615"
+                "id": "549600"
               },
-              "activity": "@{bfdactivity-549615()}"
+              "activity": "${bfdactivity-549600()}"
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "generator": "DeleteToDo.lg",
+  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema"
 }

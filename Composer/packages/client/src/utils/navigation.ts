@@ -3,14 +3,12 @@
 
 import cloneDeep from 'lodash/cloneDeep';
 import { navigate, NavigateOptions } from '@reach/router';
-import { Diagnostic } from '@bfc/indexers';
 
 import { BreadcrumbItem, DesignPageLocation } from '../store/types';
 
 import { parsePathToFocused, parsePathToSelected, parseTypeToFragment } from './convertUtils';
 import { BASEPATH } from './../constants/index';
 import { resolveToBasePath } from './fileUtil';
-
 export const BreadcrumbUpdateType = {
   Selected: 'selected',
   Focused: 'focused',
@@ -66,8 +64,11 @@ export function getUrlSearch(selected: string, focused: string): string {
   return result;
 }
 
-export function checkUrl(currentUri: string, { dialogId, selected, focused, promptTab }: DesignPageLocation) {
-  let lastUri = `/dialogs/${dialogId}${getUrlSearch(selected, focused)}`;
+export function checkUrl(
+  currentUri: string,
+  { dialogId, projectId, selected, focused, promptTab }: DesignPageLocation
+) {
+  let lastUri = `/bot/${projectId}/dialogs/${dialogId}${getUrlSearch(selected, focused)}`;
   if (promptTab) {
     lastUri += `#${promptTab}`;
   }
@@ -78,13 +79,11 @@ interface NavigationState {
   breadcrumb: BreadcrumbItem[];
 }
 
-export function convertDialogDiagnosticToUrl(diagnostic: Diagnostic): string {
+export function convertPathToUrl(projectId: string, dialogId: string, path?: string): string {
   //path is like main.trigers[0].actions[0]
   //uri = id?selected=triggers[0]&focused=triggers[0].actions[0]
-  const { path, source } = diagnostic;
-  if (!source) return '';
 
-  let uri = `/dialogs/${source}`;
+  let uri = `/bot/${projectId}/dialogs/${dialogId}`;
   if (!path) return uri;
 
   const items = path.split('#');
@@ -106,6 +105,23 @@ export function convertDialogDiagnosticToUrl(diagnostic: Diagnostic): string {
   uri += `#${fragment}`;
 
   return uri;
+}
+
+export function toUrlUtil(projectId: string, path: string): string {
+  const tokens = path.split('#');
+  const firstDotIndex = tokens[0].indexOf('.');
+  const dialogId = tokens[0].substring(0, firstDotIndex);
+  const focusedPath = parsePathToFocused(tokens[0]);
+  const selectedPath = parsePathToSelected(tokens[0]);
+  const type = tokens[1];
+  const property = tokens[2];
+  const fragment = parseTypeToFragment(type, property);
+  if (!focusedPath || !selectedPath) {
+    return '';
+  }
+  return `/bot/${projectId}/dialogs/${dialogId}?selected=${selectedPath}&focused=${focusedPath}${
+    fragment ? '#' + fragment : ''
+  }`;
 }
 
 export function navigateTo(to: string, navigateOpts: NavigateOptions<NavigationState> = {}) {

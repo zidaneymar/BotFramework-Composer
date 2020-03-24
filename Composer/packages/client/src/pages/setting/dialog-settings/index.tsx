@@ -14,7 +14,7 @@ import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { StoreContext } from '../../../store';
 import { isAbsHosted } from '../../../utils/envUtil';
 
-import { hostedSettings, hostedControls, hostedToggle, slotChoice, settingsEditor } from './style';
+import { hostedSettings, hostedControls, hostedControlsTitle, hostedToggle, slotChoice, settingsEditor } from './style';
 
 const hostControlLabels = {
   showKeys: formatMessage('Show keys'),
@@ -29,7 +29,7 @@ const hostControlLabels = {
 
 export const DialogSettings = () => {
   const { state, actions } = useContext(StoreContext);
-  const { botName, settings: origSettings, botEnvironment } = state;
+  const { botName, settings: origSettings, botEnvironment, projectId } = state;
   const absHosted = isAbsHosted();
   const { luis, MicrosoftAppPassword, MicrosoftAppId, ...settings } = origSettings;
   const managedSettings = { luis, MicrosoftAppPassword, MicrosoftAppId };
@@ -40,7 +40,7 @@ export const DialogSettings = () => {
 
   const changeEditing = (_, on) => {
     setEditing(on);
-    actions.setEditDialogSettings(on, absHosted ? slot : undefined);
+    actions.setEditDialogSettings(projectId, on, absHosted ? slot : undefined);
   };
 
   const slots = [
@@ -50,13 +50,13 @@ export const DialogSettings = () => {
 
   const changeSlot = (_, option) => {
     setSlot(option.key);
-    actions.setDialogSettingsSlot(editing, option.key);
+    actions.setDialogSettingsSlot(projectId, editing, option.key);
   };
 
   const saveChangeResult = result => {
     try {
       const mergedResult = absHosted ? { ...managedSettings, ...result } : result;
-      actions.setSettings(botName, mergedResult, absHosted ? slot : undefined);
+      actions.setSettings(projectId, botName, mergedResult, absHosted ? slot : undefined);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err.message);
@@ -72,7 +72,7 @@ export const DialogSettings = () => {
 
   const hostedControl = () => (
     <div css={hostedControls}>
-      <h1>{hostControlLabels.botSettings}</h1>
+      <h1 css={hostedControlsTitle}>{hostControlLabels.botSettings}</h1>
       <p>
         {hostControlLabels.botSettingDescription}
         &nbsp;

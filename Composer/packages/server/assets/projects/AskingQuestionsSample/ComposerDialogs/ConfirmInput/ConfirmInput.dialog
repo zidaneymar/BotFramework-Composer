@@ -36,10 +36,11 @@
           "$designer": {
             "id": "458458"
           },
-          "activity": "@{bfdactivity-458458()}"
+          "activity": "${bfdactivity-458458()}"
         }
       ]
     }
   ],
-  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema"
+  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema",
+  "generator": "ConfirmInput.lg"
 }

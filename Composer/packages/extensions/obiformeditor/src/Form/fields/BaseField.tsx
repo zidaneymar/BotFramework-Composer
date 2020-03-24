@@ -9,6 +9,7 @@ import get from 'lodash/get';
 import classnames from 'classnames';
 
 import { FormContext } from '../types';
+import { WidgetLabel } from '../widgets/WidgetLabel';
 
 import { RootField } from './RootField';
 
@@ -37,6 +38,7 @@ export function BaseField<T = any>(props: BaseFieldProps<T>): JSX.Element {
   let descriptionOverride;
   let helpLink;
   let helpLinkText;
+  let helpLinkLabel;
   let key = idSchema.__id;
 
   if (schema.title) {
@@ -45,6 +47,7 @@ export function BaseField<T = any>(props: BaseFieldProps<T>): JSX.Element {
     descriptionOverride = get(SDKOverrides, 'description');
     helpLink = get(SDKOverrides, 'helpLink');
     helpLinkText = get(SDKOverrides, 'helpLinkText');
+    helpLinkLabel = get(SDKOverrides, 'helpLinkLabel');
   }
 
   // use dialogId as the key because the focusPath may not be enough
@@ -57,7 +60,7 @@ export function BaseField<T = any>(props: BaseFieldProps<T>): JSX.Element {
       return null;
     }
 
-    return titleOverride || title || uiSchema['ui:title'] || schema.title || startCase(name);
+    return uiSchema['ui:title'] || titleOverride || title || schema.title || startCase(name);
   };
 
   const getDescription = () => {
@@ -75,23 +78,14 @@ export function BaseField<T = any>(props: BaseFieldProps<T>): JSX.Element {
   ) : (
     <div className={classnames({ BaseField: !displayInline }, className)} key={key} id={key.replace(/\.|#/g, '')}>
       {!hideDescription && (
-        <div>
-          <h3 className="BaseFieldTitle">{getTitle()}</h3>
-          {descriptionOverride !== false && (descriptionOverride || description || schema.description) && (
-            <p className="BaseFieldDescription">
-              {getDescription()}
-              {helpLink && helpLinkText && (
-                <>
-                  <br />
-                  <br />
-                  <a href={helpLink} target="_blank" rel="noopener noreferrer">
-                    {helpLinkText}
-                  </a>
-                </>
-              )}
-            </p>
-          )}
-        </div>
+        <WidgetLabel
+          label={getTitle()}
+          description={getDescription()}
+          helpLink={helpLink}
+          helpLinkText={helpLinkText}
+          helpLinkLabel={helpLinkLabel}
+          id={key}
+        />
       )}
       <div className={classnames({ BaseFieldInline: displayInline })}>{children}</div>
     </div>

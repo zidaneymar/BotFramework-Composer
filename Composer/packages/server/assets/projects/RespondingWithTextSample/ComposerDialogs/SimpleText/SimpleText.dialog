@@ -17,10 +17,11 @@
           "$designer": {
             "id": "219943"
           },
-          "activity": "@{bfdactivity-219943()}"
+          "activity": "${bfdactivity-219943()}"
         }
       ]
     }
   ],
-  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema"
+  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema",
+  "generator": "SimpleText.lg"
 }

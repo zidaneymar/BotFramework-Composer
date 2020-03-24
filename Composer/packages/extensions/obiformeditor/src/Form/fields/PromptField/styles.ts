@@ -17,13 +17,9 @@ export const tabs: Partial<IPivotStyles> = {
     flex: 1,
   },
   itemContainer: {
-    padding: '24px 18px',
+    padding: '12px 12px',
   },
 };
-
-export const tabsContainer = css`
-  border-bottom: 1px solid #c8c6c4;
-`;
 
 export const validationItemInput = css`
   display: flex;
@@ -58,6 +54,7 @@ export const settingsFields = css`
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  align-items: flex-end;
 `;
 
 export const settingsFieldFull = css`

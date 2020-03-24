@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import React from 'react';
+import { LGTemplate } from 'botbuilder-lg';
 import { ShellApi } from '@bfc/shared';
 
 type ShellApiFuncs =
@@ -9,13 +10,15 @@ type ShellApiFuncs =
   | 'copyLgTemplate'
   | 'removeLgTemplate'
   | 'removeLgTemplates'
-  | 'updateLgTemplate';
+  | 'updateLgTemplate'
+  | 'removeLuIntent';
 
-interface NodeRendererContextValue extends Pick<ShellApi, ShellApiFuncs> {
+export interface NodeRendererContextValue extends Pick<ShellApi, ShellApiFuncs> {
   focusedId?: string;
   focusedEvent?: string;
   focusedTab?: string;
   clipboardActions: any[];
+  getLgTemplateSync: (lgTemplateName: string) => LGTemplate | undefined;
 }
 
 export const NodeRendererContext = React.createContext<NodeRendererContextValue>({
@@ -23,9 +26,11 @@ export const NodeRendererContext = React.createContext<NodeRendererContextValue>
   focusedEvent: '',
   focusedTab: '',
   clipboardActions: [],
+  getLgTemplateSync: () => undefined,
   getLgTemplates: () => Promise.resolve([]),
   copyLgTemplate: () => Promise.resolve(''),
   removeLgTemplate: () => Promise.resolve(),
   removeLgTemplates: () => Promise.resolve(),
   updateLgTemplate: () => Promise.resolve(),
+  removeLuIntent: () => Promise.resolve(),
 });

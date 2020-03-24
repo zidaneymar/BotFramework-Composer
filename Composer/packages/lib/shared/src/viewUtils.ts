@@ -70,7 +70,6 @@ export const dialogGroups: DialogGroupsMap = {
     types: [
       SDKTypes.SetProperty,
       SDKTypes.SetProperties,
-      SDKTypes.InitProperty,
       SDKTypes.DeleteProperty,
       SDKTypes.DeleteProperties,
       SDKTypes.EditArray,
@@ -90,6 +89,7 @@ export const dialogGroups: DialogGroupsMap = {
   [DialogGroup.CODE]: {
     label: 'Access external resources',
     types: [
+      SDKTypes.SkillDialog,
       SDKTypes.HttpRequest,
       SDKTypes.EmitEvent,
       SDKTypes.OAuthInput,
@@ -108,7 +108,7 @@ export const dialogGroups: DialogGroupsMap = {
       SDKTypes.OnUnknownIntent,
       SDKTypes.OnDialogEvent,
       SDKTypes.OnActivity,
-      SDKTypes.OnMessageActivity,
+      SDKTypes.OnMessageEventActivity,
       SDKTypes.OnCustomEvent,
     ],
   },
@@ -310,4 +310,9 @@ export function generateSDKTitle(data, customizedTitile?: string) {
   const titleFromShared = get(ConceptLabels, [$type, 'title']);
   const titleFrom$type = truncateSDKType($type);
   return titleFrom$designer || customizedTitile || titleFromShared || titleFrom$type;
+}
+
+export function getInputType($type: string): string {
+  if (!$type) return '';
+  return $type.replace(/Microsoft.(.*)Input/, '$1');
 }

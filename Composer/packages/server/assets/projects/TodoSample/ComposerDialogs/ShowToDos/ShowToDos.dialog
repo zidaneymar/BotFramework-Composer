@@ -4,6 +4,7 @@
     "id": "709692"
   },
   "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
   "triggers": [
     {
       "$type": "Microsoft.OnBeginDialog",
@@ -24,7 +25,7 @@
                 "id": "339580",
                 "name": "Send an Activity"
               },
-              "activity": "@{bfdactivity-339580()}"
+              "activity": "${bfdactivity-339580()}"
             }
           ],
           "elseActions": [
@@ -34,12 +35,13 @@
                 "id": "662084",
                 "name": "Send an Activity"
               },
-              "activity": "@{bfdactivity-662084()}"
+              "activity": "${bfdactivity-662084()}"
             }
           ]
         }
       ]
     }
   ],
+  "generator": "ShowToDos.lg",
   "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema"
 }

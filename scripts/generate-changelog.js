@@ -5,20 +5,28 @@ const PULL_URL = "https://github.com/microsoft/BotFramework-Composer/pull";
 
 const AUTHORS = {
   "Andy Brown": "a-b-r-o-w-n",
-  "Chris Whitten": "cwhitten",
-  "Kamran Iqbal": "Kaiqb",
-  "Dong Lei": "boydc2014",
-  "Long Alan": "alanlong9278",
-  "TJ Durnford": "tdurnford",
-  leileizhang: "lei9444",
-  zeye: "yeze322",
-  "Zhixiang Zhan": "zhixzhan",
-  "Shuai Wang": "cosmicshuai",
-  liweitian: "liweitian",
   "Ben Brown": "benbrown",
+  "Ben Yackley": "beyackle",
+  "Chris Whitten": "cwhitten",
+  Corina: "corinagum",
+  "Dong Lei": "boydc2014",
+  "Hongyang Du (hond)": "Danieladu",
+  "Kamran Iqbal": "Kaiqb",
+  "Long Alan": "alanlong9278",
+  "Lu Han": "luhan2017",
   "Pooja Nagpal": "p-nagpal",
+  "Qi Kang": "zidaneymar",
+  "Shuai Wang": "cosmicshuai",
+  "TJ Durnford": "tdurnford",
+  "Vishwac Sena Kannan": "vishwacsena",
+  "Weitian Li": "liweitian",
+  "Zhixiang Zhan": "zhixzhan",
+  leileizhang: "lei9444",
+  liweitian: "liweitian",
+  VanyLaw: "VanyLaw",
   xieofxie: "xieofxie",
-  "Lu Han": "luhan2017"
+  zeye: "yeze322",
+  zhixzhan: "zhixzhan"
 };
 
 const getLog = () =>
@@ -33,7 +41,7 @@ const getDate = () =>
 
 const SECTIONS = {
   Added: ["feat"],
-  Fixed: ["fix"],
+  Fixed: ["fix", "a11y"],
   Changed: ["refactor", "style"],
   Other: []
 };

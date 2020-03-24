@@ -14,6 +14,7 @@ export const sideBar = isExpand => css`
   width: ${isExpand ? '220' : '48'}px;
   background-color: ${NeutralColors.gray20};
   height: 100%;
+  border-right: 1px solid ${NeutralColors.gray50};
   transition: width 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
@@ -43,7 +44,7 @@ export const globalNav = css`
   font-size: ${FontSizes.size16};
   color: #106ebe;
   &:hover {
-    background: ${NeutralColors.gray40};
+    background: ${NeutralColors.gray50};
   }
 `;
 
@@ -57,6 +58,7 @@ export const content = css`
 
 export const showDesign = show => css`
   display: ${show ? 'block' : 'none'} !important;
+  height: 100%;
 `;
 
 export const leftNavBottom = () => css`

@@ -11,13 +11,14 @@ import formatMessage from 'format-message';
 import { globalHistory } from '@reach/router';
 import get from 'lodash/get';
 import { PromptTab } from '@bfc/shared';
-import { getNewDesigner, seedNewDialog } from '@bfc/shared';
+import { seedNewDialog, SDKTypes } from '@bfc/shared';
+import { DialogInfo } from '@bfc/indexers';
 
 import { VisualEditorAPI } from '../../messenger/FrameAPI';
 import { TestController } from '../../TestController';
 import { BASEPATH, DialogDeleting } from '../../constants';
 import { createSelectedPath, deleteTrigger, getbreadcrumbLabel } from '../../utils';
-import { TriggerCreationModal } from '../../components/ProjectTree/TriggerCreationModal';
+import { TriggerCreationModal, LuFilePayload } from '../../components/ProjectTree/TriggerCreationModal';
 import { Conversation } from '../../components/Conversation';
 import { DialogStyle } from '../../components/Modal/styles';
 import { OpenConfirmModal } from '../../components/Modal/Confirm';
@@ -119,7 +120,7 @@ const rootPath = BASEPATH.replace(/\/+$/g, '');
 
 function DesignPage(props) {
   const { state, actions } = useContext(StoreContext);
-  const { dialogs, designPageLocation, breadcrumb, visualEditorSelection } = state;
+  const { dialogs, designPageLocation, breadcrumb, visualEditorSelection, projectId } = state;
   const {
     removeDialog,
     setDesignPageLocation,
@@ -139,10 +140,11 @@ function DesignPage(props) {
 
   useEffect(() => {
     if (match) {
-      const { dialogId } = match;
+      const { dialogId, projectId } = match;
       const params = new URLSearchParams(location.search);
       setDesignPageLocation({
         dialogId: dialogId,
+        projectId: projectId,
         selected: params.get('selected'),
         focused: params.get('focused'),
         breadcrumb: location.state ? location.state.breadcrumb || [] : [],
@@ -171,14 +173,24 @@ function DesignPage(props) {
     setTriggerModalVisibility(true);
   };
 
-  const onTriggerCreationSubmit = dialog => {
-    const payload = {
+  const onTriggerCreationSubmit = (dialog: DialogInfo, luFile?: LuFilePayload) => {
+    const dialogPayload = {
       id: dialog.id,
+      projectId,
       content: dialog.content,
     };
+    if (luFile) {
+      const luFilePayload = {
+        id: luFile.id,
+        content: luFile.content,
+        projectId,
+      };
+      actions.updateLuFile(luFilePayload);
+    }
+
     const index = get(dialog, 'content.triggers', []).length - 1;
     actions.selectTo(`triggers[${index}]`);
-    actions.updateDialog(payload);
+    actions.updateDialog(dialogPayload);
   };
 
   function handleSelect(id, selected = '') {
@@ -248,6 +260,18 @@ function DesignPage(props) {
     },
     {
       type: 'action',
+      text: formatMessage('Move'),
+      buttonProps: {
+        iconProps: {
+          iconName: 'Share',
+        },
+        onClick: () => VisualEditorAPI.moveSelection(),
+      },
+      align: 'left',
+      disabled: !nodeOperationAvailable,
+    },
+    {
+      type: 'action',
       text: formatMessage('Delete'),
       buttonProps: {
         iconProps: {
@@ -303,8 +327,14 @@ function DesignPage(props) {
   }, [dialogs, breadcrumb]);
 
   async function onSubmit(data: { name: string; description: string }) {
-    const content = getNewDesigner(data.name, data.description);
-    const seededContent = seedNewDialog('Microsoft.AdaptiveDialog', content.$designer, content);
+    const seededContent = seedNewDialog(
+      SDKTypes.AdaptiveDialog,
+      { name: data.name, description: data.description },
+      {
+        generator: `${data.name}.lg`,
+      },
+      state.actionsSeed || []
+    );
     await actions.createDialog({ id: data.name, content: seededContent });
   }
 
@@ -329,14 +359,14 @@ function DesignPage(props) {
     const result = await OpenConfirmModal(title, subTitle, setting);
 
     if (result) {
-      await removeDialog(id);
+      await removeDialog(id, projectId);
     }
   }
 
   async function handleDeleteTrigger(id, index) {
     const content = deleteTrigger(dialogs, id, index);
     if (content) {
-      await updateDialog({ id, content });
+      await updateDialog({ id, projectId, content });
       const match = /\[(\d+)\]/g.exec(selected);
       const current = match && match[1];
       if (!current) return;
@@ -384,6 +414,7 @@ function DesignPage(props) {
                     hidden={triggerButtonVisible || !selected}
                     src={`${rootPath}/extensionContainer.html`}
                     ref={addRef}
+                    title={formatMessage('visual editor')}
                   />
                   {!selected && onRenderBlankVisual(triggerButtonVisible, openNewTriggerModal)}
                 </div>
@@ -392,6 +423,7 @@ function DesignPage(props) {
                   name="FormEditor"
                   css={formEditor}
                   src={`${rootPath}/extensionContainer.html`}
+                  title={formatMessage('form editor')}
                 />
               </div>
             </Fragment>
