@@ -926,8 +926,8 @@ export class BotProject {
   };
 
   private isLuFileEmpty = (file: LuFile) => {
-    const { content, intents } = file;
-    if (content && intents?.length) {
+    const { content } = file;
+    if (content) {
       return false;
     }
     return true;
