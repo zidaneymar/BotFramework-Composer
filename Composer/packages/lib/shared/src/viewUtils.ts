@@ -35,6 +35,7 @@ export enum DialogGroup {
   RECOGNIZER = 'RECOGNIZER',
   SELECTOR = 'SELECTOR',
   OTHER = 'OTHER',
+  MSGRAPH = 'MSGRAPH',
 }
 
 export interface DialogGroupItem {
@@ -153,6 +154,21 @@ export const dialogGroups: DialogGroupsMap = {
   [DialogGroup.OTHER]: {
     label: 'Other',
     types: [SDKTypes.AdaptiveDialog, SDKTypes.LanguagePolicy, SDKTypes.QnAMakerDialog],
+  },
+  [DialogGroup.MSGRAPH]: {
+    label: 'MSGraph',
+    types: [
+      SDKTypes.CancelEvent,
+      SDKTypes.CreateEvent,
+      SDKTypes.CreateOnlineMeeting,
+      SDKTypes.DeclineEvent,
+      SDKTypes.FindMeetingTimes,
+      SDKTypes.GetContacts,
+      SDKTypes.GetEvents,
+      SDKTypes.GetPeople,
+      SDKTypes.UpdateEvent,
+      SDKTypes.EventDateTimeInput,
+    ],
   },
 };
 

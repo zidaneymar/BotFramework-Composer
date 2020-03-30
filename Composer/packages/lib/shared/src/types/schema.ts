@@ -19,6 +19,16 @@ import { JSONSchema6 } from 'json-schema';
  * */
 
 export enum SDKTypes {
+  CancelEvent = 'Microsoft.Graph.Calendar.CancelEvent',
+  CreateEvent = 'Microsoft.Graph.Calendar.CreateEvent',
+  CreateOnlineMeeting = 'Microsoft.Graph.Calendar.CreateOnlineMeeting',
+  DeclineEvent = 'Microsoft.Graph.Calendar.DeclineEvent',
+  FindMeetingTimes = 'Microsoft.Graph.Calendar.FindMeetingTimes',
+  GetContacts = 'Microsoft.Graph.Calendar.GetContacts',
+  GetEvents = 'Microsoft.Graph.Calendar.GetEvents',
+  GetPeople = 'Microsoft.Graph.Calendar.GetPeople',
+  UpdateEvent = 'Microsoft.Graph.Calendar.UpdateEvent',
+  EventDateTimeInput = 'Microsoft.Graph.Calendar.EventDateTimeInput',
   ActivityTemplate = 'Microsoft.ActivityTemplate',
   AdaptiveDialog = 'Microsoft.AdaptiveDialog',
   AgeEntityRecognizer = 'Microsoft.AgeEntityRecognizer',

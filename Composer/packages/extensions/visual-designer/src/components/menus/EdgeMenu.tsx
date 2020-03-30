@@ -39,6 +39,7 @@ const buildEdgeMenuItemsFromClipboardContext = (
       DialogGroup.MEMORY,
       DialogGroup.CODE,
       DialogGroup.LOG,
+      DialogGroup.MSGRAPH,
     ],
     true,
     (e, item) => onClick(item ? item.data.$type : null),
