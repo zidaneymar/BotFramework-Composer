@@ -26,15 +26,15 @@ namespace Microsoft.Bot.Builder.ComposerBot.Json.Actions.MSGraph
         [JsonProperty("resultProperty")]
         public string ResultProperty { get; set; }
 
-        [JsonProperty("nameProperty")]
-        public string NameProperty { get; set; }
+        [JsonProperty("searchString")]
+        public string SearchString { get; set; }
 
         [JsonProperty("token")]
         public string Token { get; set; }
 
         public override async Task<DialogTurnResult> BeginDialogAsync(DialogContext dc, object options = null, CancellationToken cancellationToken = default)
         {
-            var name = await new TextTemplate(NameProperty).BindToData(dc.Context, dc.GetState());
+            var name = await new TextTemplate(SearchString).BindToData(dc.Context, dc.GetState());
             var token = await new TextTemplate(Token).BindToData(dc.Context, dc.GetState());
 
             var graphClient = GraphClient.GetAuthenticatedClient(token);
