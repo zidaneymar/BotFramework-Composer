@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Builder.ApplicationInsights;
 using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.BotFramework;
+using Microsoft.Bot.Builder.ComposerBot.Json.Actions.MSGraph;
+using Microsoft.Bot.Builder.ComposerBot.Json.Input;
 using Microsoft.Bot.Builder.Dialogs.Adaptive;
 using Microsoft.Bot.Builder.Dialogs.Debugging;
 using Microsoft.Bot.Builder.Dialogs.Declarative;
@@ -96,6 +98,17 @@ namespace Microsoft.Bot.Builder.ComposerBot.Json
                 adapter
                   .UseStorage(storage)
                   .UseState(userState, conversationState);
+
+                resourceExplorer.RegisterType<CancelEvent>(CancelEvent.DeclarativeType);
+                resourceExplorer.RegisterType<CreateEvent>(CreateEvent.DeclarativeType);
+                resourceExplorer.RegisterType<CreateOnlineMeeting>(CreateOnlineMeeting.DeclarativeType);
+                resourceExplorer.RegisterType<DeclineEvent>(DeclineEvent.DeclarativeType);
+                resourceExplorer.RegisterType<FindMeetingTimes>(FindMeetingTimes.DeclarativeType);
+                resourceExplorer.RegisterType<GetContacts>(GetContacts.DeclarativeType);
+                resourceExplorer.RegisterType<GetEvents>(GetEvents.DeclarativeType);
+                resourceExplorer.RegisterType<GetPeople>(GetPeople.DeclarativeType);
+                resourceExplorer.RegisterType<UpdateEvent>(UpdateEvent.DeclarativeType);
+                resourceExplorer.RegisterType<EventDateTimeInput>(EventDateTimeInput.DeclarativeType);
 
                 if (!string.IsNullOrEmpty(settings.BlobStorage.ConnectionString) && !string.IsNullOrEmpty(settings.BlobStorage.Container))
                 {

@@ -6360,6 +6360,24 @@
                             "description": "Expression evaluating to boolean."
                         }
                     ]
+                },
+		"alwaysPrompt": {
+                    "$role": "expression",
+                    "title": "Always Prompt",
+                    "description": "A boolean expression that determines whether the dialog should prompt.",
+                    "default": "true",                  
+                    "oneOf": [
+                        {
+                            "type": "boolean",
+                            "default": "true",
+                            "title": "boolean"
+                        },
+                        {
+                            "type": "string",
+                            "title": "Expression",
+                            "description": "Expression evaluating to boolean."
+                        }
+                    ]
                 }
             },
             "additionalProperties": false,
