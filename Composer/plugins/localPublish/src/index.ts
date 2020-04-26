@@ -38,7 +38,7 @@ class LocalPublisher {
   private readonly baseDir = path.resolve(__dirname, '../');
   private templatePath;
 
-  constructor() {}
+  constructor() { }
   // config include botId and version, project is content(ComposerDialogs)
   publish = async (config: PublishConfig, project, metadata, user) => {
     const { templatePath, settings } = config;
@@ -358,6 +358,23 @@ export default async (composer: any): Promise<void> => {
     startCommand: 'dotnet run',
     eject: async (project: any, localDisk: IFileStorage) => {
       const sourcePath = path.resolve(__dirname, '../../../../BotProject/Templates/CSharp');
+      const destPath = path.join(project.dir, 'runtime');
+      if (!(await project.fileStorage.exists(destPath))) {
+        // used to read bot project template from source (bundled in plugin)
+        await copyDir(sourcePath, localDisk, destPath, project.fileStorage);
+        return destPath;
+      } else {
+        throw new Error(`Runtime already exists at ${destPath}`);
+      }
+    },
+  });
+
+  await composer.addRuntimeTemplate({
+    key: 'javescript',
+    name: 'JS',
+    startCommand: 'yarn && yarn build && npm.cmd start',
+    eject: async (project: any, localDisk: IFileStorage) => {
+      const sourcePath = path.resolve(__dirname, '../../../../BotProject/Templates/Node');
       const destPath = path.join(project.dir, 'runtime');
       if (!(await project.fileStorage.exists(destPath))) {
         // used to read bot project template from source (bundled in plugin)

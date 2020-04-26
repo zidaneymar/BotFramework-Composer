@@ -83,6 +83,10 @@ const runtimes: TemplateData = {
     name: 'CSharp Runtime',
     description: 'A Bot Framework runtime using the CSharp/dotnet version of the SDK',
   },
+  Node: {
+    name: 'NodeJs Runtime',
+    description: 'Node Js runtime',
+  },
 };
 
 // set a default runtime template.
