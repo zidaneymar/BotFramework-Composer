@@ -3,12 +3,13 @@
 
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useState, useContext } from 'react';
+import { useState, useContext, useMemo, useRef, useEffect } from 'react';
 import formatMessage from 'format-message';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { RouteComponentProps } from '@reach/router';
+import debounce from 'lodash/debounce';
 
 import { LoadingSpinner } from '../../../components/LoadingSpinner';
 import { StoreContext } from '../../../store';
@@ -26,6 +27,8 @@ import {
 export const RuntimeSettings: React.FC<RouteComponentProps> = () => {
   const { state, actions } = useContext(StoreContext);
   const { botName, settings, projectId } = state;
+  const [commandValue, setCommand] = useState('');
+  const [pathValue, setPathValue] = useState('');
   const [formDataErrors, setFormDataErrors] = useState({ command: '', path: '' });
   const [ejectModalVisible, setEjectModalVisible] = useState(false);
 
@@ -33,6 +36,12 @@ export const RuntimeSettings: React.FC<RouteComponentProps> = () => {
     actions.setSettings(projectId, botName, { ...settings, runtime: { ...settings.runtime, customRuntime: on } });
   };
 
+  useEffect(() => {
+    setCommand(settings.runtime?.command || '');
+    setPathValue(settings.runtime?.path || '');
+  }, [settings.runtime]);
+
+  const setSetting = useRef(debounce(actions.setSettings, 500)).current;
   const updateSetting = field => (e, newValue) => {
     let valid = true;
     let error = 'There was an error';
@@ -40,8 +49,12 @@ export const RuntimeSettings: React.FC<RouteComponentProps> = () => {
       valid = false;
       error = 'This is a required field.';
     }
-
-    actions.setSettings(projectId, botName, { ...settings, runtime: { ...settings.runtime, [field]: newValue } });
+    if (field === 'path') {
+      setPathValue(newValue);
+    } else {
+      setCommand(newValue);
+    }
+    setSetting(projectId, botName, { ...settings, runtime: { ...settings.runtime, [field]: newValue } });
 
     if (valid) {
       setFormDataErrors({ ...formDataErrors, [field]: '' });
@@ -87,7 +100,7 @@ export const RuntimeSettings: React.FC<RouteComponentProps> = () => {
       <div css={controlGroup}>
         <TextField
           label={formatMessage('Runtime code location')}
-          value={settings.runtime ? settings.runtime.path : ''}
+          value={pathValue}
           styles={name}
           required
           onChange={updateSetting('path')}
@@ -106,7 +119,7 @@ export const RuntimeSettings: React.FC<RouteComponentProps> = () => {
 
         <TextField
           label={formatMessage('Start command')}
-          value={settings.runtime ? settings.runtime.command : ''}
+          value={commandValue}
           styles={name}
           required
           onChange={updateSetting('command')}

@@ -3,7 +3,7 @@
 
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useState, useContext, useMemo } from 'react';
+import { useState, useContext, useMemo, useCallback } from 'react';
 import { JsonEditor } from '@bfc/code-editor';
 import formatMessage from 'format-message';
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
@@ -60,10 +60,11 @@ export const DialogSettings: React.FC<RouteComponentProps> = () => {
     () =>
       debounce((result: any) => {
         saveChangeResult(result);
-      }, 200),
+      }, 500),
     [projectId]
   );
 
+  const _change = useCallback(value => handleChange(value), [projectId]);
   const hostedControl = () => (
     <div css={hostedControls}>
       <h1 css={hostedControlsTitle}>{hostControlLabels.botSettings}</h1>
@@ -89,7 +90,7 @@ export const DialogSettings: React.FC<RouteComponentProps> = () => {
     <div css={hostedSettings}>
       {hostedControl()}
       <div css={settingsEditor}>
-        <JsonEditor onChange={x => handleChange(x)} value={visibleSettings} />
+        <JsonEditor onChange={_change} value={visibleSettings} />
       </div>
     </div>
   ) : (
