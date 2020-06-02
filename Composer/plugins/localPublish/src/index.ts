@@ -189,6 +189,7 @@ class LocalPublisher implements PublishPlugin<PublishConfig> {
         execSync('dotnet build', { cwd: runtimeDir, stdio: 'inherit' });
       } catch (error) {
         // delete the folder to make sure build again.
+        console.log('error in initBot');
         rmDir(botDir);
         throw new Error(error.toString());
       }
@@ -237,6 +238,7 @@ class LocalPublisher implements PublishPlugin<PublishConfig> {
       await this.startBot(botId, port, settings);
       return `http://localhost:${port}`;
     } catch (error) {
+      console.log('error in setBot');
       this.stopBot(botId);
       throw error;
     }
