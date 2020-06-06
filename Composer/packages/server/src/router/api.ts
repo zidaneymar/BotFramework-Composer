@@ -8,7 +8,6 @@ import { StorageController } from '../controllers/storage';
 import { PublishController } from '../controllers/publisher';
 import { AssetController } from '../controllers/asset';
 import { EjectController } from '../controllers/eject';
-import { LoginController } from '../controllers/loginController';
 
 const router: Router = express.Router({});
 
@@ -35,7 +34,8 @@ router.post('/storages', StorageController.createStorageConnection);
 router.get('/storages/:storageId/blobs', StorageController.getBlob);
 
 // publishing
-router.get('/publish/provision/:type', LoginController.logIn, PublishController.provision);
+router.post('/publish/subscriptions', PublishController.getSubscriptions);
+router.post('/publish/provision', PublishController.provision);
 router.get('/publish/types', PublishController.getTypes);
 router.get('/publish/:projectId/status/:target', PublishController.status);
 router.post('/publish/:projectId/publish/:target', PublishController.publish);

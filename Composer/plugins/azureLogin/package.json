@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc"
   },
-  "extendsComposer": false,
+  "extendsComposer": true,
   "dependencies": {
     "@azure/ms-rest-nodeauth": "^3.0.3",
     "passport-azure-ad": "^4.2.1"

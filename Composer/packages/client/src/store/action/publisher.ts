@@ -7,7 +7,6 @@ import { ActionCreator } from '../types';
 
 import { ActionTypes } from './../../constants/index';
 import httpClient from './../../utils/httpUtil';
-
 export const getPublishTargetTypes: ActionCreator = async ({ dispatch }) => {
   try {
     const response = await httpClient.get(`/publish/types`);
@@ -22,6 +21,31 @@ export const getPublishTargetTypes: ActionCreator = async ({ dispatch }) => {
       type: ActionTypes.SET_ERROR,
       payload: err,
     });
+  }
+};
+
+export const getSubscriptions: ActionCreator = async ({ dispatch }, token) => {
+  try {
+    const result = await httpClient.post('/publish/subscriptions', { accessToken: token });
+    console.log(result);
+    // update subscription to state
+  } catch (err) {
+    console.log(err);
+    if (err.message === 'need authentication') {
+      // redirect to azure login
+      dispatch({
+        type: ActionTypes.AZURE_LOGIN,
+        payload: err,
+      });
+    }
+  }
+};
+export const provision: ActionCreator = async ({ dispatch }, provisionSettings) => {
+  try {
+    const response = await httpClient.post('/publish/provision', provisionSettings);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
   }
 };
 

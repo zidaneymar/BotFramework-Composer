@@ -96,16 +96,21 @@ export const PublishController = {
     }
   },
   provision: async (req, res) => {
-    const target = req.params.provision;
-    console.log(target);
+    // const target = req.params.provision;
+    // console.log(target);
     // if (
     //   pluginLoader.extensions.publish[method] &&
     //   pluginLoader.extensions.publish[method].methods &&
     //   pluginLoader.extensions.publish[method].methods.publish
     // ) {
-
     // }
   },
+  getSubscriptions: async (req, res, next) => {
+    const target = req.body;
+    console.log(target);
+    res.status(200).json({});
+  },
+
   status: async (req, res) => {
     const target = req.params.target;
     const user = await PluginLoader.getUserFromRequest(req);

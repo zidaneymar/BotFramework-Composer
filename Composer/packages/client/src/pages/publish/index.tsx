@@ -17,6 +17,7 @@ import { PublishTarget } from '../../store/types';
 
 import { TargetList } from './targetList';
 import { PublishDialog } from './publishDialog';
+import { ProvisionDialog } from './provisionDialog';
 import { ToolBar } from './../../components/ToolBar/index';
 import { OpenConfirmModal } from './../../components/Modal/Confirm';
 import { ContentHeaderStyle, HeaderText, ContentStyle, contentEditor, overflowSet, targetSelected } from './styles';
@@ -31,13 +32,14 @@ const Publish: React.FC<PublishPageProps> = (props) => {
   const selectedTargetName = props.targetName;
   const [selectedTarget, setSelectedTarget] = useState<PublishTarget | undefined>();
   const { state, actions } = useContext(StoreContext);
-  const { settings, botName, publishTypes, projectId, publishHistory } = state;
+  const { settings, botName, publishTypes, projectId, publishHistory, azureAccessToken } = state;
 
   const [addDialogHidden, setAddDialogHidden] = useState(true);
   const [editDialogHidden, setEditDialogHidden] = useState(true);
 
   const [showLog, setShowLog] = useState(false);
   const [publishDialogHidden, setPublishDialogHidden] = useState(true);
+  const [provisionDialogHidden, setProvisionDialogHidden] = useState(true);
 
   // items to show in the list
   const [thisPublishHistory, setThisPublishHistory] = useState<IStatus[]>([]);
@@ -128,10 +130,12 @@ const Publish: React.FC<PublishPageProps> = (props) => {
         iconProps: {
           iconName: 'ClipboardList',
         },
-        onClick: () => form(selectedVersion),
+        onClick: async () => {
+          await actions.getSubscriptions(azureAccessToken);
+          setProvisionDialogHidden(false);
+        },
       },
       align: 'left',
-      disabled: selectedTarget && selectedVersion ? !isRollbackSupported(selectedTarget, selectedVersion) : true,
       dataTestid: 'publishPage-ToolBar-Log',
     },
   ];
@@ -349,6 +353,14 @@ const Publish: React.FC<PublishPageProps> = (props) => {
     [projectId, selectedTarget, settings.publishTargets]
   );
 
+  const provision = useMemo(
+    () => async (value) => {
+      // popup dialog
+      await actions.provision({ accessToken: azureAccessToken, ...value });
+    },
+    [projectId, azureAccessToken]
+  );
+
   const onEdit = async (index: number, item: PublishTarget) => {
     const newItem = { item: item, index: index };
     setEditTarget(newItem);
@@ -409,6 +421,9 @@ const Publish: React.FC<PublishPageProps> = (props) => {
       </Dialog>
       {!publishDialogHidden && (
         <PublishDialog target={selectedTarget} onDismiss={() => setPublishDialogHidden(true)} onSubmit={publish} />
+      )}
+      {!provisionDialogHidden && (
+        <ProvisionDialog onDismiss={() => setProvisionDialogHidden(true)} onSubmit={provision} />
       )}
       {showLog && <LogDialog version={selectedVersion} onDismiss={() => setShowLog(false)} />}
       <ToolBar toolbarItems={toolbarItems} />
