@@ -121,6 +121,19 @@ const Publish: React.FC<PublishPageProps> = (props) => {
       disabled: selectedTarget && selectedVersion ? !isRollbackSupported(selectedTarget, selectedVersion) : true,
       dataTestid: 'publishPage-ToolBar-Log',
     },
+    {
+      type: 'action',
+      text: formatMessage('Provision'),
+      buttonProps: {
+        iconProps: {
+          iconName: 'ClipboardList',
+        },
+        onClick: () => form(selectedVersion),
+      },
+      align: 'left',
+      disabled: selectedTarget && selectedVersion ? !isRollbackSupported(selectedTarget, selectedVersion) : true,
+      dataTestid: 'publishPage-ToolBar-Log',
+    },
   ];
 
   const onSelectTarget = useCallback(

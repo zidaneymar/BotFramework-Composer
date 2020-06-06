@@ -1,0 +1,15 @@
+{
+  "name": "azureLogin",
+  "version": "1.0.0",
+  "description": "Login to Azure AD",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "extendsComposer": false,
+  "dependencies": {
+    "@azure/ms-rest-nodeauth": "^3.0.3",
+    "passport-azure-ad": "^4.2.1"
+  }
+}

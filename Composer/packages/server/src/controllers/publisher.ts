@@ -95,6 +95,17 @@ export const PublishController = {
       });
     }
   },
+  provision: async (req, res) => {
+    const target = req.params.provision;
+    console.log(target);
+    // if (
+    //   pluginLoader.extensions.publish[method] &&
+    //   pluginLoader.extensions.publish[method].methods &&
+    //   pluginLoader.extensions.publish[method].methods.publish
+    // ) {
+
+    // }
+  },
   status: async (req, res) => {
     const target = req.params.target;
     const user = await PluginLoader.getUserFromRequest(req);
