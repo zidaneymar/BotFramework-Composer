@@ -108,7 +108,7 @@ export const PublishController = {
   getSubscriptions: async (req, res, next) => {
     const target = req.body;
     console.log(target);
-    res.status(200).json({});
+    res.status(200);
   },
 
   status: async (req, res) => {

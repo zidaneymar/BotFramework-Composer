@@ -11,24 +11,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// import { BearerStrategy, OIDCStrategy } from 'passport-azure-ad';
 console.log('azure login plugin');
 const credsMap = {};
-const authentication = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    next();
+// set authentication
+const setAuthentication = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req);
+    res.status(200);
 });
 const verification = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { accessToken, user } = req.body;
-    if (accessToken && credsMap[user].getAccessToken() === accessToken) {
-        console.log(accessToken);
-    }
-    else {
-        // authentication
+    if (!accessToken) {
         console.log('need authentication');
-        res.status(400).json(new Error('need authentication'));
+        res.status(400).json({
+            statusCode: '400',
+            message: 'need authentication',
+        });
     }
-    next();
+    else if (credsMap[user].getAccessToken() === accessToken) {
+        // authentication
+        console.log(accessToken);
+        next();
+    }
 });
 exports.default = (composer) => __awaiter(void 0, void 0, void 0, function* () {
     composer.addWebRoute('post', '/api/publish/subscriptions', verification);
+    composer.addWebRoute('post', '/api/oauth2/callback', setAuthentication);
 });
 //# sourceMappingURL=index.js.map
