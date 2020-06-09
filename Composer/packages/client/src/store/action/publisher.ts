@@ -34,27 +34,6 @@ export const getSubscriptions: ActionCreator = async ({ dispatch }, token) => {
     // update subscription to state
   } catch (err) {
     navigateTo('/azure/login');
-    //   console.log(err);
-
-    // redirect to azure login
-    // dispatch({
-    //   type: ActionTypes.AZURE_LOGIN,
-    //   payload: err,
-    // });
-    // did client auth
-
-    // const authManager = new AuthManager({
-    //   clientId: 'f8961299-a7b0-40c3-9ae9-eefcd4a7a2a5',
-    //   tenant: 'common',
-    //   resource:
-    // });
-    // authManager.finalizeLogin().then((res) => {
-    //   console.log(res);
-    //   if (!res.isLoggedIn) {
-    //     // may cause redirects
-    //     authManager.login();
-    //   }
-    // });
   }
 };
 

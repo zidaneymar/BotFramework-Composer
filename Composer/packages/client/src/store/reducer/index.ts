@@ -630,8 +630,6 @@ const noOp: ReducerFunc = (state) => {
   return state;
 };
 
-const azureLogin: ReducerFunc = (state) => {};
-
 export const reducer = createReducer({
   [ActionTypes.GET_PROJECT_SUCCESS]: getProjectSuccess,
   [ActionTypes.GET_PROJECT_PENDING]: getProjectPending,
@@ -697,5 +695,4 @@ export const reducer = createReducer({
   [ActionTypes.SET_APP_UPDATE_STATUS]: setAppUpdateStatus,
   [ActionTypes.DISPLAY_SKILL_MANIFEST_MODAL]: displaySkillManifestModal,
   [ActionTypes.DISMISS_SKILL_MANIFEST_MODAL]: dismissSkillManifestModal,
-  [ActionTypes.AZURE_LOGIN]: azureLogin,
 });

@@ -106,7 +106,6 @@ export const initialState: State = {
     coachMarkRefs: {},
   },
   clipboardActions: [],
-  azureAccessToken: '',
   publishTypes: [],
   publishTargets: [],
   runtimeTemplates: [],

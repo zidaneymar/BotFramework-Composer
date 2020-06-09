@@ -11,24 +11,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// import { BearerStrategy, OIDCStrategy } from 'passport-azure-ad';
 console.log('azure login plugin');
 const credsMap = {};
 // set authentication
 const setAuthentication = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req);
+    console.log(req.body);
+    console.log(req.params);
+    console.log(req.headers);
     res.status(200);
 });
 const verification = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { accessToken, user } = req.body;
     if (!accessToken) {
         console.log('need authentication');
-        res.status(400).json({
-            statusCode: '400',
-            message: 'need authentication',
-        });
+        // const reuslt = await interactiveLogin();
+        // console.log(reuslt);
+        res.redirect('https://microsoft.com/devicelogin');
+        // res.status(400).json({
+        //   statusCode: '400',
+        //   message: 'need authentication',
+        // });
     }
-    else if (credsMap[user].getAccessToken() === accessToken) {
+    else {
         // authentication
         console.log(accessToken);
         next();
@@ -36,6 +40,7 @@ const verification = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
 });
 exports.default = (composer) => __awaiter(void 0, void 0, void 0, function* () {
     composer.addWebRoute('post', '/api/publish/subscriptions', verification);
+    composer.addWebRoute('get', '/api/oauth2/callback', setAuthentication);
     composer.addWebRoute('post', '/api/oauth2/callback', setAuthentication);
 });
 //# sourceMappingURL=index.js.map

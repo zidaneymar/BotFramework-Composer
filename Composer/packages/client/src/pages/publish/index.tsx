@@ -32,7 +32,7 @@ const Publish: React.FC<PublishPageProps> = (props) => {
   const selectedTargetName = props.targetName;
   const [selectedTarget, setSelectedTarget] = useState<PublishTarget | undefined>();
   const { state, actions } = useContext(StoreContext);
-  const { settings, botName, publishTypes, projectId, publishHistory, azureAccessToken } = state;
+  const { settings, botName, publishTypes, projectId, publishHistory } = state;
 
   const [addDialogHidden, setAddDialogHidden] = useState(true);
   const [editDialogHidden, setEditDialogHidden] = useState(true);
@@ -131,7 +131,7 @@ const Publish: React.FC<PublishPageProps> = (props) => {
           iconName: 'ClipboardList',
         },
         onClick: async () => {
-          await actions.getSubscriptions(azureAccessToken);
+          await actions.getSubscriptions(window.localStorage.getItem('adal.idtoken'));
           setProvisionDialogHidden(false);
         },
       },
@@ -356,9 +356,9 @@ const Publish: React.FC<PublishPageProps> = (props) => {
   const provision = useMemo(
     () => async (value) => {
       // popup dialog
-      await actions.provision({ accessToken: azureAccessToken, ...value });
+      await actions.provision({ accessToken: window.localStorage.getItem('adal.idtoken'), ...value });
     },
-    [projectId, azureAccessToken]
+    [projectId]
   );
 
   const onEdit = async (index: number, item: PublishTarget) => {

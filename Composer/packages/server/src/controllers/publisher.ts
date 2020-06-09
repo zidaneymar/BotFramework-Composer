@@ -5,6 +5,7 @@ import path from 'path';
 
 import merge from 'lodash/merge';
 import { pluginLoader, PluginLoader } from '@bfc/plugin-loader';
+import axios from 'axios';
 
 import { BotProjectService } from '../services/project';
 import { runtimeFolder } from '../settings/env';
@@ -108,7 +109,7 @@ export const PublishController = {
   getSubscriptions: async (req, res, next) => {
     const target = req.body;
     console.log(target);
-    res.status(200);
+    axios.get('https://management.azure.com/subscriptions?api-version=2020-01-01');
   },
 
   status: async (req, res) => {

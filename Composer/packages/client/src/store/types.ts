@@ -145,7 +145,6 @@ export interface State {
     complete: boolean;
   };
   clipboardActions: any[];
-  azureAccessToken: string;
   publishTargets: any[];
   runtimeTemplates: RuntimeTemplate[];
   publishTypes: PublishType[];
