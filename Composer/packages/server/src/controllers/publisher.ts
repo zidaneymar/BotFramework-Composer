@@ -96,16 +96,7 @@ export const PublishController = {
       });
     }
   },
-  provision: async (req, res) => {
-    // const target = req.params.provision;
-    // console.log(target);
-    // if (
-    //   pluginLoader.extensions.publish[method] &&
-    //   pluginLoader.extensions.publish[method].methods &&
-    //   pluginLoader.extensions.publish[method].methods.publish
-    // ) {
-    // }
-  },
+  provision: async (req, res) => {},
   getSubscriptions: async (req, res, next) => {
     const target = req.body;
     console.log(target);

@@ -2,10 +2,13 @@
 // Licensed under the MIT License.
 
 import formatMessage from 'format-message';
-
 // import { ResourceManagementClient } from '@azure/arm-resources';
+import axios from 'axios';
+
 import { navigateTo, getAccessTokenInCache } from '../../utils';
+import { AZURE_LOGIN_CONFIG } from '../../constants';
 import { ActionCreator } from '../types';
+import { loginPopup, getAccessTokenByCode } from '../../utils/auth';
 
 import { ActionTypes } from './../../constants/index';
 import httpClient from './../../utils/httpUtil';
@@ -35,7 +38,15 @@ export const getSubscriptions: ActionCreator = async ({ dispatch }) => {
     // set to store
     // update subscription to state
   } catch (err) {
-    navigateTo('/azure/login');
+    // need authentication
+    const result = await loginPopup(
+      `${AZURE_LOGIN_CONFIG.BASEURL}/${AZURE_LOGIN_CONFIG.TANENT}/oauth2/v2.0/authorize?client_id=${AZURE_LOGIN_CONFIG.CLIENT_ID}&response_type=${AZURE_LOGIN_CONFIG.RESPONSE_TYPE}&response_mode=${AZURE_LOGIN_CONFIG.RESPONSE_MODE}&scope=${AZURE_LOGIN_CONFIG.SCOPE}&nonce=678910&redirect_uri=${AZURE_LOGIN_CONFIG.REDIRECT_URI}`
+    );
+    console.log(result);
+    if (result) {
+      await getAccessTokenByCode(result);
+    }
+    throw err;
   }
 };
 

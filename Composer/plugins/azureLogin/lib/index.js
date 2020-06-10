@@ -12,14 +12,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 console.log('azure login plugin');
-const credsMap = {};
+// const credsMap = {} as { [key: string]: any };
 // set authentication
 const setAuthentication = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req);
-    res.statusCode(200);
+    console.log(req.body);
+    res.status(200);
 });
 const verification = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { accessToken, user } = req.body;
+    const { accessToken } = req.body;
     if (!accessToken) {
         console.log('need authentication');
         res.status(400).json({
@@ -35,8 +35,8 @@ const verification = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
 });
 exports.default = (composer) => __awaiter(void 0, void 0, void 0, function* () {
     composer.addWebRoute('post', '/api/publish/subscriptions', verification);
-    composer.addWebRoute('get', '/api/oauth2/callback', setAuthentication);
-    composer.addWebRoute('post', '/api/oauth2/callback', setAuthentication);
+    composer.addWebRoute('get', '/api/azure/auth/callback', setAuthentication);
+    composer.addWebRoute('post', '/api/azure/auth/callback', setAuthentication);
     composer.addWebRoute('get', '/azure/login', setAuthentication);
     composer.addWebRoute('post', '/azure/login', setAuthentication);
 });

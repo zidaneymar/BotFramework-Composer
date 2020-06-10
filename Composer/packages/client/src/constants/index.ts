@@ -257,3 +257,15 @@ export const DefaultPublishConfig = {
 export const EmptyBotTemplateId = 'EmptyBot';
 
 export const nameRegex = /^[a-zA-Z0-9-_]+$/;
+
+// check https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow for more information
+export const AZURE_LOGIN_CONFIG = {
+  BASEURL: 'https://login.microsoftonline.com',
+  TANENT: 'common',
+  CLIENT_ID: 'c53adcdb-b798-42f0-823d-7da5fa9cb6d5', // app registry for composer
+  CLIENT_SECRET: '-afjO892P4T6uAPPK2sQJok_z.Gw4a62M.',
+  RESPONSE_TYPE: 'code',
+  RESPONSE_MODE: 'query',
+  SCOPE: 'openid profile offline_access', //https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent
+  REDIRECT_URI: process.env.PUBLIC_URL || 'http://localhost:3000' + '/azure/auth/callback',
+};

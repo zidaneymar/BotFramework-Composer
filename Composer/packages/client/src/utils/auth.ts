@@ -3,11 +3,13 @@
 
 /* eslint-disable @typescript-eslint/camelcase */
 import querystring from 'query-string';
+import qs from 'qs';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
 import { USER_TOKEN_STORAGE_KEY, BASEURL, ActionTypes } from '../constants';
 import { Store } from '../store/types';
+import { AZURE_LOGIN_CONFIG } from '../constants';
 
 import storage from './storage';
 import httpClient from './httpUtil';
@@ -100,11 +102,12 @@ export function prepareAxios(store: Store) {
 
 const MAX_WAIT = 1000 * 60 * 2; // 2 minutes
 
-export async function loginPopup(): Promise<string | null> {
+export async function loginPopup(url = ''): Promise<string | null> {
   const windowLoc = window.location;
 
   return new Promise((resolve) => {
-    const loginUrl = BASEURL + `/login?${querystring.stringify({ resource: windowLoc.pathname + windowLoc.search })}`;
+    const loginUrl =
+      url || BASEURL + `/login?${querystring.stringify({ resource: windowLoc.pathname + windowLoc.search })}`;
 
     /**
      * window.innerWidth displays browser window"s height and width excluding toolbars
@@ -135,12 +138,12 @@ export async function loginPopup(): Promise<string | null> {
      * if the max timeout is reached, clear the interval and resolve with null.
      */
     const startTime = Date.now();
-    const popupTimer = setInterval(() => {
+    const popupTimer = setInterval(async () => {
       try {
         if (popup) {
           if (popup.location.href.includes(windowLoc.hostname)) {
             const { access_token, error } = querystring.parse(popup.location.hash);
-
+            const { query } = querystring.parseUrl(popup.location.href);
             if (access_token) {
               popup.close();
               clearInterval(popupTimer);
@@ -149,6 +152,12 @@ export async function loginPopup(): Promise<string | null> {
               resolve(token);
             } else if (error) {
               resolve(null);
+            } else if (query.code) {
+              window.localStorage.setItem('azure:code', query.code.toString());
+              console.log(query.code);
+              popup.close();
+              clearInterval(popupTimer);
+              resolve(query.code.toString());
             }
           }
         } else {
@@ -170,10 +179,36 @@ export async function loginPopup(): Promise<string | null> {
   });
 }
 
-export async function refreshToken(): Promise<string> {
+export async function getAccessTokenByCode(code: string): Promise<string | undefined> {
+  try {
+    const req = qs.stringify({
+      client_id: AZURE_LOGIN_CONFIG.CLIENT_ID,
+      scope: AZURE_LOGIN_CONFIG.SCOPE,
+      code: code,
+      grant_type: 'authorization_code',
+      redirect_uri: 'http://localhost:5000/api/azure/auth/callback', //AZURE_LOGIN_CONFIG.REDIRECT_URI,
+      client_secret: AZURE_LOGIN_CONFIG.CLIENT_SECRET,
+    });
+    console.log(req);
+    const result = await axios.post(
+      `${AZURE_LOGIN_CONFIG.BASEURL}/${AZURE_LOGIN_CONFIG.TANENT}/oauth2/v2.0/token`,
+      req,
+      {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      }
+    );
+    console.log(result);
+    return '';
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function refreshToken(url = ''): Promise<string> {
   const windowLoc = window.location;
 
-  const loginUrl = BASEURL + `/login?${querystring.stringify({ resource: windowLoc.pathname + windowLoc.search })}`;
+  const loginUrl =
+    url || BASEURL + `/login?${querystring.stringify({ resource: windowLoc.pathname + windowLoc.search })}`;
 
   return new Promise((resolve, reject) => {
     const iframe = document.createElement('iframe');
@@ -216,5 +251,5 @@ export async function refreshToken(): Promise<string> {
 }
 
 export const getAccessTokenInCache = () => {
-  return window.localStorage.getItem('adal.idtoken');
+  return window.localStorage.getItem('access_token');
 };

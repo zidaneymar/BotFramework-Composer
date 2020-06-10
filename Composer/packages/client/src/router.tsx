@@ -13,7 +13,8 @@ import { NotFound } from './components/NotFound';
 import { BASEPATH } from './constants';
 import { StoreContext } from './store';
 import { LoadingSpinner } from './components/LoadingSpinner';
-import { LoginPage } from './pages/login';
+// import { LoginCallbackPage } from './page/publish/LoginCallbackPage';
+
 const DesignPage = React.lazy(() => import('./pages/design'));
 const LUPage = React.lazy(() => import('./pages/language-understanding'));
 const LGPage = React.lazy(() => import('./pages/language-generation'));
@@ -43,6 +44,7 @@ const Routes = (props) => {
           />
           <Redirect noThrow from="/bot/:projectId/publish" to="/bot/:projectId/publish/all" />
           <Redirect noThrow from="/" to={resolveToBasePath(BASEPATH, 'home')} />
+          {/* <Redirect noThrow from="/azure/auth/callback" to="/bot/:projectId/publish/all" /> */}
           <ProjectRouter path="/bot/:projectId">
             <DesignPage path="dialogs/:dialogId/*" />
             <SettingPage path="settings/*" />
@@ -52,11 +54,12 @@ const Routes = (props) => {
             <Publish path="publish/:targetName" />
             <Skills path="skills/*" />
             <DesignPage path="*" />
+            <NotFound path="/azure/auth/callback" />
           </ProjectRouter>
           <BotCreationFlowRouter path="projects/*" />
           <BotCreationFlowRouter path="home" />
           <About path="about" />
-          <LoginPage path="azure/login" />
+
           <NotFound default />
         </Router>
       </Suspense>
