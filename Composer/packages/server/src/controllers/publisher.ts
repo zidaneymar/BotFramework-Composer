@@ -109,7 +109,17 @@ export const PublishController = {
   getSubscriptions: async (req, res, next) => {
     const target = req.body;
     console.log(target);
-    axios.get('https://management.azure.com/subscriptions?api-version=2020-01-01');
+    if (target.accessToken) {
+      const result = await axios.get('https://management.azure.com/subscriptions?api-version=2020-01-01', {
+        headers: {
+          Authorization: `Bearer ${target.accessToken}`,
+        },
+      });
+      console.log(result);
+      res.status(200).json(result);
+    } else {
+      res.status(400);
+    }
   },
 
   status: async (req, res) => {

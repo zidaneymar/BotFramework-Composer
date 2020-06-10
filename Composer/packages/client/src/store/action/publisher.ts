@@ -4,7 +4,7 @@
 import formatMessage from 'format-message';
 
 // import { ResourceManagementClient } from '@azure/arm-resources';
-import { navigateTo } from '../../utils';
+import { navigateTo, getAccessTokenInCache } from '../../utils';
 import { ActionCreator } from '../types';
 
 import { ActionTypes } from './../../constants/index';
@@ -27,10 +27,12 @@ export const getPublishTargetTypes: ActionCreator = async ({ dispatch }) => {
   }
 };
 
-export const getSubscriptions: ActionCreator = async ({ dispatch }, token) => {
+export const getSubscriptions: ActionCreator = async ({ dispatch }) => {
   try {
+    const token = getAccessTokenInCache();
     const result = await httpClient.post('/publish/subscriptions', { accessToken: token });
     console.log(result);
+    // set to store
     // update subscription to state
   } catch (err) {
     navigateTo('/azure/login');

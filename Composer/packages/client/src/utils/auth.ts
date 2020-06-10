@@ -214,3 +214,7 @@ export async function refreshToken(): Promise<string> {
     }, 1);
   });
 }
+
+export const getAccessTokenInCache = () => {
+  return window.localStorage.getItem('adal.idtoken');
+};

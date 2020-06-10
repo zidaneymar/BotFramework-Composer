@@ -15,22 +15,17 @@ console.log('azure login plugin');
 const credsMap = {};
 // set authentication
 const setAuthentication = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
-    console.log(req.params);
-    console.log(req.headers);
-    res.status(200);
+    console.log(req);
+    res.statusCode(200);
 });
 const verification = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { accessToken, user } = req.body;
     if (!accessToken) {
         console.log('need authentication');
-        // const reuslt = await interactiveLogin();
-        // console.log(reuslt);
-        res.redirect('https://microsoft.com/devicelogin');
-        // res.status(400).json({
-        //   statusCode: '400',
-        //   message: 'need authentication',
-        // });
+        res.status(400).json({
+            statusCode: '400',
+            message: 'need authentication',
+        });
     }
     else {
         // authentication
@@ -42,5 +37,7 @@ exports.default = (composer) => __awaiter(void 0, void 0, void 0, function* () {
     composer.addWebRoute('post', '/api/publish/subscriptions', verification);
     composer.addWebRoute('get', '/api/oauth2/callback', setAuthentication);
     composer.addWebRoute('post', '/api/oauth2/callback', setAuthentication);
+    composer.addWebRoute('get', '/azure/login', setAuthentication);
+    composer.addWebRoute('post', '/azure/login', setAuthentication);
 });
 //# sourceMappingURL=index.js.map

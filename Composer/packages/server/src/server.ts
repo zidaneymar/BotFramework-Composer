@@ -68,6 +68,7 @@ export async function start(pluginDir?: string): Promise<number | string> {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+
     if (process.env.ENABLE_CSP === 'true') {
       req.__nonce__ = crypto.randomBytes(16).toString('base64');
       res.header(

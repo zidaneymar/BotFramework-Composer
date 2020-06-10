@@ -131,7 +131,8 @@ const Publish: React.FC<PublishPageProps> = (props) => {
           iconName: 'ClipboardList',
         },
         onClick: async () => {
-          await actions.getSubscriptions(window.localStorage.getItem('adal.idtoken'));
+          // get all subscriptions for select
+          await actions.getSubscriptions();
           setProvisionDialogHidden(false);
         },
       },

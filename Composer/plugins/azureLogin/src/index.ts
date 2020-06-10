@@ -8,13 +8,14 @@ console.log('azure login plugin');
 const credsMap = {} as { [key: string]: any };
 
 // set authentication
-const setAuthentication = async (req, res, next) => {};
+const setAuthentication = async (req, res, next) => {
+  console.log(req);
+  res.statusCode(200);
+};
 const verification = async (req, res, next) => {
   const { accessToken, user } = req.body;
   if (!accessToken) {
     console.log('need authentication');
-    // const reuslt = await interactiveLogin();
-    // console.log(reuslt);
     res.status(400).json({
       statusCode: '400',
       message: 'need authentication',
@@ -30,4 +31,6 @@ export default async (composer: any): Promise<void> => {
   composer.addWebRoute('post', '/api/publish/subscriptions', verification);
   composer.addWebRoute('get', '/api/oauth2/callback', setAuthentication);
   composer.addWebRoute('post', '/api/oauth2/callback', setAuthentication);
+  composer.addWebRoute('get', '/azure/login', setAuthentication);
+  composer.addWebRoute('post', '/azure/login', setAuthentication);
 };
