@@ -6,6 +6,7 @@ import path from 'path';
 import merge from 'lodash/merge';
 import { pluginLoader, PluginLoader } from '@bfc/plugin-loader';
 import axios from 'axios';
+import qs from 'qs';
 
 import { BotProjectService } from '../services/project';
 import { runtimeFolder } from '../settings/env';
@@ -110,6 +111,29 @@ export const PublishController = {
       res.status(200).json(result);
     } else {
       res.status(400);
+    }
+  },
+
+  getAccessToken: async (req, res) => {
+    const body = req.body;
+    const url = body.url;
+    console.log(body);
+    delete body.url;
+    const content = qs.stringify(body);
+    console.log(content);
+    try {
+      const result = await axios({
+        method: 'post',
+        url: url,
+        data: content,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        },
+      });
+      console.log(result.data);
+      res.status(200).json({ accessToken: result.data.access_token });
+    } catch (error) {
+      console.log(error);
     }
   },
 

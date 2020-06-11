@@ -3,13 +3,11 @@
 
 /* eslint-disable @typescript-eslint/camelcase */
 import querystring from 'query-string';
-import qs from 'qs';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
 import { USER_TOKEN_STORAGE_KEY, BASEURL, ActionTypes } from '../constants';
 import { Store } from '../store/types';
-import { AZURE_LOGIN_CONFIG } from '../constants';
 
 import storage from './storage';
 import httpClient from './httpUtil';
@@ -179,31 +177,6 @@ export async function loginPopup(url = ''): Promise<string | null> {
   });
 }
 
-export async function getAccessTokenByCode(code: string): Promise<string | undefined> {
-  try {
-    const req = qs.stringify({
-      client_id: AZURE_LOGIN_CONFIG.CLIENT_ID,
-      scope: AZURE_LOGIN_CONFIG.SCOPE,
-      code: code,
-      grant_type: 'authorization_code',
-      redirect_uri: 'http://localhost:5000/api/azure/auth/callback', //AZURE_LOGIN_CONFIG.REDIRECT_URI,
-      client_secret: AZURE_LOGIN_CONFIG.CLIENT_SECRET,
-    });
-    console.log(req);
-    const result = await axios.post(
-      `${AZURE_LOGIN_CONFIG.BASEURL}/${AZURE_LOGIN_CONFIG.TANENT}/oauth2/v2.0/token`,
-      req,
-      {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      }
-    );
-    console.log(result);
-    return '';
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 export async function refreshToken(url = ''): Promise<string> {
   const windowLoc = window.location;
 
@@ -252,4 +225,8 @@ export async function refreshToken(url = ''): Promise<string> {
 
 export const getAccessTokenInCache = () => {
   return window.localStorage.getItem('access_token');
+};
+
+export const setAccessToken = (value: any) => {
+  window.localStorage.setItem('access_token', value);
 };

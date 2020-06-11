@@ -21,7 +21,7 @@ import formatMessage from 'format-message';
 import { ActionTypes, FileTypes, BotStatus, Text, AppUpdaterStatus } from '../../constants';
 import { DialogSetting, ReducerFunc } from '../types';
 import { UserTokenPayload } from '../action/types';
-import { getExtension, getBaseName } from '../../utils';
+import { getExtension, getBaseName, setAccessToken } from '../../utils';
 import storage from '../../utils/storage';
 import settingStorage from '../../utils/dialogSettingStorage';
 import luFileStatusStorage from '../../utils/luFileStatusStorage';
@@ -30,7 +30,6 @@ import { isElectron } from '../../utils/electronUtil';
 import { initialState } from '..';
 
 import createReducer from './createReducer';
-
 const projectFiles = ['bot', 'botproj'];
 
 const processSchema = memoize((projectId: string, schema: any) => ({
@@ -630,6 +629,11 @@ const noOp: ReducerFunc = (state) => {
   return state;
 };
 
+const getAccessToken: ReducerFunc = (state, payload) => {
+  console.log(payload);
+  setAccessToken(payload);
+  return state;
+};
 export const reducer = createReducer({
   [ActionTypes.GET_PROJECT_SUCCESS]: getProjectSuccess,
   [ActionTypes.GET_PROJECT_PENDING]: getProjectPending,
@@ -695,4 +699,5 @@ export const reducer = createReducer({
   [ActionTypes.SET_APP_UPDATE_STATUS]: setAppUpdateStatus,
   [ActionTypes.DISPLAY_SKILL_MANIFEST_MODAL]: displaySkillManifestModal,
   [ActionTypes.DISMISS_SKILL_MANIFEST_MODAL]: dismissSkillManifestModal,
+  [ActionTypes.GET_ACCESS_TOKEN]: getAccessToken,
 });
