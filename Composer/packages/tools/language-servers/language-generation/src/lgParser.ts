@@ -1,54 +1,42 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
-import { Worker } from 'worker_threads';
-import path from 'path';
 
-import { ResolverResource } from '@bfc/shared';
-import uniqueId from 'lodash/uniqueId';
+import { ResolverResource, importResolverGenerator, LgTemplate, Diagnostic as LgDiagnostic } from '@bfc/shared';
+import { Templates, Diagnostic } from 'botbuilder-lg';
 
-const asarPathFolder = 'app.asar';
-const asarUnpackFolder = 'app.asar.unpacked';
-export interface WorkerMsg {
-  id: string;
-  error?: any;
-  payload?: any;
+function createDiagnostic(diagnostic: Diagnostic): LgDiagnostic {
+  const { code, range, severity, source, message } = diagnostic;
+  const { start, end } = range;
+  return {
+    code,
+    range: {
+      start: { line: start.line, character: start.character },
+      end: { line: end.line, character: end.character },
+    },
+    severity,
+    source,
+    message,
+  };
 }
 
-// Wrapper class
 export class LgParser {
-  private worker: Worker;
-  private resolves = {};
-  private rejects = {};
-
-  constructor() {
-    const realPath = path.join(__dirname, '../lib/lgWorker.js');
-    this.worker = new Worker(realPath.replace(asarPathFolder, asarUnpackFolder));
-    this.worker.on('message', this.handleMsg.bind(this));
-  }
-
-  public async parseText(content: string, id: string, resources: ResolverResource[]): Promise<any> {
-    const msgId = uniqueId();
-    const msg = { id: msgId, payload: { content, id, resources } };
+  public async parseText(
+    content: string,
+    id: string,
+    resources: ResolverResource[]
+  ): Promise<{ templates: LgTemplate[]; diagnostics: LgDiagnostic[] }> {
     return new Promise((resolve, reject) => {
-      this.resolves[msgId] = resolve;
-      this.rejects[msgId] = reject;
-      this.worker.postMessage(msg);
+      let templates: LgTemplate[] = [];
+      let diagnostics: LgDiagnostic[] = [];
+      try {
+        const resolver = importResolverGenerator(resources, '.lg');
+        const { allTemplates, allDiagnostics } = Templates.parseText(content, id, resolver);
+        templates = allTemplates.map((item) => ({ name: item.name, parameters: item.parameters, body: item.body }));
+        diagnostics = allDiagnostics.map((item) => createDiagnostic(item));
+        resolve({ templates, diagnostics });
+      } catch (error) {
+        reject(error);
+      }
     });
-  }
-
-  // Handle incoming calculation result
-  public handleMsg(msg: WorkerMsg) {
-    const { id, error, payload } = msg;
-    if (error) {
-      const reject = this.rejects[id];
-      if (reject) reject(error);
-    } else {
-      const resolve = this.resolves[id];
-      if (resolve) resolve(payload);
-    }
-
-    // purge used callbacks
-    delete this.resolves[id];
-    delete this.rejects[id];
   }
 }
