@@ -1,0 +1,24 @@
+{
+  "name": "pva-publish",
+	"displayName": "PVA Publish Plugin",
+	"description": "",
+	"version": "0.0.1",
+	"publisher": "vscode-samples",
+	"activationEvents": [],
+	"main": "index.js",
+	"contributes": {
+		"viewsContainers": {},
+		"views": {},
+		"configuration": []
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"lint": "eslint . --ext .ts,.tsx"
+	},
+	"devDependencies": {
+	},
+	"dependencies": {
+	}
+}
