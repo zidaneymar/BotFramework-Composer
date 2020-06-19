@@ -8,6 +8,7 @@ import formatMessage from 'format-message';
 import { RouteComponentProps } from '@reach/router';
 import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
 import { Text } from 'office-ui-fabric-react/lib/Text';
+import { useRecoilValue } from 'recoil';
 
 import { StoreContext } from '../../store';
 import { TestController } from '../../components/TestController';
@@ -15,12 +16,13 @@ import { OpenConfirmModal } from '../../components/Modal/Confirm';
 import { navigateTo } from '../../utils';
 import { Page } from '../../components/Page';
 import { INavTreeItem } from '../../components/NavTree';
+import { projectIdState } from '../../recoilModel/atoms/botState';
 
 import Routes from './router';
 
 const SettingPage: React.FC<RouteComponentProps<{ '*': string }>> = () => {
-  const { state, actions } = useContext(StoreContext);
-  const { projectId } = state;
+  const { actions } = useContext(StoreContext);
+  const projectId = useRecoilValue(projectIdState);
   const makeProjectLink = (id: string, path: string) => {
     return `/bot/${id}/settings/${path}`;
   };
