@@ -4,7 +4,7 @@
 
 import { CallbackInterface, useRecoilCallback } from 'recoil';
 
-import { logEntryList, error } from '../atoms/appState';
+import { logEntryList, applicationError } from '../atoms/appState';
 import { StateError } from '../../store/types';
 
 export const logMessage = useRecoilCallback<[string], void>(({ set }: CallbackInterface) => (message: string) => {
@@ -18,6 +18,6 @@ export const logMessage = useRecoilCallback<[string], void>(({ set }: CallbackIn
 
 export const setApplicationLevelError = useRecoilCallback<[StateError], void>(
   ({ set }: CallbackInterface) => (errorObj: StateError) => {
-    set(error, errorObj);
+    set(applicationError, errorObj);
   }
 );
