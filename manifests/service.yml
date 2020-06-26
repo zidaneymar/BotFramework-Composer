@@ -35,9 +35,9 @@ spec:
       name: http
     - port: 3979
       targetPort: 3979
-      protocal: TCP
+      protocol: TCP
       name: bot3979
     - port: 3980
       targetPort: 3980
-      protocal: TCP
+      protocol: TCP
       name: bot3980
