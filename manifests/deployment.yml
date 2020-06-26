@@ -32,7 +32,7 @@ spec:
           value: /runtime
         - name: PORT
           value: "3000"
-        image: composer
+        image: qikacomposerregistry.azurecr.io/qikak8s
         name: composer
         ports:
         - containerPort: 3000
