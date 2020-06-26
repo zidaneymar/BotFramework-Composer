@@ -1,9 +1,31 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: "qikak8s-de6a"
-    labels:
-        app: "qikak8s-de6a"
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: composer
+  name: composer
+spec:
+  ports:
+  - name: "3000"
+    port: 3000
+    targetPort: 3000
+  - name: "3979"
+    port: 3979
+    targetPort: 3979
+  - name: "3980"
+    port: 3980
+    targetPort: 3980
+  selector:
+    io.kompose.service: composer
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: "composer-front"
 spec:
     type: LoadBalancer
     ports:
@@ -11,5 +33,11 @@ spec:
       targetPort: 3000
       protocol: TCP
       name: http
-    selector:
-        app: "qikak8s-de6a"
+    - port: 3979
+      targetPort: 3979
+      protocal: TCP
+      name: bot3979
+    - port: 3980
+      targetPort: 3980
+      protocal: TCP
+      name: bot3980
