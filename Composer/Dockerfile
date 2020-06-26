@@ -80,8 +80,7 @@ RUN wget -O dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$DOTNET_SDK
   && rm dotnet.tar.gz
 
 # Enable detection of running in a container
-ENV DOTNET_RUNNING_IN_CONTAINER=true \
+ENV DOTNET_RUNNING_IN_CONTAINER=true
   # Set the invariant mode since icu_libs isn't included (see https://github.com/dotnet/announcements/issues/20)
-  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
 
 CMD ["yarn","start:server"]
