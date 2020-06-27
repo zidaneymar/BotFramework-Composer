@@ -31,15 +31,6 @@ spec:
         - name: PORT
           value: "3000"
         image: qikacomposerregistry.azurecr.io/qikak8s
-        volumeMounts: 
-        - mountPath: /Bots
-          name: bot-volume
-        - mountPath: /runtime
-          name: runtime-volume
-        - mountPath: /appdata
-          name: appdata-volume
-        - mountPath: /app/Composer/plugins/localPublish/hostedBots
-          name: hostedbots-volume
         name: composer
         ports:
         - containerPort: 3000
@@ -47,21 +38,4 @@ spec:
         - containerPort: 3980
         resources: {}
       restartPolicy: Always
-      volumes:
-        - name: bot-volume
-          hostPath:
-              path: ./ComposerBots
-              type: DirectoryOrCreate
-        - name: runtime-volume
-          hostPath:
-              path: ./runtime
-              type: DirectoryOrCreate
-        - name: appdata-volume
-          hostPath:
-              path: ./.appdata
-              type: DirectoryOrCreate
-        - name: hostedbots-volume
-          hostPath:
-              path: ./Composer/plugins/localPublish/hostedBots
-              type: DirectoryOrCreate
 status: {}

@@ -31,6 +31,15 @@ COPY --from=build /src/Composer/packages/lib ./packages/lib
 COPY --from=build /src/Composer/packages/tools ./packages/tools
 COPY --from=build /src/Composer/packages/ui-plugins ./packages/ui-plugins
 COPY --from=build /src/Composer/packages/plugins ./packages/plugins
+COPY --from=build /src/Composer/runtime ./runtime
+COPY --from=build /src/Composer/appdata ./appdata
+
+ENV COMPOSER_BOTS_FOLDER "/app/Composer/bots"
+ENV COMPOSER_RUNTIME_FOLDER "/app/Composer/runtime"
+ENV COMPOSER_APP_DATA "/app/Composer/appdata/data.json"
+ENV PORT "3000"
+ENV BOT_ENDPOINT "http://0.0.0.0:3979"
+
 
 ENV NODE_ENV "production"
 RUN yarn --production --frozen-lockfile --force && yarn cache clean
