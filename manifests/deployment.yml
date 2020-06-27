@@ -50,7 +50,7 @@ spec:
       volumes:
         - name: bot-volume
           hostPath:
-              path: ~/Documents/Composer
+              path: ./ComposerBots
               type: DirectoryOrCreate
         - name: runtime-volume
           hostPath:
