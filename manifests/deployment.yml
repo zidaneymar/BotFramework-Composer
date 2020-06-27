@@ -23,11 +23,11 @@ spec:
         - name: BOT_ENDPOINT
           value: http://0.0.0.0:3979
         - name: COMPOSER_APP_DATA
-          value: /appdata/data.json
+          value: /app/Composer/appdata/data.json
         - name: COMPOSER_BOTS_FOLDER
-          value: /Bots
+          value: /app/Composer/bots
         - name: COMPOSER_RUNTIME_FOLDER
-          value: /runtime
+          value: /app/Composer/runtime
         - name: PORT
           value: "3000"
         image: qikacomposerregistry.azurecr.io/qikak8s
