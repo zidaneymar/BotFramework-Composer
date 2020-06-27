@@ -4,7 +4,6 @@ metadata:
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.19.0 (f63a961c)
-  creationTimestamp: null
   labels:
     io.kompose.service: composer
   name: composer
@@ -16,7 +15,6 @@ spec:
       annotations:
         kompose.cmd: kompose convert
         kompose.version: 1.19.0 (f63a961c)
-      creationTimestamp: null
       labels:
         io.kompose.service: composer
     spec:
@@ -33,6 +31,15 @@ spec:
         - name: PORT
           value: "3000"
         image: qikacomposerregistry.azurecr.io/qikak8s
+        volumeMounts: 
+        - mountPath: /Bots
+          name: bot_volume
+        - mountPath: /runtime
+          name: runtime_volume
+        - mountPath: /appdata
+          name: appdata_volume
+        - mountPath: /app/Composer/plugins/localPublish/hostedBots
+          name: hostedBots_volume
         name: composer
         ports:
         - containerPort: 3000
@@ -40,4 +47,21 @@ spec:
         - containerPort: 3980
         resources: {}
       restartPolicy: Always
+      volumes:
+        - name: bot_volume
+          hostPath:
+              path: ~/Documents/Composer
+              type: Directory
+        - name: runtime_volume
+          hostPath:
+              path: ./runtime
+              type: Directory
+        - name: appdata_volume
+          hostPath:
+              path: ./.appdata
+              type: Directory
+        - name: hostedBots_volume
+          hostPath:
+              path: ./Composer/plugins/localPublish/hostedBots
+              type: Directory
 status: {}
