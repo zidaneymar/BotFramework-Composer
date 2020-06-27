@@ -51,17 +51,17 @@ spec:
         - name: bot-volume
           hostPath:
               path: ~/Documents/Composer
-              type: Directory
+              type: DirectoryOrCreate
         - name: runtime-volume
           hostPath:
               path: ./runtime
-              type: Directory
+              type: DirectoryOrCreate
         - name: appdata-volume
           hostPath:
               path: ./.appdata
-              type: Directory
+              type: DirectoryOrCreate
         - name: hostedbots-volume
           hostPath:
               path: ./Composer/plugins/localPublish/hostedBots
-              type: Directory
+              type: DirectoryOrCreate
 status: {}
