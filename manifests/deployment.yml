@@ -39,7 +39,7 @@ spec:
         - mountPath: /appdata
           name: appdata-volume
         - mountPath: /app/Composer/plugins/localPublish/hostedBots
-          name: hostedBots-volume
+          name: hostedbots-volume
         name: composer
         ports:
         - containerPort: 3000
@@ -60,7 +60,7 @@ spec:
           hostPath:
               path: ./.appdata
               type: Directory
-        - name: hostedBots-volume
+        - name: hostedbots-volume
           hostPath:
               path: ./Composer/plugins/localPublish/hostedBots
               type: Directory
