@@ -1,15 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: "qikak8s-71d8"
+    name: composer
     labels:
-        app: "qikak8s-71d8"
+      io.kompose.service: composer
 spec:
     type: LoadBalancer
     ports:
     - port: 80
-      targetPort: 80
+      targetPort: 3000
       protocol: TCP
       name: http
+    - port: 3979
+      targetPort: 3979
+      protocol: TCP
+      name: bot3979
+    - port: 3980
+      targetPort: 3980
+      protocol: TCP
+      name: bot3980
     selector:
-        app: "qikak8s-71d8"
+      io.kompose.service: composer
