@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: "qikak8s-71d8"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "qikak8s-71d8"
+    spec:
+      containers:
+        - name: "qikak8s-71d8"
+          image: "qikaacr.azurecr.io/qikak8s"
+          ports:
+          - containerPort: 80
