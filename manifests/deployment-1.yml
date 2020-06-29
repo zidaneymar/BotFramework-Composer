@@ -8,7 +8,7 @@ metadata:
     io.kompose.service: composer
   name: composer
 spec:
-  replicas: 2
+  replicas: 1
   strategy: {}
   template:
     metadata:
