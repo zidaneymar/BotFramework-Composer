@@ -1,16 +1,40 @@
-apiVersion : apps/v1beta1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: "qikak8s-71d8"
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  labels:
+    io.kompose.service: composer
+  name: composer
 spec:
   replicas: 2
+  strategy: {}
   template:
     metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.19.0 (f63a961c)
       labels:
-        app: "qikak8s-71d8"
+        io.kompose.service: composer
     spec:
       containers:
-        - name: "qikak8s-71d8"
-          image: "qikaacr.azurecr.io/qikak8s"
-          ports:
-          - containerPort: 80
+      - env:
+        - name: BOT_ENDPOINT
+          value: http://0.0.0.0:3979
+        - name: COMPOSER_APP_DATA
+          value: /app/Composer/appdata/data.json
+        - name: COMPOSER_BOTS_FOLDER
+          value: /app/Composer/bots
+        - name: COMPOSER_RUNTIME_FOLDER
+          value: /app/Composer/runtime
+        - name: PORT
+          value: "3000"
+        image: qikaacr.azurecr.io/qikak8s
+        name: composer
+        ports:
+        - containerPort: 3000
+        - containerPort: 3979
+        - containerPort: 3980
+        resources: {}
+      restartPolicy: Always
